@@ -6,13 +6,15 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 description: "Complete training material for the RapTLR package"
+output: word_document
 ---
+
 
 # Introduction {#intro}
 
 ## What is RapTLR?
 
-RapTLR (pronounced "raptor") is an R package designed to automate and streamline the creation of Top-Line Reports (TLRs) in clinical trials. It eliminates manual, error-prone tasks by:
+RapTLR is an R package designed to automate and streamline the creation of Top-Line Results Reports (TLRs) in clinical trials. It eliminates manual, error-prone tasks by:
 
 - **Automatically appending TLFs** (Tables, Listings, Figures) to Word documents with hyperlinks
 - **Dynamically replacing placeholder text** with calculated values from your data
@@ -27,7 +29,7 @@ Traditional TLR creation involves:
 - Risk of transcription errors
 - Time-consuming formatting
 
-**RapTLR solves these problems** by connecting your R analysis directly to your Word document, ensuring accuracy and saving hours of work.
+**RapTLR solves these problems** by connecting your R analysis directly to your Word document, ensuring accuracy and time saving.
 
 ## Installation
 
@@ -42,27 +44,31 @@ remotes::install_github("johnsonandjohnson/RapTLR")
 
 ## Getting Started with Examples
 
-RapTLR includes built-in examples to help you learn quickly:
+RapTLR includes a complete built-in example to help you learn quickly:
 
 ```{r eval=FALSE}
 library(RapTLR)
 
 # Export example files to your working directory
-export_examples(path_workingFolder = "C:/Documents/TLR_folder/")
+RapTLR::import_demo() 
 ```
 
-This creates two folders:
-- `TLF_outputs/` - Contains dummy TLF files (PDFs)
-- `TLR_shell/` - Contains a template Word document
+This creates a script called `demo_TLR` that you can open, run and navigate. We provided some example shells for :
+- TLR template word document : `TLR_Shell.docx`
+- TLR table of list of outputs : `TLF_list.xlsx`
+- TLR outputs (folder `TLF_outputs`)
+
+You can access all of them in the dedicated [GitHub repository](https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata) 
 
 ## Typical Workflow
 
 ```{r eval=FALSE}
-# 1. Load your data and create TLFs
-# 2. Prepare a Word shell document with placeholders
-# 3. Use run_apdx() to add TLFs as appendices
-# 4. Use textReplace() to update placeholder text
-# 5. Generate final TLR document
+# 1. Prepare a Word shell document with placeholders
+# 2. Load your data and your rtf TLFs 
+# 3. Transform your rtf TLFs as docx TLFs using 3C Helper
+# 4. Use run_apdx() to add TLFs in the TLR shell's appendice 
+# 5. Use textReplace() to update placeholders using built-in functions 
+# 6. Generate final TLR document
 ```
 
 ## Package Dependencies
@@ -71,6 +77,6 @@ RapTLR relies on the `officer` package for Word document manipulation. Key conce
 
 - Documents are R objects that can be modified
 - Changes can be chained together
-- Final output is written to a file
+- Final output is written to as a docx file
 
 Let's dive into each component!
