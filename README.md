@@ -17,7 +17,7 @@ RapTLR is designed to enhance the generation of time-sensitive formal reports, p
 ```r
 # Install from GitHub
 # install.packages("devtools")
-devtools::install_github("Osant11/RapTLR")
+devtools::install_github("johnsonandjohnson/RapTLR")
 ```
 
 ## Quick Start

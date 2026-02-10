@@ -21,5 +21,8 @@ import_demo <- function( ) {
   
  dest <- file.path( getwd(), "demo_TLR.R" )
  file.copy( from = src, to = dest, overwrite = TRUE )
+ 
+ message( "[INFO] demo_TLR.R has been successfully imported. File location: ", dest )
+  
  invisible( dest )
 }

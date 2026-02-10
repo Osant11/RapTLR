@@ -20,14 +20,14 @@
 #' docx_imported <- officer::read_docx(docx_path)
 #' 
 #' newdocx <- textReplace(doc_object = docx_imported,
-#'                        keyword = "TTsomethingTT",
-#'                        replacement = "Some new text")
+#'                        keyword = "TTsubjectTT",
+#'                        replacement = "This is new text")
 #' 
 #' # You can provide the name of the new document
 #' docx_imported <- officer::read_docx(docx_path)
 #' textReplace(doc_object = docx_imported,
-#'             keyword = "TTsomethingTT",
-#'             replacement = "New texts",
+#'             keyword = "TTsubjectTT",
+#'             replacement = "This is new text",
 #'             return_to_file = file.path( getwd(), "new_docx.docx" ))
 #' 
 #' # You can use R's built-in or dplyr's function chains to chain your functions
@@ -35,12 +35,10 @@
 #' textReplace(doc_object = docx_imported,
 #'             keyword = "TTsubjectTT",
 #'             replacement = "This is new text")  |>
-#' textReplace(keyword = "TTsomethingTT", 
+#' textReplace(keyword = "TTsiteTT", 
 #'             replacement = "This is new text 2") |>
-#' textReplace(keyword = "TTsomething2TT", 
-#'             replacement = "This is new text 3") |>
-#' textReplace(keyword = "TTsomethingelseTT", 
-#'             replacement = "This is some final new text",
+#' textReplace(keyword = "TTconclusionTT", 
+#'             replacement = "This is new text 3", 
 #'             return_to_file = "TLR_shell_replaced_texts.docx")
 #'
 #' # See help(run_apdx) or Github landing page for additional details..
