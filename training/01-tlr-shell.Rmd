@@ -2,67 +2,66 @@
 
 ## What is a TLR Shell?
 
-A TLR shell is a **template Word document** that contains:
+A TLR shell is a **template Word document** that contains 3 big parts:
 
-- Pre-written narrative sections
-- Placeholder keywords for dynamic content
-- A marker for where appendices should be inserted
-- Proper formatting and styling
-
-Think of it as a "fill-in-the-blanks" document that RapTLR will complete automatically.
+-   Study Design: Key aspects of the study design in bullet format (study design, population, randomization, duration, endpoints... )
+-   Topline Results Summary: A concise, high-level summary highlighting the main findings and key metrics of a study.
+-   Appendix: Supporting outputs (tables, figures, listings)
 
 ## Creating Your Shell Document
 
-### Step 1: Write Your Narrative
+To help you to create your first draft, you can check the form **TV-FRM-09874 2.0 Topline Results Document Template**
 
-Create a Word document with your standard TLR structure:
+### Step 1: Prepare the study design summary of your study
 
-```
-Study XYZ Top-Line Results
+Create a word document and write the study design summary that summarizes the key aspects of the study in bullet format. The purpose is to give readers a clear, concise picture of the trial’s overall structure. For each bullet points, create a short and descriptive paragraph.
 
-1. Executive Summary
-   [Your summary text here]
-
-2. Study Population
-   TTsubjectTT
-   
-3. Efficacy Results
-   TTsomethingTT
-   
-4. Safety Results
-   TTsomething2TT
-
-5. Appendices
-   LISTOFAPPENDICES
-```
+::: {style="text-align: justify"}
+-   **Study Design:** This study is a randomized, double-blind, parallel (3-arm), placebo-controlled trial conducted over 26 weeks. The study targets patients with probable mild to moderate Alzheimer's Disease (AD). Participants will undergo neuropsychiatric assessment, psychometric testing, and general medical evaluation during screening. Eligible patients are randomized into one of three treatment arms: placebo, low-dose xanomeline (54 mg), or high-dose xanomeline (81 mg). The primary objectives are to assess the relationship between xanomeline dose and changes in ADAS-Cog and CIBIC+ scores, and to document the safety profile of the xanomeline Transdermal Therapeutic System (TTS).
+-   **Population:** The study aims to enroll approximately 300 patients diagnosed with probable mild to moderate Alzheimer's Disease according to NINCDS/ADRDA guidelines. Eligible participants must be males or postmenopausal females aged 50 years or older, with an MMSE score of 10 to 23 and a Hachinski Ischemic Scale score of ≤4. Participants must have compatible CNS imaging results and provide informed consent. A reliable caregiver must be available to assist the patient throughout the study.
+-   **Randomization:** Patients will be randomized into one of three treatment groups: placebo, low-dose xanomeline (50 cm² TTS, 54 mg), and high-dose xanomeline (75 cm² TTS, 81 mg). Randomization occurs at Visit 3, after initial screening and assessments. Blinding is maintained throughout the study to minimize bias, with emergency codes available for unblinding only if necessary for patient safety.
+-   ...
+:::
 
 ### Step 2: Add Placeholder Keywords
 
+It's possible to not use the dynamic feature of text replacement / creation. In that case, you can go to step 3. 
+
+To understand how it works, we provided shells and examples:
+
+-   You can download [Keywords_replace.docx](https://github.com/johnsonandjohnson/RapTLR/blob/main/inst/extdata/Keywords_replace.docx) to understand how to create placeholders in your word document.  
+-   You can look and run the examples provided by the function `textReplace()` that will replace the placeholders in the Keywords_replace.docx document.  
+-   We provided a detailed TLR draft with step 1, 2 and 3. You can download [TLR_Shell.docx](https://github.com/johnsonandjohnson/RapTLR/blob/main/inst/extdata/TLR_Shell.docx).  
+-   We provided a complete workflow in R how to use the RapTLR package, run `RapTLR::import_demo()` and it will create a new R script called `demo_TLR.R` in your current working environement.
+
 **CRITICAL RULES for placeholders:**
 
-1. **Each keyword must be on its own line**
-   - Correct: Keyword on separate line
-   - Wrong: Inline with other text
+1.  **Each keyword must be on its own line**
+    -   Correct: Keyword on separate line
+    -   Wrong: Inline with other text
+2.  **Use distinctive, searchable keywords**
+    -   Good examples: `TTsubjectTT`, `EFFICACY_RATE`, `N_SAFETY_POP`
+    -   Avoid common words that might appear elsewhere
+3.  **Document your keywords**
+    -   Keep a list of what each placeholder represents
+    -   Use consistent naming conventions
 
-2. **Use distinctive, searchable keywords**
-   - Good examples: `TTsubjectTT`, `EFFICACY_RATE`, `N_SAFETY_POP`
-   - Avoid common words that might appear elsewhere
-
-3. **Document your keywords**
-   - Keep a list of what each placeholder represents
-   - Use consistent naming conventions
 
 ### Step 3: Add Appendix Marker
 
-Insert a keyword where you want TLFs to appear:
+That might be the best feature of the package as it allows the user to automatically generate the appendice with bookmarked output IDs (outputs can be cross-referenced in the text).  
+Be sure to include a specific keyword in the TLR shell, the outputs will be imported at this place.  
+By default, the package uses the keyword **LISTOFAPPENDICES**. If you download and open the document [TLR_Shell.docx](https://github.com/johnsonandjohnson/RapTLR/blob/main/inst/extdata/TLR_Shell.docx), under the section *Appendices* you see the keyword **LISTOFAPPENDICES**.  
+This keyword will be replaced automatically when the function `run_apdx()` will run. This keyword can also be changed within the function `run_apdx(keyword = "YOUROWNKEYWORD")`
 
-```
-## Appendices
+To specify the outputs and their corresponding order, the user has three different choices: 
 
-LISTOFAPPENDICES
-```
+-   By default, it imports all the outputs at the specified destination.
+-   Create a list in R.
+-   Provide a csv, or excel file.  
 
-This keyword will be replaced with a formatted list of all your TLFs with hyperlinks.
+We explain in details how this feature works at the [dedicated chapter](#appendix-creation).
+
 
 ## Best Practices
 
@@ -70,21 +69,21 @@ This keyword will be replaced with a formatted list of all your TLFs with hyperl
 
 Use prefixes to organize placeholders:
 
-- `TT...TT` - For text replacements
-- `N_...` - For counts
-- `PCT_...` - For percentages
-- `RESULT_...` - For analysis results
+-   `TT...TT` - For text replacements
+-   `N_...` - For counts
+-   `PCT_...` - For percentages
+-   `RESULT_...` - For analysis results
 
 ### Version Control
 
-- Keep your shell document in version control
-- Use meaningful filenames: `TLR_shell_v1.0.docx`
-- Document changes to placeholder keywords
+-   Keep your shell document in version control
+-   Use meaningful filenames: `TLR_shell_v1.0.docx`
+-   Document changes to placeholder keywords
 
 ## Common Mistakes to Avoid
 
-1. **Inline placeholders** - Always put keywords on separate lines
-2. **Duplicate keywords** - Each placeholder should be unique
-3. **Missing appendix marker** - Don't forget LISTOFAPPENDICES
+1.  **Inline placeholders** - Always put keywords on separate lines
+2.  **Duplicate keywords** - Each placeholder should be unique
+3.  **Missing appendix marker** - Don't forget LISTOFAPPENDICES
 
 Your shell is now ready for RapTLR processing!
