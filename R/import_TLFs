@@ -1,9 +1,9 @@
 #' Create a copy of TLFs folder within the current environment
 #'
-#' This function copy the TLFs folder from RapTLR and create a copy called "demo_TLFs" in the current working directory
+#' This function copy the TLFs folder from RapTLR and create a copy called "TLF_outputs" in the current working directory
 #'
 #' @examples
-#' # Just run the import_demo() function to create a copy called "demo_TLR.R" in your current working environment
+#' # Just run the import_TLFs() function to create a copy folder TLF_outputs in your current working environment
 #' RapTLR::import_TLFs( )
 #' 
 #' @importFrom utils packageName
