@@ -22,7 +22,7 @@ import_RTFs <- function( ) {
  dest <- file.path( getwd() )
  file.copy( from = src, to = dest, overwrite = TRUE, recursive = TRUE )
  
- message( "[INFO] rtf outputs has been successfully imported and copied under: ", dest )
+ message( "[INFO] rtf_outputs folder has been successfully imported and copied under: ", dest )
   
  invisible( dest )
 }

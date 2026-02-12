@@ -22,7 +22,7 @@ import_TLFs <- function( ) {
  dest <- file.path( getwd() )
  file.copy( from = src, to = dest, overwrite = TRUE, recursive = TRUE )
  
- message( "[INFO] TLF_outputs has been successfully imported. File location: ", dest )
+ message( "[INFO] TLF_outputs folder has been successfully imported. File location: ", dest )
   
  invisible( dest )
 }
