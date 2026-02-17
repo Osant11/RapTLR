@@ -4,105 +4,131 @@
 
 The `run_apdx()` function automatically:
 
-1. By default, reads all docx files from a specified folder
-2. Inserts them into your Word document
-3. Creates a table of contents with hyperlinks
-4. Organizes outputs into sections (optional)
+1.  Reads all .docx files from a specified folder
+2.  Inserts them into your Word document
+3.  Creates a table of contents with hyperlinks
+4.  Organizes outputs into sections (optional)
 
 In the RapTLR package, we provided few examples to cover most of the use cases for `run_apdx()` function and you can access them in the function's documentation.
-
-## Basic Usage
-
-The most simple case, you only need to specify two arguments:
-
-- path_TLFs: Path of the directory where the .docx outputs are saved
-- docx_object: Path of the targeted .docx is saved. (e.g. TLR_shell.docx)
-
-Automatically, the function will create a subfolder called `bookmarked` at the same directory of `path_TLFs` and will create bookmarked .docx outputs for each .docx outputs.
-
-In the Package, we provided dummy .docx outputs and a TLR shell for practising. You can find them [here](https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata). 
-
-When you download the package, you can get their location in R in that way: 
-
-```{r eval = FALSE} 
-
-path_TLFs <- system.file("extdata/TLF_outputs", package = "RapTLR")
-path_docx <- system.file("extdata", "TLR_Shell.docx", package = "RapTLR")
-
-```
-
-
-
-```{r eval=FALSE}
-library(RapTLR)
-
-run_apdx(
-  path_TLFs = "C:/Documents/TLR_folder/TLF_outputs",
-  docx_object = "C:/Documents/TLR_folder/TLR_shell.docx",
-  keyword = "LISTOFAPPENDICES",
-  return_to_file = "C:/Documents/TLR_folder/TLR_final.docx"
-)
-```
 
 ## Function Parameters
 
 ### Required Parameters
 
-**path_TLFs** - Path to folder containing PDF files
+**path_TLFs**: Path to folder containing .docx outputs.
 
-**docx_object** - Path to your shell Word document OR an existing officer object
+**docx_object**: Path to your shell Word document.
 
-**keyword** - Placeholder text to replace with appendix list
+**keyword**: Placeholder text to be replaced by the new appendix.
 
 ### Optional Parameters
 
-**return_to_file** - Path where final document should be saved
+**return_to_file**: Name and path where the new document should be saved.
 
-**sections_structure** - Organizes TLFs into sections (list, data frame, or CSV)
+**sections_structure**: Organizes TLFs into sections (list, data frame, or CSV).
+
+## Basic Usage
+
+The most simple case, two arguments are needed:
+
+-   path_TLFs: Path of the directory where the .docx outputs are saved
+-   docx_object: Path of the targeted .docx is saved. (e.g. TLR_shell.docx)
+
+Automatically, the function will create a subfolder called `bookmarked` at the same directory of `path_TLFs` and will create bookmarked .docx outputs for each .docx outputs. under \``path_TLFs`\`.
+
+In the Package, we provided dummy .docx outputs and a TLR shell for practicing. You can find them [here](https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata).
+
+When you download the package, you can get their location using R in that way:
+
+```{r eval = FALSE}
+
+path_TLFs <- system.file( "extdata/TLF_outputs", package = "RapTLR" )
+path_docx <- system.file( "extdata", "TLR_Shell.docx", package = "RapTLR" )
+
+```
+
+Those two paths can be used in the function `run_apdx()` to create a TLR with the appendix. \
+By default the new TLR will be called `appendix_processed.docx` and will be saved in the current working directory. That will be mentioned in the console.
+
+```{r eval=FALSE}
+library(RapTLR)
+
+run_apdx( path_TLFs = system.file( "extdata/TLF_outputs", package = "RapTLR" ),
+          docx_object = system.file( "extdata", "TLR_Shell.docx", package = "RapTLR" ) ) 
+```
+
+If you desire to change the name and location of the new document, you can use the function argument `return_to_file`. \
+By default, it is saving in the current working directory and no need to add the .docx extension.
+
+```{r eval=FALSE}
+library(RapTLR)
+
+run_apdx( path_TLFs = system.file( "extdata/TLF_outputs", package = "RapTLR" ),
+          docx_object = system.file( "extdata", "TLR_Shell.docx", package = "RapTLR" ), 
+          return_to_file = "new_doc" )
+
+```
+
+We have set the keyword argument to `LISTOFAPPENDICES`, this can take any value but **be sure** it is also reflected in your original document where you want to create the appendix.
 
 ## Organizing with Sections
 
-### Method 1: Using a List
+By default, the function will add bookmarks, create the appendix with all the outputs under the `path_TLFs` directory.
+
+With this function, it is also possible to order, subset and create sub-sections to the appendix and for that we provided two ways.
+
+### Method 1: Using a R List
+
+The user can use a R list to create a structured appendix. With that technique, the user works directly in R and he can attribute names for each sub-sections as well as the corresponding outputs to be imported.
+
+Be careful:
+
+-   The different names will defined the order of the sub-sections in the appendix.
+-   Do not add the .docx extension in the output IDs
 
 ```{r eval=FALSE}
-output_list <- list(
-  "Efficacy Tables" = c("t_efficacy_01", "t_efficacy_02"),
-  "Safety Tables" = c("t_adverse_events_01", "t_labs_01"),
-  "Listings" = c("l_deaths_01", "l_serious_ae_01")
+library( RapTLR )
+
+output_list_1 <- list(
+  "Efficacy Section" = c( "tefmad01a" ),
+  "Safety Section" = c( "tsfae10", "lsfae03" ),
+  "Demographic Section" = c( "tsidem03" ) 
 )
 
-run_apdx(
-  path_TLFs = "TLF_outputs/",
-  docx_object = "TLR_shell.docx",
-  keyword = "LISTOFAPPENDICES",
-  sections_structure = output_list,
-  return_to_file = "TLR_final.docx"
+run_apdx( path_TLFs = system.file( "extdata/TLF_outputs", package = "RapTLR" ),
+          docx_object = system.file( "extdata", "TLR_Shell.docx", package = "RapTLR" ),
+          sections_structure = output_list_1 ) 
+
+output_list_2 <- list(
+  "Demographic" = c( "tsidem03" ),
+  "Safety" = c( "tsfae10" )
 )
+
+run_apdx( path_TLFs = system.file( "extdata/TLF_outputs", package = "RapTLR" ),
+          docx_object = system.file( "extdata", "TLR_Shell.docx", package = "RapTLR" ),
+          sections_structure = output_list_2 ) 
+
 ```
 
-### Method 2: Using a CSV File
+### Method 2: Using a CSV or Excel File
 
-Create `TLF_structure.csv`:
+It is also possible to create a structured appendix by importing a CSV or Excel file.
 
-```
-Section,TLF_Name
-Efficacy Tables,t_efficacy_01
-Safety Tables,t_adverse_events_01
-```
+**Be careful**, it has to be a two columns table, the first with the sub-sections and the other with the output IDs (without the .docx extension).
 
-Then use it:
+In the package we provided two dummy tables (`TLF_list.csv` and `TLF_list.xlsx`) that the user can download and look ([here](https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata))
 
 ```{r eval=FALSE}
-run_apdx(
-  path_TLFs = "TLF_outputs/",
-  docx_object = "TLR_shell.docx",
-  keyword = "LISTOFAPPENDICES",
-  sections_structure = "TLF_structure.csv",
-  return_to_file = "TLR_final.docx"
+# Using a CSV file
+run_apdx( path_TLFs = system.file( "extdata/TLF_outputs", package = "RapTLR" ),
+          docx_object = system.file( "extdata", "TLR_Shell.docx", package = "RapTLR" ), 
+          sections_structure = system.file( "extdata", "TLF_list.csv", package = "RapTLR" ) 
 )
+
+# Using an Excel file
+run_apdx( path_TLFs = system.file( "extdata/TLF_outputs", package = "RapTLR" ),
+          docx_object = system.file( "extdata", "TLR_Shell.docx", package = "RapTLR" ), 
+          sections_structure = system.file( "extdata", "TLF_list.xlsx", package = "RapTLR" ) 
+)
+
 ```
-
-
-
-
-Your appendices are now automatically inserted!
