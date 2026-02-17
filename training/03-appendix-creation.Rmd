@@ -4,12 +4,34 @@
 
 The `run_apdx()` function automatically:
 
-1. Reads all PDF files from a specified folder
+1. By default, reads all docx files from a specified folder
 2. Inserts them into your Word document
 3. Creates a table of contents with hyperlinks
 4. Organizes outputs into sections (optional)
 
+In the RapTLR package, we provided few examples to cover most of the use cases for `run_apdx()` function and you can access them in the function's documentation.
+
 ## Basic Usage
+
+The most simple case, you only need to specify two arguments:
+
+- path_TLFs: Path of the directory where the .docx outputs are saved
+- docx_object: Path of the targeted .docx is saved. (e.g. TLR_shell.docx)
+
+Automatically, the function will create a subfolder called `bookmarked` at the same directory of `path_TLFs` and will create bookmarked .docx outputs for each .docx outputs.
+
+In the Package, we provided dummy .docx outputs and a TLR shell for practising. You can find them [here](https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata). 
+
+When you download the package, you can get their location in R in that way: 
+
+```{r eval = FALSE} 
+
+path_TLFs <- system.file("extdata/TLF_outputs", package = "RapTLR")
+path_docx <- system.file("extdata", "TLR_Shell.docx", package = "RapTLR")
+
+```
+
+
 
 ```{r eval=FALSE}
 library(RapTLR)
@@ -80,29 +102,7 @@ run_apdx(
 )
 ```
 
-## Working with Officer Objects
 
-```{r eval=FALSE}
-# Add appendices without writing to file
-doc <- run_apdx(
-  path_TLFs = "TLF_outputs/",
-  docx_object = "TLR_shell.docx",
-  keyword = "LISTOFAPPENDICES"
-)
 
-# Continue processing
-doc <- textReplace(doc, keyword = "TTsubjectTT", replacement = "500 patients")
-
-# Write when done
-print(doc, target = "TLR_final.docx")
-```
-
-## Best Practices
-
-1. Test with a subset first
-2. Keep backups
-3. Use version control
-4. Document your structure
-5. Validate output
 
 Your appendices are now automatically inserted!

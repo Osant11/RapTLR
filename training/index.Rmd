@@ -3,10 +3,7 @@ title: "RapTLR Training Guide"
 subtitle: "Rapid Top-Line Report Generation with R"
 author: "RapTLR Development Team"
 date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
-documentclass: book
 description: "Complete training material for the RapTLR package"
-output: word_document
 ---
 
 
