@@ -1,291 +1,916 @@
 # Creating Text with R {#creating-text}
 
-## The fct_var_text() Function
+## Introduction
 
-RapTLR includes `fct_var_text()` to automatically create formatted text descriptions of categorical variable distributions.
+One of the main features of RapTLR is the ability to automatically generate formatted narrative text from clinical datasets. Rather than manually extracting numbers from tables and writing sentences by hand, these functions let you produce analysis-ready text directly from your data — text that updates automatically whenever the data changes.
 
-## What Does It Do?
+This chapter covers five text-generation functions:
 
-Converts this:
+| Function | Description |
+|---|---|
+| `fct_smpl_rest()` | Count records in a dataset with optional filtering |
+| `fct_var_text()` | Describe the distribution of a categorical variable |
+| `var_text_group()` | Describe a categorical variable broken down by treatment group |
+| `fct_bsl_stats()` | Summarise baseline statistics (mean/median with SD/range) |
+| `fct_mst_aes()` | Identify and describe the most common adverse events |
 
-```{r eval=FALSE}
-table(adsl$RACE)
-# WHITE  BLACK  ASIAN  OTHER
-#   150     80     50     20
-```
-
-Into this:
-
-```
-"White (n=150; 50%), Black (n=80; 26.7%), Asian (n=50; 16.7%) and Other (n=20; 6.7%)"
-```
-
-## Basic Usage
+All examples in this chapter use the two built-in example datasets included with the package:
 
 ```{r eval=FALSE}
 library(RapTLR)
 
-# Simple distribution
-fct_var_text(
+data("tlr_adsl")   # Subject-level analysis dataset (ADSL)
+data("tlr_adae")   # Adverse events analysis dataset (ADAE)
+```
+
+---
+
+## fct_smpl_rest() {#smpl-rest}
+
+### Purpose
+
+`fct_smpl_rest()` counts rows in a dataset and returns the result as a formatted character string. It supports two sequential filter conditions, making it easy to report counts and percentages within a defined population — for example, the number of female subjects in the safety population.
+
+The function is typically used to report:
+
+- Total number of enrolled or randomised subjects
+- Population sizes (safety, efficacy, intent-to-treat)
+- Counts within a subgroup relative to a reference population
+- Number of completers at protocol time points
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `arg_dataset` | data frame | — | Dataset to filter and count |
+| `arg_text_desc` | character | `""` | Text prepended before the count |
+| `arg_text_end` | character | `""` | Text appended after the count |
+| `arg_fl_rest` | expression | — | First filter (defines the reference population for percentages) |
+| `arg_var_rest` | expression | — | Second filter (defines the subgroup to count) |
+| `arg_lbl` | character | `"nbr"` | Output format: `"nbr"`, `"pct"`, or `"nbr-pct"` |
+
+**Note on `arg_fl_rest` vs `arg_var_rest`:** The first filter (`arg_fl_rest`) defines the denominator population for percentage calculations. The second filter (`arg_var_rest`) defines the numerator. If only `arg_fl_rest` is provided, the count of that filtered population is returned.
+
+### Examples
+
+**Example 1 — Total number of subjects in the dataset**
+
+The simplest usage: count all rows without any filtering.
+
+```{r eval=FALSE}
+library(RapTLR)
+data("tlr_adsl")
+
+fct_smpl_rest(arg_dataset = tlr_adsl)
+# "254"
+```
+
+**Example 2 — Count subjects in a specific population**
+
+Use `arg_fl_rest` to count subjects meeting a flag condition, such as the safety population.
+
+```{r eval=FALSE}
+fct_smpl_rest(
   arg_dataset = tlr_adsl,
-  arg_var_rest = RACE
+  arg_fl_rest = SAFFL == "Y"
+)
+# "254"
+```
+
+**Example 3 — Count with descriptive text**
+
+Wrap the count in natural language using `arg_text_desc` and `arg_text_end`.
+
+```{r eval=FALSE}
+fct_smpl_rest(
+  arg_dataset  = tlr_adsl,
+  arg_text_desc = "This study enrolled ",
+  arg_text_end  = " participants in the safety population.",
+  arg_fl_rest  = SAFFL == "Y"
+)
+# "This study enrolled 254 participants in the safety population."
+```
+
+**Example 4 — Count a subgroup within a population (number only)**
+
+Use `arg_var_rest` to count subjects in a treatment arm within the safety population. The denominator is the population defined by `arg_fl_rest`.
+
+```{r eval=FALSE}
+fct_smpl_rest(
+  arg_dataset  = tlr_adsl,
+  arg_fl_rest  = SAFFL == "Y",
+  arg_var_rest = ARM == "Xanomeline High Dose"
+)
+# "84"
+```
+
+**Example 5 — Count as a percentage**
+
+Set `arg_lbl = "pct"` to express the subgroup count as a percentage of the reference population.
+
+```{r eval=FALSE}
+fct_smpl_rest(
+  arg_dataset  = tlr_adsl,
+  arg_fl_rest  = SAFFL == "Y",
+  arg_var_rest = ARM == "Xanomeline High Dose",
+  arg_lbl      = "pct"
+)
+# "33.1%"
+```
+
+**Example 6 — Count as number and percentage**
+
+Combine both with `"nbr-pct"`.
+
+```{r eval=FALSE}
+fct_smpl_rest(
+  arg_dataset  = tlr_adsl,
+  arg_fl_rest  = SAFFL == "Y",
+  arg_var_rest = ARM == "Xanomeline High Dose",
+  arg_lbl      = "nbr-pct"
+)
+# "84 (33.1%)"
+```
+
+**Example 7 — Use multiple conditions with `&`**
+
+Both filter arguments accept compound logical expressions.
+
+```{r eval=FALSE}
+fct_smpl_rest(
+  arg_dataset   = tlr_adsl,
+  arg_text_desc = "There were ",
+  arg_text_end  = " elderly female participants in the safety population.",
+  arg_fl_rest   = SAFFL == "Y",
+  arg_var_rest  = AGE >= 65 & SEX == "F",
+  arg_lbl       = "nbr-pct"
+)
+# "There were 78 (30.7%) elderly female participants in the safety population."
+```
+
+**Example 8 — Protocol completers at multiple time points**
+
+Chain calls to build multi-sentence summaries about study completion.
+
+```{r eval=FALSE}
+completers <- paste(
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_text_desc = "At Week 8, ",
+    arg_text_end  = " subjects had completed the study.",
+    arg_fl_rest   = COMP8FL == "Y"
+  ),
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_text_desc = "At Week 16, ",
+    arg_text_end  = " subjects had completed.",
+    arg_fl_rest   = COMP16FL == "Y"
+  ),
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_text_desc = "At Week 24, ",
+    arg_text_end  = " subjects had completed.",
+    arg_fl_rest   = COMP24FL == "Y"
+  ),
+  sep = " "
 )
 ```
 
-Output: `"WHITE (n=150), BLACK (n=80), ASIAN (n=50) and OTHER (n=20)"`
+---
 
-## Function Parameters
+## fct_var_text() {#var-text}
 
-**arg_text_desc** - Prefix text (default: "")
+### Purpose
 
-**arg_dataset** - Data frame containing the variable
+`fct_var_text()` creates a formatted text description of the distribution of a categorical variable. It counts how often each level appears and returns a readable sentence listing the categories with their counts and/or percentages — connected with commas and "and" before the last item.
 
-**arg_fl_rest** - Optional filtering condition
+This is ideal for describing:
 
-**arg_var_rest** - Unquoted variable name to analyze
+- Race and sex distributions in demographics sections
+- Discontinuation reasons in disposition sections
+- Any categorical variable where you need a compact summary
 
-**arg_order** - Sort by frequency? (default: FALSE)
+### Parameters
 
-**arg_cvt_stg** - Function to apply to labels (default: identity)
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `arg_text_desc` | character | `""` | Prefix text prepended to the output |
+| `arg_dataset` | data frame | — | Dataset containing the variable |
+| `arg_fl_rest` | expression | `NULL` | Optional filter applied before analysis |
+| `arg_var_rest` | unquoted name | — | Categorical variable to analyse |
+| `arg_order` | logical | `FALSE` | If `TRUE`, sort categories by descending frequency |
+| `arg_cvt_stg` | function | `I` | Transformation applied to category labels (e.g., `str_to_sentence`) |
+| `arg_nbr_obs` | numeric | `Inf` | Maximum number of categories to include |
+| `arg_lbl` | character | `"pct"` | Format: `"nbr"`, `"pct"`, or `"nbr-pct"` |
 
-**arg_nbr_obs** - Number of levels to include (default: Inf)
+### Examples
 
-**arg_lbl** - Format: "nbr", "pct", or "nbr-pct"
+**Example 1 — Basic distribution (counts only)**
 
-## Label Formats
-
-### Show Counts Only
+Show the count for each level of `RACE` using the default count format.
 
 ```{r eval=FALSE}
+library(RapTLR)
+data("tlr_adsl")
+
 fct_var_text(
-  arg_dataset = tlr_adsl,
+  arg_dataset  = tlr_adsl,
   arg_var_rest = RACE,
-  arg_lbl = "nbr"
+  arg_lbl      = "nbr"
 )
+# "WHITE (n=193), BLACK OR AFRICAN AMERICAN (n=33), ASIAN (n=22) and AMERICAN INDIAN OR ALASKA NATIVE (n=6)"
 ```
 
-Output: `"WHITE (n=150), BLACK (n=80), ASIAN (n=50) and OTHER (n=20)"`
+**Example 2 — Percentages only**
 
-### Show Percentages Only
+Return percentages instead of raw counts. This is the default for `arg_lbl`.
 
 ```{r eval=FALSE}
 fct_var_text(
-  arg_dataset = tlr_adsl,
+  arg_dataset  = tlr_adsl,
   arg_var_rest = RACE,
-  arg_lbl = "pct"
+  arg_lbl      = "pct"
 )
+# "WHITE (76%), BLACK OR AFRICAN AMERICAN (13%), ASIAN (8.7%) and AMERICAN INDIAN OR ALASKA NATIVE (2.4%)"
 ```
 
-Output: `"WHITE (50%), BLACK (26.7%), ASIAN (16.7%) and OTHER (6.7%)"`
-
-### Show Both
+**Example 3 — Counts and percentages combined**
 
 ```{r eval=FALSE}
 fct_var_text(
-  arg_dataset = tlr_adsl,
+  arg_dataset  = tlr_adsl,
   arg_var_rest = RACE,
-  arg_lbl = "nbr-pct"
+  arg_lbl      = "nbr-pct"
 )
+# "WHITE (n=193; 76%), BLACK OR AFRICAN AMERICAN (n=33; 13%), ..."
 ```
 
-Output: `"WHITE (n=150; 50%), BLACK (n=80; 26.7%) and ASIAN (n=50; 16.7%)"`
+**Example 4 — Add a descriptive prefix**
 
-## Advanced Features
-
-### Add Descriptive Prefix
+Use `arg_text_desc` to integrate the result into a sentence.
 
 ```{r eval=FALSE}
 fct_var_text(
-  arg_text_desc = "Patients were",
-  arg_dataset = tlr_adsl,
-  arg_var_rest = RACE
+  arg_text_desc = "The study population comprised",
+  arg_dataset   = tlr_adsl,
+  arg_var_rest  = RACE,
+  arg_lbl       = "pct"
 )
+# "The study population comprised WHITE (76%), BLACK OR AFRICAN AMERICAN (13%), ..."
 ```
 
-Output: `"Patients were WHITE (n=150), BLACK (n=80) and ASIAN (n=50)"`
+**Example 5 — Convert labels to sentence case**
 
-### Sort by Frequency
+Raw dataset values are often in uppercase. Use `arg_cvt_stg` to improve readability.
 
 ```{r eval=FALSE}
 fct_var_text(
-  arg_dataset = tlr_adsl,
+  arg_text_desc = "Participants were predominantly",
+  arg_dataset   = tlr_adsl,
+  arg_var_rest  = RACE,
+  arg_lbl       = "pct",
+  arg_cvt_stg   = stringr::str_to_sentence
+)
+# "Participants were predominantly White (76%), Black or african american (13%), ..."
+```
+
+**Example 6 — Sort categories by frequency**
+
+Set `arg_order = TRUE` to list the most common category first.
+
+```{r eval=FALSE}
+fct_var_text(
+  arg_dataset  = tlr_adsl,
   arg_var_rest = RACE,
-  arg_order = TRUE
+  arg_lbl      = "pct",
+  arg_order    = TRUE
 )
+# "WHITE (76%), BLACK OR AFRICAN AMERICAN (13%), ASIAN (8.7%) and ..."
 ```
 
-Output shows most common first.
+**Example 7 — Limit to top N categories**
 
-### Limit to Top N
+Combine `arg_order = TRUE` with `arg_nbr_obs` to report only the most frequent categories.
 
 ```{r eval=FALSE}
 fct_var_text(
-  arg_dataset = tlr_adsl,
+  arg_dataset  = tlr_adsl,
   arg_var_rest = RACE,
-  arg_order = TRUE,
-  arg_nbr_obs = 3
+  arg_lbl      = "pct",
+  arg_order    = TRUE,
+  arg_nbr_obs  = 2
 )
+# "WHITE (76%) and BLACK OR AFRICAN AMERICAN (13%)"
 ```
 
-Shows only top 3 most frequent categories.
+**Example 8 — Filter to a specific population first**
 
-### Convert Label Case
+Use `arg_fl_rest` to restrict the analysis to subjects meeting a criterion. Percentages are calculated within the filtered population.
 
 ```{r eval=FALSE}
 fct_var_text(
-  arg_dataset = tlr_adsl,
-  arg_var_rest = RACE,
-  arg_cvt_stg = stringr::str_to_sentence
+  arg_text_desc = "Among the safety population, the most common races were",
+  arg_dataset   = tlr_adsl,
+  arg_fl_rest   = SAFFL == "Y",
+  arg_var_rest  = RACE,
+  arg_lbl       = "pct",
+  arg_order     = TRUE,
+  arg_nbr_obs   = 3,
+  arg_cvt_stg   = stringr::str_to_sentence
 )
 ```
 
-Output: `"White (n=150), Black (n=80) and Asian (n=50)"`
+**Example 9 — Discontinuation reasons (complete example)**
 
-### Filter Data First
-
-```{r eval=FALSE}
-fct_var_text(
-  arg_dataset = tlr_adsl,
-  arg_fl_rest = SAFFL == "Y",
-  arg_var_rest = RACE
-)
-```
-
-Analyzes only safety population.
-
-## Practical Examples
-
-### Example 1: Demographics Description
-
-```{r eval=FALSE}
-race_text <- fct_var_text(
-  arg_text_desc = "The study population was",
-  arg_dataset = adsl,
-  arg_var_rest = RACE,
-  arg_cvt_stg = stringr::str_to_lower,
-  arg_lbl = "pct"
-)
-
-textReplace(
-  doc_object = doc,
-  keyword = "TTraceTT",
-  replacement = race_text
-)
-```
-
-### Example 2: Discontinuation Reasons
+A fully parameterised call describing why subjects discontinued, suitable for a disposition section.
 
 ```{r eval=FALSE}
 disc_text <- fct_var_text(
-  arg_text_desc = "The most common reasons for discontinuation were:",
-  arg_dataset = adsl,
-  arg_fl_rest = DISCONFL == "Y",
-  arg_var_rest = DCREASCD,
-  arg_order = TRUE,
-  arg_nbr_obs = 3,
-  arg_cvt_stg = stringr::str_to_lower,
-  arg_lbl = "nbr-pct"
+  arg_text_desc = "The most common reasons for treatment discontinuation were:",
+  arg_dataset   = tlr_adsl,
+  arg_fl_rest   = DISCONFL == "Y",
+  arg_var_rest  = DCREASCD,
+  arg_order     = TRUE,
+  arg_nbr_obs   = 3,
+  arg_cvt_stg   = stringr::str_to_lower,
+  arg_lbl       = "nbr-pct"
 )
 
-textReplace(
-  doc_object = doc,
-  keyword = "TTdiscontinuationTT",
-  replacement = disc_text
-)
+disc_text
+# "The most common reasons for treatment discontinuation were: adverse event (n=24; 32.9%),
+#  lack of efficacy (n=18; 24.7%) and withdrew consent (n=12; 16.4%)"
 ```
 
-### Example 3: Adverse Event Summary
+---
 
-```{r eval=FALSE}
-ae_text <- fct_var_text(
-  arg_text_desc = "The most frequent adverse events were",
-  arg_dataset = adae,
-  arg_var_rest = AEDECOD,
-  arg_order = TRUE,
-  arg_nbr_obs = 5,
-  arg_lbl = "nbr-pct"
-)
-```
+## var_text_group() {#var-text-group}
 
-## Complete Workflow
+### Purpose
+
+`var_text_group()` extends the capabilities of `fct_var_text()` by adding a breakdown by treatment group (or any other grouping variable). For each category of the variable of interest, the function reports:
+
+- The **overall percentage** of subjects with that category
+- The **within-group percentage** for each treatment arm
+
+The output format is: `"X% category (A% on Group1, B% on Group2)"`.
+
+This function is especially useful for describing:
+
+- Discontinuation reasons by treatment arm
+- Patient characteristics that differ across groups
+- Adverse events by treatment in narrative summaries
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `arg_text_desc` | character | `""` | Prefix text prepended to the output |
+| `arg_dataset` | data frame | — | Dataset containing the variables |
+| `arg_fl_rest` | expression | `NULL` | Optional filter applied before analysis |
+| `arg_var_rest` | unquoted name | — | Categorical variable to summarise |
+| `arg_group_var` | unquoted name | — | Grouping variable (e.g., treatment arm) |
+| `arg_group_vals` | character vector | `NULL` | Subset of group values to include; `NULL` = all groups |
+| `arg_group_lbl` | character vector | `NULL` | Custom labels for groups (must match `arg_group_vals` order) |
+| `arg_order` | logical | `TRUE` | If `TRUE`, order categories by descending overall frequency |
+| `arg_cvt_stg` | function | `I` | Transformation applied to category labels |
+| `arg_nbr_obs` | numeric | `Inf` | Maximum number of categories to include |
+
+### Examples
+
+**Example 1 — Basic grouped summary**
+
+Summarise discontinuation reasons across all treatment arms in `TRT01P`.
 
 ```{r eval=FALSE}
 library(RapTLR)
-library(haven)
+data("tlr_adsl")
+
+var_text_group(
+  arg_dataset   = tlr_adsl,
+  arg_var_rest  = DCREASCD,
+  arg_group_var = TRT01P
+)
+```
+
+**Example 2 — Add a descriptive prefix**
+
+```{r eval=FALSE}
+var_text_group(
+  arg_text_desc = "The most common reasons for discontinuation were:",
+  arg_dataset   = tlr_adsl,
+  arg_var_rest  = DCREASCD,
+  arg_group_var = TRT01P
+)
+```
+
+**Example 3 — Preserve original variable order**
+
+Set `arg_order = FALSE` when the variable has an inherent ordering (e.g., severity grades) and alphabetical or natural order should be respected.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset   = tlr_adsl,
+  arg_var_rest  = DCREASCD,
+  arg_group_var = TRT01P,
+  arg_order     = FALSE
+)
+```
+
+**Example 4 — Restrict to specific treatment groups**
+
+Exclude one or more groups from the analysis by passing a vector to `arg_group_vals`.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset    = tlr_adsl,
+  arg_var_rest   = DCREASCD,
+  arg_group_var  = TRT01P,
+  arg_group_vals = c("Xanomeline High Dose", "Xanomeline Low Dose")
+)
+```
+
+**Example 5 — Shorten group labels in the output**
+
+Long treatment names can make the output hard to read. Use `arg_group_lbl` to assign shorter display labels, which must correspond to the values in `arg_group_vals`.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset    = tlr_adsl,
+  arg_var_rest   = DCREASCD,
+  arg_group_var  = TRT01P,
+  arg_group_vals = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+  arg_group_lbl  = c("High Dose", "Low Dose", "Placebo")
+)
+```
+
+**Example 6 — Limit to the top N categories**
+
+Show only the three most frequently occurring discontinuation reasons.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset    = tlr_adsl,
+  arg_var_rest   = DCREASCD,
+  arg_group_var  = TRT01P,
+  arg_group_vals = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+  arg_group_lbl  = c("High Dose", "Low Dose", "Placebo"),
+  arg_order      = TRUE,
+  arg_nbr_obs    = 3
+)
+```
+
+**Example 7 — Apply label transformation**
+
+Convert category labels to lowercase to improve sentence flow.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset   = tlr_adsl,
+  arg_var_rest  = DCREASCD,
+  arg_group_var = TRT01P,
+  arg_cvt_stg   = tolower,
+  arg_nbr_obs   = 3
+)
+```
+
+**Example 8 — Filter data before grouping**
+
+Restrict the analysis to the safety population before calculating frequencies.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_text_desc  = "Among safety population subjects,",
+  arg_dataset    = tlr_adsl,
+  arg_fl_rest    = SAFFL == "Y",
+  arg_var_rest   = DCREASCD,
+  arg_group_var  = TRT01P,
+  arg_group_vals = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+  arg_group_lbl  = c("XAN-H", "XAN-L", "PBO"),
+  arg_order      = TRUE,
+  arg_nbr_obs    = 5
+)
+```
+
+**Example 9 — Adverse events by treatment group (complete example)**
+
+Use `tlr_adae` to summarise adverse events grouped by the actual treatment received (`TRTA`), filtering to severe events only.
+
+```{r eval=FALSE}
+data("tlr_adae")
+
+ae_group_text <- var_text_group(
+  arg_text_desc = "The most frequently reported severe adverse events were:",
+  arg_dataset   = tlr_adae,
+  arg_fl_rest   = AESEV == "SEVERE",
+  arg_var_rest  = AEDECOD,
+  arg_group_var = TRTA,
+  arg_order     = TRUE,
+  arg_nbr_obs   = 5,
+  arg_cvt_stg   = stringr::str_to_sentence
+)
+
+ae_group_text
+```
+
+---
+
+## fct_bsl_stats() {#bsl-stats}
+
+### Purpose
+
+`fct_bsl_stats()` generates a formatted text summary of the baseline distribution of a continuous numeric variable. It calculates a measure of central tendency (mean or median) together with a measure of dispersion (standard deviation or range), both overall and optionally per treatment arm.
+
+Typical use cases:
+
+- Summarising age, weight, height, or BMI in a demographics section
+- Reporting baseline disease scores or laboratory values
+- Presenting summary statistics alongside treatment group breakdowns
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `arg_dataset` | data frame | — | Dataset containing the numeric variable |
+| `arg_grp` | unquoted name | — | Grouping variable (e.g., `ARM`, `TRT01A`) |
+| `arg_trt_inc` | character vector | `NULL` | Treatment groups to include in the per-group breakdown; `NULL` = overall total only |
+| `arg_var_num` | unquoted name | — | Numeric variable to summarise (e.g., `AGE`, `WEIGHTBL`) |
+| `arg_var1` | character | `"mean"` | Central tendency: `"mean"` or `"median"` |
+| `arg_var2` | character | `"sd"` | Dispersion: `"sd"` (standard deviation) or `"range"` (min, max) |
+| `arg_unit` | character | `""` | Unit of measurement appended to the value (e.g., `"years"`, `"kg"`) |
+| `arg_label` | character | `""` | Description of the variable used in the output sentence |
+| `arg_cvt_stg` | function | `I` | Transformation applied to sentence connectors |
+
+### Examples
+
+**Example 1 — Overall mean age with SD**
+
+Report the mean and standard deviation of age across all subjects (no per-group breakdown).
+
+```{r eval=FALSE}
+library(RapTLR)
+data("tlr_adsl")
+
+fct_bsl_stats(
+  arg_dataset = tlr_adsl,
+  arg_grp     = ARM,
+  arg_var_num = AGE,
+  arg_var1    = "mean",
+  arg_var2    = "sd",
+  arg_unit    = "years",
+  arg_label   = "age"
+)
+# "For age the overall mean was 75.1 years (SD 8.2)"
+```
+
+**Example 2 — Overall median age with range**
+
+Use `"median"` and `"range"` to report the median and min–max range.
+
+```{r eval=FALSE}
+fct_bsl_stats(
+  arg_dataset = tlr_adsl,
+  arg_grp     = ARM,
+  arg_var_num = AGE,
+  arg_var1    = "median",
+  arg_var2    = "range",
+  arg_unit    = "years",
+  arg_label   = "age"
+)
+# "For age the overall median was 76 years (range: 52, 89)"
+```
+
+**Example 3 — Mean age with SD, broken down by treatment arm**
+
+Pass the treatment group names to `arg_trt_inc` to add per-group statistics.
+
+```{r eval=FALSE}
+fct_bsl_stats(
+  arg_dataset = tlr_adsl,
+  arg_grp     = ARM,
+  arg_trt_inc = c("Placebo", "Xanomeline Low Dose", "Xanomeline High Dose"),
+  arg_var_num = AGE,
+  arg_var1    = "mean",
+  arg_var2    = "sd",
+  arg_unit    = "years",
+  arg_label   = "age"
+)
+# "For age the overall mean was 75.1 years (SD 8.2), for Placebo the mean was 75.2 years (SD 8.6),
+#  for Xanomeline Low Dose the mean was 75.7 years (SD 8.3) and
+#  for Xanomeline High Dose the mean was 74.4 years (SD 7.7)"
+```
+
+**Example 4 — Median baseline weight with range by treatment arm**
+
+Switch to a different continuous variable and a different combination of statistics.
+
+```{r eval=FALSE}
+fct_bsl_stats(
+  arg_dataset = tlr_adsl,
+  arg_grp     = ARM,
+  arg_trt_inc = c("Placebo", "Xanomeline Low Dose", "Xanomeline High Dose"),
+  arg_var_num = WEIGHTBL,
+  arg_var1    = "median",
+  arg_var2    = "range",
+  arg_unit    = "kg",
+  arg_label   = "baseline weight"
+)
+```
+
+**Example 5 — Mean BMI with SD, using `TRT01A` as the grouping variable**
+
+The grouping variable does not have to be `ARM`; any column identifying treatment can be used.
+
+```{r eval=FALSE}
+fct_bsl_stats(
+  arg_dataset = tlr_adsl,
+  arg_grp     = TRT01A,
+  arg_trt_inc = c("Placebo", "Xanomeline High Dose"),
+  arg_var_num = BMIBL,
+  arg_var1    = "mean",
+  arg_var2    = "sd",
+  arg_unit    = "kg/m²",
+  arg_label   = "baseline BMI"
+)
+```
+
+**Example 6 — Multiple baseline variables combined into a paragraph**
+
+The custom string operators `%c&%` and `%c.%` (see `?cust_opr`) make it easy to chain multiple `fct_bsl_stats()` calls into a single narrative paragraph.
+
+```{r eval=FALSE}
+demographics_text <-
+  fct_bsl_stats(
+    arg_dataset = tlr_adsl,
+    arg_grp     = ARM,
+    arg_trt_inc = c("Placebo", "Xanomeline Low Dose", "Xanomeline High Dose"),
+    arg_var_num = AGE,
+    arg_var1    = "median",
+    arg_var2    = "range",
+    arg_unit    = "years",
+    arg_label   = "age"
+  ) %c&%
+  fct_bsl_stats(
+    arg_dataset = tlr_adsl,
+    arg_grp     = ARM,
+    arg_trt_inc = c("Placebo", "Xanomeline Low Dose", "Xanomeline High Dose"),
+    arg_var_num = BMIBL,
+    arg_var1    = "mean",
+    arg_var2    = "sd",
+    arg_unit    = "kg/m²",
+    arg_label   = "baseline BMI",
+    arg_cvt_stg = stringr::str_to_lower
+  )
+
+demographics_text
+```
+
+---
+
+## fct_mst_aes() {#mst-aes}
+
+### Purpose
+
+`fct_mst_aes()` identifies the most common treatment-emergent adverse events (TEAEs) in a specified treatment group and returns a formatted sentence listing each event with its frequency across all groups.
+
+The function:
+
+1. Merges the AE dataset with the subject-level dataset on `USUBJID`
+2. Counts distinct subjects with each adverse event per treatment group
+3. Calculates frequency as a percentage of the group population
+4. Filters to events that meet or exceed the specified frequency threshold in the target treatment group
+5. Formats the output as a publication-ready sentence
+
+This is the standard way to generate the "most common AEs" paragraph in a TLR safety section.
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `arg_data` | data frame | — | Adverse event dataset (e.g., `tlr_adae`); must include `USUBJID` |
+| `arg_data_adsl` | data frame | — | Subject-level dataset (e.g., `tlr_adsl`); must include `USUBJID` and the grouping variable |
+| `arg_grp` | unquoted name | — | Treatment group variable (e.g., `ARM`, `TRT01A`) |
+| `arg_var` | unquoted name | — | AE variable to analyse (e.g., `AEDECOD` for preferred term, `AEBODSYS` for system organ class) |
+| `arg_trt_flt` | unquoted name | — | Treatment group used as the frequency threshold filter (use backticks for names with spaces) |
+| `arg_frq` | numeric | `15` | Minimum frequency (%) in `arg_trt_flt` for an event to be included |
+| `arg_freq_num` | logical | `TRUE` | If `TRUE`, returns frequency as a number; if `FALSE`, as a percentage string |
+| `arg_rounding` | numeric | `1` | Number of decimal places for rounding |
+
+### Examples
+
+**Example 1 — Most common AEs (≥15%) in the Xanomeline High Dose group**
+
+The simplest call: use default threshold of 15% and report by `ARM`.
+
+```{r eval=FALSE}
+library(RapTLR)
+data("tlr_adsl")
+data("tlr_adae")
+
+fct_mst_aes(
+  arg_data      = tlr_adae,
+  arg_data_adsl = tlr_adsl,
+  arg_grp       = ARM,
+  arg_var       = AEDECOD,
+  arg_trt_flt   = `Xanomeline High Dose`
+)
+# "The most common TEAEs with frequency ≥15% on Xanomeline High Dose were:
+#  application site pruritus (15% Placebo; 20.2% Xanomeline Low Dose; 47.6% Xanomeline High Dose), ..."
+```
+
+**Example 2 — Lower frequency threshold**
+
+Capture more events by reducing the threshold to 10%.
+
+```{r eval=FALSE}
+fct_mst_aes(
+  arg_data      = tlr_adae,
+  arg_data_adsl = tlr_adsl,
+  arg_grp       = ARM,
+  arg_var       = AEDECOD,
+  arg_trt_flt   = `Xanomeline High Dose`,
+  arg_frq       = 10
+)
+```
+
+**Example 3 — Higher frequency threshold with more decimal places**
+
+Use a 20% threshold and report frequencies to two decimal places.
+
+```{r eval=FALSE}
+fct_mst_aes(
+  arg_data      = tlr_adae,
+  arg_data_adsl = tlr_adsl,
+  arg_grp       = ARM,
+  arg_var       = AEDECOD,
+  arg_trt_flt   = `Xanomeline High Dose`,
+  arg_frq       = 20,
+  arg_rounding  = 2
+)
+```
+
+**Example 4 — Summarise by system organ class instead of preferred term**
+
+Replace `AEDECOD` with `AEBODSYS` to aggregate at the system organ class level, which gives a higher-level safety overview.
+
+```{r eval=FALSE}
+fct_mst_aes(
+  arg_data      = tlr_adae,
+  arg_data_adsl = tlr_adsl,
+  arg_grp       = ARM,
+  arg_var       = AEBODSYS,
+  arg_trt_flt   = `Xanomeline High Dose`,
+  arg_frq       = 15
+)
+# "The most common TEAEs with frequency ≥15% on Xanomeline High Dose were:
+#  skin and subcutaneous tissue disorders (X% Placebo; Y% Xanomeline Low Dose; Z% Xanomeline High Dose), ..."
+```
+
+**Example 5 — Use `TRT01A` as the grouping variable**
+
+Any treatment variable present in both datasets can be used as `arg_grp`.
+
+```{r eval=FALSE}
+fct_mst_aes(
+  arg_data      = tlr_adae,
+  arg_data_adsl = tlr_adsl,
+  arg_grp       = TRT01A,
+  arg_var       = AEDECOD,
+  arg_trt_flt   = `Xanomeline High Dose`,
+  arg_frq       = 15,
+  arg_rounding  = 2
+)
+```
+
+**Example 6 — Complete safety section paragraph**
+
+Combine `fct_mst_aes()` with `fct_smpl_rest()` and custom string operators to build a complete safety narrative for a TLR.
+
+```{r eval=FALSE}
+safety_text <-
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_text_desc = "A total of ",
+    arg_text_end  = " subjects were included in the safety population.",
+    arg_fl_rest   = SAFFL == "Y"
+  ) %c%
+  fct_mst_aes(
+    arg_data      = tlr_adae,
+    arg_data_adsl = tlr_adsl,
+    arg_grp       = ARM,
+    arg_var       = AEDECOD,
+    arg_trt_flt   = `Xanomeline High Dose`,
+    arg_frq       = 15
+  )
+
+safety_text
+```
+
+---
+
+## Putting It All Together
+
+The following example shows how all five functions can be combined — using the custom string operators from `cust_opr.R` — to generate a complete TLR narrative in a single workflow.
+
+```{r eval=FALSE}
+library(RapTLR)
 library(stringr)
 
-adsl <- read_sas("adam/adsl.sas7bdat")
+data("tlr_adsl")
+data("tlr_adae")
 
-# Create multiple text descriptions
-race_text <- fct_var_text(
-  arg_text_desc = "Patients were",
-  arg_dataset = adsl,
-  arg_var_rest = RACE,
-  arg_cvt_stg = str_to_lower,
-  arg_lbl = "pct"
+# -------------------------------------------------------------------
+# Disposition
+# -------------------------------------------------------------------
+TT_geninfo_TT <-
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_text_desc = "This double-blind, placebo-controlled study randomised ",
+    arg_text_end  = " participants to"
+  ) %c%
+  fct_var_text(
+    arg_dataset  = tlr_adsl,
+    arg_var_rest = TRT01A,
+    arg_lbl      = "nbr-pct"
+  ) %c%
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = !duplicated(SITEID),
+    arg_text_desc = "across ",
+    arg_text_end  = " sites."
+  )
+
+TT_studips_TT <-
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = DISCONFL == "Y",
+    arg_text_desc = "There were ",
+    arg_text_end  = " participants who discontinued the study; the main reasons were"
+  ) %c%
+  var_text_group(
+    arg_dataset    = tlr_adsl,
+    arg_fl_rest    = DISCONFL == "Y",
+    arg_var_rest   = DCREASCD,
+    arg_group_var  = TRT01A,
+    arg_group_vals = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+    arg_group_lbl  = c("XAN-H", "XAN-L", "PBO"),
+    arg_order      = TRUE,
+    arg_nbr_obs    = 3
+  )
+
+# -------------------------------------------------------------------
+# Demographics
+# -------------------------------------------------------------------
+TT_sexage_TT <-
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = SEX == "F",
+    arg_text_desc = "The study population included ",
+    arg_text_end  = " female participants."
+  ) %c.%
+  fct_bsl_stats(
+    arg_dataset = tlr_adsl,
+    arg_grp     = ARM,
+    arg_trt_inc = c("Placebo", "Xanomeline Low Dose", "Xanomeline High Dose"),
+    arg_var_num = AGE,
+    arg_var1    = "median",
+    arg_var2    = "range",
+    arg_unit    = "years",
+    arg_label   = "age"
+  ) %c&%
+  fct_bsl_stats(
+    arg_dataset = tlr_adsl,
+    arg_grp     = ARM,
+    arg_trt_inc = c("Placebo", "Xanomeline Low Dose", "Xanomeline High Dose"),
+    arg_var_num = BMIBL,
+    arg_var1    = "mean",
+    arg_var2    = "sd",
+    arg_unit    = "kg/m²",
+    arg_label   = "baseline BMI",
+    arg_cvt_stg = str_to_lower
+  )
+
+# -------------------------------------------------------------------
+# Safety
+# -------------------------------------------------------------------
+TT_mosttaes_TT <- fct_mst_aes(
+  arg_data      = tlr_adae,
+  arg_data_adsl = tlr_adsl,
+  arg_grp       = ARM,
+  arg_var       = AEBODSYS,
+  arg_trt_flt   = `Xanomeline High Dose`,
+  arg_frq       = 15
 )
 
-country_text <- fct_var_text(
-  arg_text_desc = "The top enrollment countries were",
-  arg_dataset = adsl,
-  arg_var_rest = COUNTRY,
-  arg_order = TRUE,
-  arg_nbr_obs = 5,
-  arg_lbl = "nbr"
-)
+# -------------------------------------------------------------------
+# Replace placeholders in the TLR shell document
+# -------------------------------------------------------------------
+TLR <- officer::read_docx("TLR_with_appendice.docx")
 
-# Replace in document
-textReplace(
-  doc_object = "TLR_shell.docx",
-  keyword = "TTraceTT",
-  replacement = race_text
-) |>
-textReplace(
-  keyword = "TTcountryTT",
-  replacement = country_text,
-  return_to_file = "TLR_final.docx"
-)
+textReplace(TLR, "TT_geninfo_TT",   TT_geninfo_TT)  |>
+textReplace(     "TT_studips_TT",   TT_studips_TT)  |>
+textReplace(     "TT_sexage_TT",    TT_sexage_TT)   |>
+textReplace(     "TT_mosttaes_TT",  TT_mosttaes_TT,
+                 return_to_file = "TLR_final.docx")
 ```
 
-## Integration with Full TLR Workflow
-
-```{r eval=FALSE}
-library(RapTLR)
-
-# Step 1: Add appendices
-doc <- run_apdx(
-  path_TLFs = "TLF_outputs/",
-  docx_object = "TLR_shell.docx",
-  keyword = "LISTOFAPPENDICES"
-)
-
-# Step 2: Create formatted text
-race_text <- fct_var_text(
-  arg_dataset = adsl,
-  arg_var_rest = RACE,
-  arg_lbl = "nbr-pct"
-)
-
-# Step 3: Replace text
-doc <- textReplace(doc, keyword = "TTraceTT", replacement = race_text)
-
-# Step 4: Save
-print(doc, target = "TLR_complete.docx")
-```
-
-## Best Practices
-
-1. Use arg_order = TRUE for most common first
-2. Limit with arg_nbr_obs to avoid long lists
-3. Use str_to_lower or str_to_sentence for readability
-4. Choose appropriate label format for context
-5. Filter data with arg_fl_rest when needed
-
-## Tips
-
-- Test output in console before using in document
-- Combine with sprintf() for more complex sentences
-- Use consistent case conversion across document
-- Consider your audience when choosing format
-
-You now have all the tools to create complete, automated TLRs!
+You have now seen all the core text-generation tools available in RapTLR. Combine them with `textReplace()` and `run_apdx()` to produce a fully automated Top-Line Results Report directly from your clinical datasets.
