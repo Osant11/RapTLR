@@ -1,0 +1,233 @@
+# Assembling the Complete Top-Line Results Report {#putting-together}
+
+The previous chapters introduced each RapTLR function in isolation. This chapter shows how they work together in a single, end-to-end script that takes you from raw ADaM datasets to a finished, populated Word document.
+
+The pattern is always the same:
+
+1. Build a TLR shell document with appendices using `run_apdx()`
+2. Load the analysis datasets
+3. Generate narrative text for each placeholder using the text-generation functions
+4. Insert each text block into the document with `textReplace()`
+5. Save the final file
+
+The example below follows the structure of the RapTLR demo script and covers the four main report sections: general information, study disposition, demographics, and safety.
+
+---
+
+## Setting Up
+
+```{r eval=FALSE}
+library(RapTLR)
+library(stringr)
+library(officer)
+
+# Step 1 — Append TLFs to the TLR shell
+path_TLFs   <- system.file("extdata/TLF_outputs", package = "RapTLR")
+path_shell  <- system.file("extdata/TLR_Shell.docx", package = "RapTLR")
+TLF_list    <- system.file("extdata/TLF_list.xlsx", package = "RapTLR")
+
+run_apdx(
+  path_TLFs         = path_TLFs,
+  docx_object       = path_shell,
+  sections_structure = TLF_list,
+  return_to_file    = "TLR_with_appendice.docx"
+)
+
+# Step 2 — Load analysis datasets
+data("tlr_adsl")
+data("tlr_adae")
+
+# Step 3 — Open the document as an R object for editing
+TLR <- officer::read_docx("TLR_with_appendice.docx")
+```
+
+---
+
+## General Information
+
+This block reports the total number of randomised subjects, their allocation across treatment arms, the number of investigational sites, and the dominant racial groups — all generated automatically from `tlr_adsl`.
+
+```{r eval=FALSE}
+TT_geninfo_TT <-
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_text_desc = "This double-blind, placebo-controlled study randomized ",
+    arg_text_end  = " participants to"
+  ) %c%
+  fct_var_text(
+    arg_dataset  = tlr_adsl,
+    arg_var_rest = TRT01A,
+    arg_lbl      = "nbr-pct"
+  ) %c%
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = !duplicated(SITEID),
+    arg_text_desc = "across ",
+    arg_text_end  = " sites."
+  ) %c.%
+  fct_var_text(
+    arg_dataset  = tlr_adsl,
+    arg_var_rest = RACE,
+    arg_order    = TRUE,
+    arg_cvt_stg  = stringr::str_to_title,
+    arg_lbl      = "pct",
+    arg_nbr_obs  = 2,
+    arg_text_desc = "Most were"
+  )
+
+TT_geninfo_TT
+#> [1] "This double-blind, placebo-controlled study randomized 254 participants to
+#>      Xanomeline High Dose (n=84; 33.1%), Xanomeline Low Dose (n=84; 33.1%)
+#>      and Placebo (n=86; 33.9%) across 16 sites.
+#>      Most were White (76%) and Black Or African American (13%)"
+```
+
+---
+
+## Study Disposition
+
+The disposition block reports discontinuations: total count and the three most common reasons broken down by treatment arm.
+
+```{r eval=FALSE}
+TT_studips_TT <-
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = DISCONFL == "Y",
+    arg_text_desc = "There were ",
+    arg_text_end  = " participants who discontinued the study; the main reasons for treatment discontinuation were"
+  ) %c%
+  var_text_group(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = DISCONFL == "Y",
+    arg_group_var = TRT01A,
+    arg_var_rest  = DCREASCD,
+    arg_nbr_obs   = 3,
+    arg_order     = TRUE
+  )
+
+TT_studips_TT
+#> [1] "There were 88 participants who discontinued the study;
+#>      the main reasons for treatment discontinuation were
+#>      27.3% adverse event (24.4% on Placebo; 27.4% on Xanomeline Low Dose; 30.0% on Xanomeline High Dose),
+#>      20.5% withdrew consent (22.0% on Placebo; 17.9% on Xanomeline Low Dose; 21.7% on Xanomeline High Dose) and
+#>      14.8% lack of efficacy (7.3% on Placebo; 19.0% on Xanomeline Low Dose; 17.4% on Xanomeline High Dose)"
+```
+
+The completers summary follows a similar pattern, chaining three separate calls with the `%c.%` operator (period-join):
+
+```{r eval=FALSE}
+TT_wkcmplt_TT <-
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = COMP8FL == "Y",
+    arg_text_desc = "At week 8, the number of completers were: "
+  ) %c.%
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = COMP16FL == "Y",
+    arg_text_desc = "At week 16, the number of completers were: "
+  ) %c.%
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = COMP24FL == "Y",
+    arg_text_desc = "At week 24, the number of completers were: "
+  )
+
+TT_wkcmplt_TT
+#> [1] "At week 8, the number of completers were: 218.
+#>      At week 16, the number of completers were: 197.
+#>      At week 24, the number of completers were: 173."
+```
+
+---
+
+## Demographics and Baseline Characteristics
+
+The demographics block combines a subject count, a race summary, and two continuous baseline variables (age and BMI) into one narrative sentence.
+
+```{r eval=FALSE}
+TT_sexage_TT <-
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = SEX == "F",
+    arg_text_desc = "The study population included ",
+    arg_text_end  = " female participants and most participants were"
+  ) %c%
+  fct_var_text(
+    arg_dataset  = tlr_adsl,
+    arg_var_rest = RACE,
+    arg_order    = TRUE,
+    arg_cvt_stg  = stringr::str_to_title,
+    arg_lbl      = "pct",
+    arg_nbr_obs  = 2
+  ) %c.%
+  fct_bsl_stats(
+    arg_dataset = tlr_adsl,
+    arg_grp     = ARM,
+    arg_var_num = AGE,
+    arg_var1    = "median",
+    arg_var2    = "range",
+    arg_unit    = "years",
+    arg_label   = "age"
+  ) %c&%
+  fct_bsl_stats(
+    arg_dataset = tlr_adsl,
+    arg_grp     = ARM,
+    arg_trt_inc = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+    arg_var_num = BMIBL,
+    arg_var1    = "mean",
+    arg_var2    = "sd",
+    arg_unit    = "kg/m²",
+    arg_label   = "baseline BMI",
+    arg_cvt_stg = stringr::str_to_lower
+  )
+
+TT_sexage_TT
+#> [1] "The study population included 143 female participants and most participants were
+#>      White (76%) and Black Or African American (13%).
+#>      For age the overall median was 76 years (range: 52, 89) and
+#>      for baseline bmi the overall mean was 25.3 kg/m² (SD 4.1),
+#>      for xanomeline high dose the mean was 25.2 kg/m² (SD 4.3),
+#>      for xanomeline low dose the mean was 25.0 kg/m² (SD 3.9) and
+#>      for placebo the mean was 25.7 kg/m² (SD 4.1)"
+```
+
+---
+
+## Safety
+
+The safety block identifies the most frequently reported system organ classes among subjects in the Xanomeline High Dose group.
+
+```{r eval=FALSE}
+TT_mosttaes_TT <- fct_mst_aes(
+  arg_data      = tlr_adae,
+  arg_data_adsl = tlr_adsl,
+  arg_grp       = ARM,
+  arg_var       = AEBODSYS,
+  arg_trt_flt   = `Xanomeline High Dose`,
+  arg_frq       = 15
+)
+
+TT_mosttaes_TT
+#> [1] "The most common TEAEs with frequency ≥15% on Xanomeline High Dose were:
+#>      skin and subcutaneous tissue disorders (16.3% Placebo; 34.5% Xanomeline Low Dose; 63.1% Xanomeline High Dose),
+#>      gastrointestinal disorders (30.2% Placebo; 32.1% Xanomeline Low Dose; 47.6% Xanomeline High Dose) and
+#>      nervous system disorders (17.4% Placebo; 20.2% Xanomeline Low Dose; 22.6% Xanomeline High Dose)"
+```
+
+---
+
+## Replacing Placeholders and Saving
+
+Once all text blocks are ready, insert them into the TLR document with a chain of `textReplace()` calls. The final call writes the document to disk.
+
+```{r eval=FALSE}
+textReplace(TLR, "TT_geninfo_TT",  TT_geninfo_TT)  |>
+textReplace(     "TT_studips_TT",  TT_studips_TT)  |>
+textReplace(     "TT_wkcmplt_TT",  TT_wkcmplt_TT)  |>
+textReplace(     "TT_sexage_TT",   TT_sexage_TT)   |>
+textReplace(     "TT_mosttaes_TT", TT_mosttaes_TT,
+                 return_to_file = "TLR_final.docx")
+```
+
+The result is a fully populated Word document where every placeholder has been replaced by analysis-derived narrative text — and where re-running the script with updated data regenerates the entire report automatically.
