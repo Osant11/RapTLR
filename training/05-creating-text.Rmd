@@ -305,6 +305,171 @@ disc_text
 
 ---
 
+## var_text_group() {#var-text-group}
+
+### Purpose
+
+`var_text_group()` extends `fct_var_text()` by adding a per-group breakdown. For each category of the variable of interest it reports the **overall percentage** across all subjects and the **within-group percentage** for each level of a grouping variable (e.g. treatment arm).
+
+The output format for each category is:
+
+```
+X% category (A% on Group1, B% on Group2, ...)
+```
+
+This is especially useful for:
+
+- Discontinuation reasons broken down by treatment arm
+- Adverse event terms reported per treatment group
+- Any categorical variable where between-group differences matter
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `arg_text_desc` | character | `""` | Prefix text prepended to the output |
+| `arg_dataset` | data frame | — | Dataset containing the variables |
+| `arg_fl_rest` | expression | `NULL` | Optional filter applied before analysis |
+| `arg_var_rest` | unquoted name | — | Categorical variable to summarise |
+| `arg_group_var` | unquoted name | — | Grouping variable (e.g., treatment arm) |
+| `arg_group_vals` | character vector | `NULL` | Subset of group values to include; `NULL` = all groups |
+| `arg_group_lbl` | character vector | `NULL` | Custom display labels for groups (must match `arg_group_vals` order) |
+| `arg_order` | logical | `TRUE` | If `TRUE`, order categories by descending overall frequency |
+| `arg_cvt_stg` | function | `I` | Transformation applied to category labels (e.g., `tolower`) |
+| `arg_nbr_obs` | numeric | `Inf` | Maximum number of categories to include |
+
+### Examples
+
+**Example 1 — Basic grouped summary**
+
+Summarise discontinuation reasons across all treatment arms in `TRT01P`, ordered by overall frequency.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset   = tlr_adsl,
+  arg_var_rest  = DCREASCD,
+  arg_group_var = TRT01P
+)
+```
+
+**Example 2 — Add a descriptive prefix**
+
+```{r eval=FALSE}
+var_text_group(
+  arg_text_desc = "The most common reasons for discontinuation were:",
+  arg_dataset   = tlr_adsl,
+  arg_var_rest  = DCREASCD,
+  arg_group_var = TRT01P
+)
+```
+
+**Example 3 — Preserve original variable order**
+
+Set `arg_order = FALSE` when the variable has an inherent ordering (e.g., severity grades) that should be respected rather than re-sorted by frequency.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset   = tlr_adsl,
+  arg_var_rest  = DCREASCD,
+  arg_group_var = TRT01P,
+  arg_order     = FALSE
+)
+```
+
+**Example 4 — Restrict to specific treatment groups**
+
+Pass a character vector to `arg_group_vals` to exclude one or more groups from the output. Groups not listed are ignored in both the overall count and the per-group breakdown.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset    = tlr_adsl,
+  arg_var_rest   = DCREASCD,
+  arg_group_var  = TRT01P,
+  arg_group_vals = c("Xanomeline High Dose", "Xanomeline Low Dose")
+)
+```
+
+**Example 5 — Shorten group labels in the output**
+
+Long treatment names can make the sentence hard to read. `arg_group_lbl` lets you assign shorter display labels; the vector must correspond positionally to `arg_group_vals`.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset    = tlr_adsl,
+  arg_var_rest   = DCREASCD,
+  arg_group_var  = TRT01P,
+  arg_group_vals = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+  arg_group_lbl  = c("XAN-H", "XAN-L", "PBO")
+)
+```
+
+**Example 6 — Limit to the top N categories**
+
+Show only the three most frequently occurring discontinuation reasons.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset    = tlr_adsl,
+  arg_var_rest   = DCREASCD,
+  arg_group_var  = TRT01P,
+  arg_group_vals = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+  arg_group_lbl  = c("XAN-H", "XAN-L", "PBO"),
+  arg_order      = TRUE,
+  arg_nbr_obs    = 3
+)
+```
+
+**Example 7 — Apply a label transformation**
+
+Convert category labels to lowercase so the output reads naturally within a sentence.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_dataset   = tlr_adsl,
+  arg_var_rest  = DCREASCD,
+  arg_group_var = TRT01P,
+  arg_cvt_stg   = tolower,
+  arg_nbr_obs   = 3
+)
+```
+
+**Example 8 — Filter to a specific population first**
+
+Use `arg_fl_rest` to restrict the analysis before calculating frequencies. Percentages are computed within the filtered population.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_text_desc  = "Among safety population subjects,",
+  arg_dataset    = tlr_adsl,
+  arg_fl_rest    = SAFFL == "Y",
+  arg_var_rest   = DCREASCD,
+  arg_group_var  = TRT01P,
+  arg_group_vals = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+  arg_group_lbl  = c("XAN-H", "XAN-L", "PBO"),
+  arg_order      = TRUE,
+  arg_nbr_obs    = 5
+)
+```
+
+**Example 9 — Adverse events by treatment group (complete example)**
+
+Use `tlr_adae` with `TRTA` as the grouping variable to summarise adverse events, filtered to severe events only and limited to the five most frequent preferred terms.
+
+```{r eval=FALSE}
+var_text_group(
+  arg_text_desc = "The most frequently reported severe adverse events were:",
+  arg_dataset   = tlr_adae,
+  arg_fl_rest   = AESEV == "SEVERE",
+  arg_var_rest  = AEDECOD,
+  arg_group_var = TRTA,
+  arg_order     = TRUE,
+  arg_nbr_obs   = 5,
+  arg_cvt_stg   = stringr::str_to_sentence
+)
+```
+
+---
+
 ## fct_bsl_stats() {#bsl-stats}
 
 `fct_bsl_stats()` generates a formatted text summary of a continuous numeric variable at baseline. It calculates a measure of central tendency (mean or median) together with a measure of dispersion (standard deviation or range), both overall and optionally per treatment arm.
