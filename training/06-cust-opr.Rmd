@@ -4,23 +4,29 @@ Narrative text in a Top-Line Results Report is rarely a single value — it is a
 
 Each operator connects two character strings using a specific separator:
 
-| Operator | Separator | Typical use |
-|---|---|---|
-| `%c%` | space (`" "`) | join phrases into a continuous sentence |
-| `%c,%` | comma-space (`", "`) | build comma-separated lists |
-| `%c&%` | ` and ` | create "A and B" constructs |
-| `%c.%` | period-space (`". "`) | chain independent sentences |
+| Operator | Separator             | Typical use                             |
+|----------|-----------------------|-----------------------------------------|
+| `%c%`    | space (`" "`)         | join phrases into a continuous sentence |
+| `%c,%`   | comma-space (`", "`)  | build comma-separated lists             |
+| `%c&%`   | `and`                 | create "A and B" constructs             |
+| `%c.%`   | period-space (`". "`) | chain independent sentences             |
 
-They can be used with plain strings or chained with the text-generation functions from Chapter 6 (`fct_smpl_rest()`, `fct_var_text()`, `var_text_group()`, `fct_bsl_stats()`, `fct_mst_aes()`).
+They can be used with plain strings or chained with the text-generation functions from Chapter 6 (`fct_smpl_rest()`, `fct_var_text()`, `fct_var_text_group()`, `fct_bsl_stats()`, `fct_mst_aes()`).
 
-```{r eval=FALSE}
+```{r, echo = FALSE}
 library(RapTLR)
 
 data("tlr_adsl")
 data("tlr_adae")
 ```
 
----
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "", echo = TRUE, collapse = TRUE
+)
+```
+
+------------------------------------------------------------------------
 
 ## `%c%` — Space separator {#op-space}
 
@@ -32,13 +38,13 @@ data("tlr_adae")
 
 **Example 1 — Basic word joining**
 
-```{r eval=FALSE}
+```{r}
 "The study enrolled" %c% "254 subjects."
 ```
 
 **Example 2 — Chaining multiple phrases**
 
-```{r eval=FALSE}
+```{r}
 "This was a" %c% "double-blind," %c% "placebo-controlled study."
 ```
 
@@ -46,7 +52,7 @@ data("tlr_adae")
 
 Join a population count with a list of treatment arms to form a disposition sentence.
 
-```{r eval=FALSE}
+```{r}
 fct_smpl_rest(
   arg_dataset   = tlr_adsl,
   arg_text_desc = "This double-blind, placebo-controlled study randomized ",
@@ -65,7 +71,7 @@ fct_smpl_rest(
 )
 ```
 
----
+------------------------------------------------------------------------
 
 ## `%c,%` — Comma separator {#op-comma}
 
@@ -77,13 +83,13 @@ fct_smpl_rest(
 
 **Example 1 — Building an enumeration of treatment arms**
 
-```{r eval=FALSE}
+```{r}
 "Placebo" %c,% "Xanomeline Low Dose" %c,% "Xanomeline High Dose"
 ```
 
 **Example 2 — Listing study endpoints**
 
-```{r eval=FALSE}
+```{r}
 endpoint1 <- "primary efficacy endpoint"
 endpoint2 <- "key secondary endpoint"
 endpoint3 <- "safety endpoint"
@@ -95,7 +101,7 @@ endpoint1 %c,% endpoint2 %c,% endpoint3
 
 Report safety and efficacy population sizes as a comma-separated pair.
 
-```{r eval=FALSE}
+```{r}
 fct_smpl_rest(
   arg_dataset   = tlr_adsl,
   arg_text_desc = "Safety population: ",
@@ -108,7 +114,7 @@ fct_smpl_rest(
 )
 ```
 
----
+------------------------------------------------------------------------
 
 ## `%c&%` — "and" separator {#op-and}
 
@@ -120,13 +126,13 @@ fct_smpl_rest(
 
 **Example 1 — Simple coordination**
 
-```{r eval=FALSE}
+```{r}
 "efficacy" %c&% "safety"
 ```
 
 **Example 2 — Coordinating three items**
 
-```{r eval=FALSE}
+```{r}
 "tables" %c&% "listings" %c&% "figures"
 ```
 
@@ -134,7 +140,7 @@ fct_smpl_rest(
 
 Chain two baseline variable summaries into a single demographics sentence.
 
-```{r eval=FALSE}
+```{r}
 fct_bsl_stats(
   arg_dataset = tlr_adsl,
   arg_grp     = ARM,
@@ -157,7 +163,7 @@ fct_bsl_stats(
 )
 ```
 
----
+------------------------------------------------------------------------
 
 ## `%c.%` — Period separator {#op-period}
 
@@ -169,13 +175,13 @@ fct_bsl_stats(
 
 **Example 1 — Joining two findings**
 
-```{r eval=FALSE}
+```{r}
 "The primary endpoint was met." %c.% "No new safety signals were identified."
 ```
 
 **Example 2 — Chaining three sentences**
 
-```{r eval=FALSE}
+```{r}
 finding1 <- "The study met its primary endpoint"
 finding2 <- "Safety profile was consistent with the known profile"
 finding3 <- "No dose adjustments were required"
@@ -187,7 +193,7 @@ finding1 %c.% finding2 %c.% finding3
 
 Build a completers summary by chaining three time-point counts as separate sentences.
 
-```{r eval=FALSE}
+```{r}
 fct_smpl_rest(
   arg_dataset   = tlr_adsl,
   arg_fl_rest   = COMP8FL == "Y",
@@ -205,27 +211,26 @@ fct_smpl_rest(
 )
 ```
 
-**Example 4 — Multi-operator chain**
+## An example where all operators are combined
 
-Combine all four operators in a single assignment to produce a complete demographic paragraph, mirroring the structure used in the full TLR workflow (Chapter 8).
+All four operators in a single assignment to produce a complete demographic paragraph, mirroring the structure used in the full TLR workflow (Chapter 8).
 
-```{r eval=FALSE}
-TT_sexage_TT <-
-  fct_smpl_rest(
+```{r}
+fct_smpl_rest(
     arg_dataset   = tlr_adsl,
     arg_fl_rest   = SEX == "F",
     arg_text_desc = "The study population included ",
     arg_text_end  = " female participants and most participants were"
-  ) %c%
-  fct_var_text(
+) %c%
+fct_var_text(
     arg_dataset  = tlr_adsl,
     arg_var_rest = RACE,
     arg_order    = TRUE,
     arg_cvt_stg  = stringr::str_to_title,
     arg_lbl      = "pct",
     arg_nbr_obs  = 2
-  ) %c.%
-  fct_bsl_stats(
+) %c.%
+fct_bsl_stats(
     arg_dataset = tlr_adsl,
     arg_grp     = ARM,
     arg_var_num = AGE,
@@ -233,8 +238,8 @@ TT_sexage_TT <-
     arg_var2    = "range",
     arg_unit    = "years",
     arg_label   = "age"
-  ) %c&%
-  fct_bsl_stats(
+) %c&%
+fct_bsl_stats(
     arg_dataset = tlr_adsl,
     arg_grp     = ARM,
     arg_trt_inc = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
@@ -244,5 +249,5 @@ TT_sexage_TT <-
     arg_unit    = "kg/m²",
     arg_label   = "baseline BMI",
     arg_cvt_stg = stringr::str_to_lower
-  )
+) 
 ```
