@@ -5,5 +5,7 @@ rmd_files: [
   "02-output-conversion.Rmd",
   "03-appendix-creation.Rmd",
   "04-text-replacement.Rmd",
-  "05-creating-text.Rmd"
+  "05-creating-text.Rmd",
+  # chapter 7 to be added here
+  "08-putting-together.Rmd"
 ]
