@@ -11,7 +11,7 @@ RapTLR provides a set of text-generation functions that produce ready-to-insert 
 
 The outputs are plain character strings, so they slot directly into `textReplace()` to populate placeholders in your Word shell document. All examples in this chapter use the two built-in datasets:
 
-```{r eval=FALSE}
+```{r }
 library(RapTLR)
 
 data("tlr_adsl")   # Subject-level analysis dataset (ADSL) — 254 subjects
@@ -20,9 +20,19 @@ data("tlr_adae")   # Adverse events analysis dataset (ADAE)
 
 ---
 
-**`fct_smpl_rest()`**
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "", echo = TRUE, collapse = TRUE
+)
+```
+
+## `fct_smpl_rest()`
+
+### Purpose
 
 `fct_smpl_rest()` counts rows in a dataset and returns the result as a formatted character string. Two optional filter expressions can be chained: the first (`arg_fl_rest`) defines the reference population used as the denominator for percentage calculations, and the second (`arg_var_rest`) defines the subgroup to count as the numerator.
+
+### Parameters
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -33,92 +43,87 @@ data("tlr_adae")   # Adverse events analysis dataset (ADAE)
 | `arg_var_rest` | expression | — | Second filter — defines the subgroup to count |
 | `arg_lbl` | character | `"nbr"` | Output format: `"nbr"`, `"pct"`, or `"nbr-pct"` |
 
+### Examples
+
 **Example 1 — Total number of subjects**
 
-```{r eval=FALSE}
+```{r}
 fct_smpl_rest(arg_dataset = tlr_adsl)
-#> [1] "254"
 ```
 
 **Example 2 — Count within a population flag**
 
-```{r eval=FALSE}
+```{r}
 fct_smpl_rest(
   arg_dataset = tlr_adsl,
   arg_fl_rest = SAFFL == "Y"
 )
-#> [1] "254"
 ```
 
 **Example 3 — Embed the count in a sentence**
 
-```{r eval=FALSE}
+```{r}
 fct_smpl_rest(
   arg_dataset   = tlr_adsl,
   arg_text_desc = "This study enrolled ",
   arg_text_end  = " participants in the safety population.",
   arg_fl_rest   = SAFFL == "Y"
 )
-#> [1] "This study enrolled 254 participants in the safety population."
 ```
 
 **Example 4 — Subgroup count within a population**
 
 The denominator is the safety population (254); the numerator is subjects assigned to Xanomeline High Dose (84).
 
-```{r eval=FALSE}
+```{r}
 fct_smpl_rest(
   arg_dataset  = tlr_adsl,
   arg_fl_rest  = SAFFL == "Y",
   arg_var_rest = ARM == "Xanomeline High Dose"
 )
-#> [1] "84"
 ```
 
 **Example 5 — Return as a percentage**
 
-```{r eval=FALSE}
+```{r}
 fct_smpl_rest(
   arg_dataset  = tlr_adsl,
   arg_fl_rest  = SAFFL == "Y",
   arg_var_rest = ARM == "Xanomeline High Dose",
   arg_lbl      = "pct"
 )
-#> [1] "33.1%"
 ```
 
 **Example 6 — Return count and percentage together**
 
-```{r eval=FALSE}
+```{r}
 fct_smpl_rest(
   arg_dataset  = tlr_adsl,
   arg_fl_rest  = SAFFL == "Y",
   arg_var_rest = ARM == "Xanomeline High Dose",
   arg_lbl      = "nbr-pct"
 )
-#> [1] "84 (33.1%)"
 ```
 
 **Example 7 — Compound conditions and descriptive framing**
 
 Filter arguments accept any logical expression, including compound conditions with `&`.
 
-```{r eval=FALSE}
+```{r}
 fct_smpl_rest(
   arg_dataset   = tlr_adsl,
   arg_text_desc = "The study population included ",
   arg_text_end  = " female participants.",
   arg_fl_rest   = SEX == "F"
 )
-#> [1] "The study population included 143 female participants."
 ```
 
 **Example 8 — Study completers at multiple time points**
 
 Chain calls with `paste()` to build a multi-sentence summary.
 
-```{r eval=FALSE}
-completers_text <- paste(
+```{r}
+paste(
   fct_smpl_rest(
     arg_dataset   = tlr_adsl,
     arg_text_desc = "At week 8, the number of completers were: ",
@@ -136,8 +141,6 @@ completers_text <- paste(
   ),
   sep = " "
 )
-#> [1] "At week 8, the number of completers were: 218. At week 16, the number of
-#>      completers were: 197. At week 24, the number of completers were: 173."
 ```
 
 ---
@@ -171,58 +174,50 @@ This is ideal for:
 
 **Example 1 — Counts only**
 
-```{r eval=FALSE}
+```{r}
 fct_var_text(
   arg_dataset  = tlr_adsl,
   arg_var_rest = RACE,
   arg_lbl      = "nbr"
 )
-#> [1] "WHITE (n=193), BLACK OR AFRICAN AMERICAN (n=33), ASIAN (n=22)
-#>      and AMERICAN INDIAN OR ALASKA NATIVE (n=6)"
 ```
 
 **Example 2 — Percentages only (default)**
 
-```{r eval=FALSE}
+```{r}
 fct_var_text(
   arg_dataset  = tlr_adsl,
   arg_var_rest = RACE,
   arg_lbl      = "pct"
 )
-#> [1] "WHITE (76%), BLACK OR AFRICAN AMERICAN (13%), ASIAN (8.7%)
-#>      and AMERICAN INDIAN OR ALASKA NATIVE (2.4%)"
 ```
 
 **Example 3 — Counts and percentages combined**
 
-```{r eval=FALSE}
+```{r}
 fct_var_text(
   arg_dataset  = tlr_adsl,
   arg_var_rest = RACE,
   arg_lbl      = "nbr-pct"
 )
-#> [1] "WHITE (n=193; 76%), BLACK OR AFRICAN AMERICAN (n=33; 13%), ASIAN (n=22; 8.7%)
-#>      and AMERICAN INDIAN OR ALASKA NATIVE (n=6; 2.4%)"
 ```
 
 **Example 4 — Add a descriptive prefix**
 
-```{r eval=FALSE}
+```{r}
 fct_var_text(
   arg_text_desc = "The study population comprised",
   arg_dataset   = tlr_adsl,
   arg_var_rest  = RACE,
   arg_lbl       = "pct"
 )
-#> [1] "The study population comprised WHITE (76%), BLACK OR AFRICAN AMERICAN (13%),
-#>      ASIAN (8.7%) and AMERICAN INDIAN OR ALASKA NATIVE (2.4%)"
 ```
 
 **Example 5 — Convert labels to sentence case**
 
 Raw dataset values are often uppercase. `arg_cvt_stg` applies any string-transformation function to the labels.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text(
   arg_text_desc = "The study population comprised",
   arg_dataset   = tlr_adsl,
@@ -230,13 +225,11 @@ fct_var_text(
   arg_lbl       = "pct",
   arg_cvt_stg   = stringr::str_to_sentence
 )
-#> [1] "The study population comprised White (76%), Black or african american (13%),
-#>      Asian (8.7%) and American indian or alaska native (2.4%)"
 ```
 
-**Example 6 — Sort by frequency, most common first**
+**Example 6 — Sort by frequency, most common and capitalised per words**
 
-```{r eval=FALSE}
+```{r}
 fct_var_text(
   arg_dataset  = tlr_adsl,
   arg_var_rest = RACE,
@@ -244,15 +237,13 @@ fct_var_text(
   arg_order    = TRUE,
   arg_cvt_stg  = stringr::str_to_title
 )
-#> [1] "White (76%), Black Or African American (13%), Asian (8.7%)
-#>      and American Indian Or Alaska Native (2.4%)"
 ```
 
-**Example 7 — Limit to top 2 categories**
+**Example 7 — Limit to top 2 categories and capitalized words**
 
 Combine `arg_order = TRUE` with `arg_nbr_obs` to report only the most frequent categories.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text(
   arg_dataset  = tlr_adsl,
   arg_var_rest = RACE,
@@ -261,14 +252,13 @@ fct_var_text(
   arg_nbr_obs  = 2,
   arg_cvt_stg  = stringr::str_to_title
 )
-#> [1] "White (76%) and Black Or African American (13%)"
 ```
 
-**Example 8 — Filter to a specific population first**
+**Example 8 — Filter to a specific population first and first word capitalized**
 
 Percentages are computed within the filtered population. Here the safety flag makes no difference since all subjects have `SAFFL == "Y"`, but the pattern is useful when subsets differ.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text(
   arg_text_desc = "Among the safety population, most were",
   arg_dataset   = tlr_adsl,
@@ -279,14 +269,12 @@ fct_var_text(
   arg_nbr_obs   = 3,
   arg_cvt_stg   = stringr::str_to_sentence
 )
-#> [1] "Among the safety population, most were White (76%),
-#>      Black or african american (13%) and Asian (8.7%)"
 ```
 
 **Example 9 — Discontinuation reasons (complete example)**
 
-```{r eval=FALSE}
-disc_text <- fct_var_text(
+```{r}
+fct_var_text(
   arg_text_desc = "The most common reasons for treatment discontinuation were:",
   arg_dataset   = tlr_adsl,
   arg_fl_rest   = DISCONFL == "Y",
@@ -296,11 +284,6 @@ disc_text <- fct_var_text(
   arg_cvt_stg   = stringr::str_to_lower,
   arg_lbl       = "nbr-pct"
 )
-
-disc_text
-#> [1] "The most common reasons for treatment discontinuation were:
-#>      adverse event (n=24; 27.3%), withdrew consent (n=18; 20.5%)
-#>      and lack of efficacy (n=13; 14.8%)"
 ```
 
 ---
@@ -325,7 +308,7 @@ disc_text
 
 Without `arg_trt_inc`, only the total across all arms is reported.
 
-```{r eval=FALSE}
+```{r}
 fct_bsl_stats(
   arg_dataset = tlr_adsl,
   arg_grp     = ARM,
@@ -335,12 +318,11 @@ fct_bsl_stats(
   arg_unit    = "years",
   arg_label   = "age"
 )
-#> [1] "For age the overall mean was 75.1 years (SD 8.2)"
 ```
 
 **Example 2 — Overall median age with range**
 
-```{r eval=FALSE}
+```{r}
 fct_bsl_stats(
   arg_dataset = tlr_adsl,
   arg_grp     = ARM,
@@ -350,14 +332,13 @@ fct_bsl_stats(
   arg_unit    = "years",
   arg_label   = "age"
 )
-#> [1] "For age the overall median was 76 years (range: 52, 89)"
 ```
 
 **Example 3 — Mean age broken down by treatment arm**
 
 Pass the arm names to `arg_trt_inc` to append per-arm statistics after the overall total.
 
-```{r eval=FALSE}
+```{r}
 fct_bsl_stats(
   arg_dataset = tlr_adsl,
   arg_grp     = ARM,
@@ -368,15 +349,11 @@ fct_bsl_stats(
   arg_unit    = "years",
   arg_label   = "age"
 )
-#> [1] "For age the overall mean was 75.1 years (SD 8.2),
-#>      for Placebo the mean was 75.2 years (SD 8.6),
-#>      for Xanomeline Low Dose the mean was 75.7 years (SD 8.3) and
-#>      for Xanomeline High Dose the mean was 74.4 years (SD 7.7)"
 ```
 
 **Example 4 — Median baseline weight with range by arm**
 
-```{r eval=FALSE}
+```{r}
 fct_bsl_stats(
   arg_dataset = tlr_adsl,
   arg_grp     = ARM,
@@ -387,17 +364,13 @@ fct_bsl_stats(
   arg_unit    = "kg",
   arg_label   = "baseline weight"
 )
-#> [1] "For baseline weight the overall median was 67.6 kg (range: 34.5, 108),
-#>      for Placebo the median was 68.7 kg (range: 34.5, 108),
-#>      for Xanomeline Low Dose the median was 67.5 kg (range: 43.9, 103.2) and
-#>      for Xanomeline High Dose the median was 66.1 kg (range: 45.4, 102.3)"
 ```
 
 **Example 5 — Mean baseline BMI using `TRT01A` as the grouping variable**
 
 Any treatment variable present in the dataset can serve as `arg_grp`.
 
-```{r eval=FALSE}
+```{r }
 fct_bsl_stats(
   arg_dataset = tlr_adsl,
   arg_grp     = TRT01A,
@@ -409,19 +382,15 @@ fct_bsl_stats(
   arg_label   = "baseline BMI",
   arg_cvt_stg = stringr::str_to_lower
 )
-#> [1] "for baseline bmi the overall mean was 25.3 kg/m² (SD 4.1),
-#>      for xanomeline high dose the mean was 25.2 kg/m² (SD 4.3),
-#>      for xanomeline low dose the mean was 25.0 kg/m² (SD 3.9) and
-#>      for placebo the mean was 25.7 kg/m² (SD 4.1)"
 ```
 
 **Example 6 — Combine two baseline variables into one sentence**
 
 The `%c&%` operator (from `cust_opr.R`) joins strings with " and ", making it easy to chain multiple `fct_bsl_stats()` calls.
 
-```{r eval=FALSE}
-demographics_text <-
-  fct_bsl_stats(
+```{r }
+
+fct_bsl_stats(
     arg_dataset = tlr_adsl,
     arg_grp     = ARM,
     arg_var_num = AGE,
@@ -429,8 +398,8 @@ demographics_text <-
     arg_var2    = "range",
     arg_unit    = "years",
     arg_label   = "age"
-  ) %c&%
-  fct_bsl_stats(
+) %c&%
+fct_bsl_stats(
     arg_dataset = tlr_adsl,
     arg_grp     = ARM,
     arg_trt_inc = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
@@ -440,14 +409,7 @@ demographics_text <-
     arg_unit    = "kg/m²",
     arg_label   = "baseline BMI",
     arg_cvt_stg = stringr::str_to_lower
-  )
-
-demographics_text
-#> [1] "For age the overall median was 76 years (range: 52, 89) and
-#>      for baseline bmi the overall mean was 25.3 kg/m² (SD 4.1),
-#>      for xanomeline high dose the mean was 25.2 kg/m² (SD 4.3),
-#>      for xanomeline low dose the mean was 25.0 kg/m² (SD 3.9) and
-#>      for placebo the mean was 25.7 kg/m² (SD 4.1)"
+)
 ```
 
 ---
@@ -483,7 +445,7 @@ The function works by:
 
 **Example 1 — Most common AEs (≥15%) by preferred term in the Xanomeline High Dose arm**
 
-```{r eval=FALSE}
+```{r}
 fct_mst_aes(
   arg_data      = tlr_adae,
   arg_data_adsl = tlr_adsl,
@@ -491,15 +453,11 @@ fct_mst_aes(
   arg_var       = AEDECOD,
   arg_trt_flt   = `Xanomeline High Dose`
 )
-#> [1] "The most common TEAEs with frequency ≥15% on Xanomeline High Dose were:
-#>      application site pruritus (6% Placebo; 20.2% Xanomeline Low Dose; 47.6% Xanomeline High Dose),
-#>      application site erythema (4.7% Placebo; 13.1% Xanomeline Low Dose; 27.4% Xanomeline High Dose)
-#>      and diarrhea (9.3% Placebo; 10.7% Xanomeline Low Dose; 15.5% Xanomeline High Dose)"
 ```
 
 **Example 2 — Lower frequency threshold to include more events**
 
-```{r eval=FALSE}
+```{r }
 fct_mst_aes(
   arg_data      = tlr_adae,
   arg_data_adsl = tlr_adsl,
@@ -518,7 +476,7 @@ fct_mst_aes(
 
 **Example 3 — Higher threshold with two decimal places**
 
-```{r eval=FALSE}
+```{r}
 fct_mst_aes(
   arg_data      = tlr_adae,
   arg_data_adsl = tlr_adsl,
@@ -528,16 +486,13 @@ fct_mst_aes(
   arg_frq       = 20,
   arg_rounding  = 2
 )
-#> [1] "The most common TEAEs with frequency ≥20% on Xanomeline High Dose were:
-#>      application site pruritus (5.81% Placebo; 20.24% Xanomeline Low Dose; 47.62% Xanomeline High Dose) and
-#>      application site erythema (4.65% Placebo; 13.10% Xanomeline Low Dose; 27.38% Xanomeline High Dose)"
 ```
 
 **Example 4 — Summarise by system organ class (SOC)**
 
 Replace `AEDECOD` with `AEBODSYS` for a higher-level safety overview. This is the call used in the standard RapTLR demo.
 
-```{r eval=FALSE}
+```{r}
 fct_mst_aes(
   arg_data      = tlr_adae,
   arg_data_adsl = tlr_adsl,
@@ -554,7 +509,7 @@ fct_mst_aes(
 
 **Example 5 — Use `TRT01A` as the grouping variable**
 
-```{r eval=FALSE}
+```{r}
 fct_mst_aes(
   arg_data      = tlr_adae,
   arg_data_adsl = tlr_adsl,
@@ -564,37 +519,25 @@ fct_mst_aes(
   arg_frq       = 15,
   arg_rounding  = 2
 )
-#> [1] "The most common TEAEs with frequency ≥15% on Xanomeline High Dose were:
-#>      application site pruritus (5.81% Placebo; 20.24% Xanomeline Low Dose; 47.62% Xanomeline High Dose),
-#>      application site erythema (4.65% Placebo; 13.10% Xanomeline Low Dose; 27.38% Xanomeline High Dose) and
-#>      diarrhea (9.30% Placebo; 10.71% Xanomeline Low Dose; 15.48% Xanomeline High Dose)"
 ```
 
 **Example 6 — Complete safety paragraph**
 
 Combine `fct_mst_aes()` with `fct_smpl_rest()` using the `%c%` operator (space-join) to build a full safety narrative sentence.
 
-```{r eval=FALSE}
-safety_text <-
-  fct_smpl_rest(
+```{r}
+fct_smpl_rest(
     arg_dataset   = tlr_adsl,
     arg_text_desc = "A total of ",
     arg_text_end  = " subjects were included in the safety population.",
     arg_fl_rest   = SAFFL == "Y"
-  ) %c%
-  fct_mst_aes(
+) %c%
+fct_mst_aes(
     arg_data      = tlr_adae,
     arg_data_adsl = tlr_adsl,
     arg_grp       = ARM,
     arg_var       = AEBODSYS,
     arg_trt_flt   = `Xanomeline High Dose`,
     arg_frq       = 15
-  )
-
-safety_text
-#> [1] "A total of 254 subjects were included in the safety population.
-#>      The most common TEAEs with frequency ≥15% on Xanomeline High Dose were:
-#>      skin and subcutaneous tissue disorders (16.3% Placebo; 34.5% Xanomeline Low Dose; 63.1% Xanomeline High Dose),
-#>      gastrointestinal disorders (30.2% Placebo; 32.1% Xanomeline Low Dose; 47.6% Xanomeline High Dose) and
-#>      nervous system disorders (17.4% Placebo; 20.2% Xanomeline Low Dose; 22.6% Xanomeline High Dose)"
+)
 ```
