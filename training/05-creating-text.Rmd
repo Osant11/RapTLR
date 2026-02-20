@@ -457,7 +457,7 @@ fct_mst_aes(
 
 **Example 2 — Lower frequency threshold to include more events**
 
-```{r }
+```{r}
 fct_mst_aes(
   arg_data      = tlr_adae,
   arg_data_adsl = tlr_adsl,
@@ -466,12 +466,6 @@ fct_mst_aes(
   arg_trt_flt   = `Xanomeline High Dose`,
   arg_frq       = 10
 )
-#> [1] "The most common TEAEs with frequency ≥10% on Xanomeline High Dose were:
-#>      application site pruritus (6% Placebo; 20.2% Xanomeline Low Dose; 47.6% Xanomeline High Dose),
-#>      application site erythema (4.7% Placebo; 13.1% Xanomeline Low Dose; 27.4% Xanomeline High Dose),
-#>      diarrhea (9.3% Placebo; 10.7% Xanomeline Low Dose; 15.5% Xanomeline High Dose),
-#>      nausea (11.6% Placebo; 11.9% Xanomeline Low Dose; 13.1% Xanomeline High Dose) and
-#>      application site irritation (0% Placebo; 4.8% Xanomeline Low Dose; 11.9% Xanomeline High Dose)"
 ```
 
 **Example 3 — Higher threshold with two decimal places**
@@ -501,10 +495,6 @@ fct_mst_aes(
   arg_trt_flt   = `Xanomeline High Dose`,
   arg_frq       = 15
 )
-#> [1] "The most common TEAEs with frequency ≥15% on Xanomeline High Dose were:
-#>      skin and subcutaneous tissue disorders (16.3% Placebo; 34.5% Xanomeline Low Dose; 63.1% Xanomeline High Dose),
-#>      gastrointestinal disorders (30.2% Placebo; 32.1% Xanomeline Low Dose; 47.6% Xanomeline High Dose) and
-#>      nervous system disorders (17.4% Placebo; 20.2% Xanomeline Low Dose; 22.6% Xanomeline High Dose)"
 ```
 
 **Example 5 — Use `TRT01A` as the grouping variable**
