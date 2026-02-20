@@ -1,0 +1,248 @@
+# Custom String Operators {#cust-opr}
+
+Narrative text in a Top-Line Results Report is rarely a single value — it is a collection of phrases assembled into sentences and paragraphs. RapTLR provides four lightweight infix operators that make this assembly natural and readable directly in R code, without the visual noise of nested `paste()` calls.
+
+Each operator connects two character strings using a specific separator:
+
+| Operator | Separator | Typical use |
+|---|---|---|
+| `%c%` | space (`" "`) | join phrases into a continuous sentence |
+| `%c,%` | comma-space (`", "`) | build comma-separated lists |
+| `%c&%` | ` and ` | create "A and B" constructs |
+| `%c.%` | period-space (`". "`) | chain independent sentences |
+
+They can be used with plain strings or chained with the text-generation functions from Chapter 6 (`fct_smpl_rest()`, `fct_var_text()`, `var_text_group()`, `fct_bsl_stats()`, `fct_mst_aes()`).
+
+```{r eval=FALSE}
+library(RapTLR)
+
+data("tlr_adsl")
+data("tlr_adae")
+```
+
+---
+
+## `%c%` — Space separator {#op-space}
+
+### Purpose
+
+`%c%` concatenates two strings with a single space between them. It is a direct shorthand for `paste(a, b)` and is the most commonly used operator when building continuous prose — connecting a descriptive prefix to a generated value, or linking several function outputs into a single sentence.
+
+### Examples
+
+**Example 1 — Basic word joining**
+
+```{r eval=FALSE}
+"The study enrolled" %c% "254 subjects."
+```
+
+**Example 2 — Chaining multiple phrases**
+
+```{r eval=FALSE}
+"This was a" %c% "double-blind," %c% "placebo-controlled study."
+```
+
+**Example 3 — Combining with text-generation functions**
+
+Join a population count with a list of treatment arms to form a disposition sentence.
+
+```{r eval=FALSE}
+fct_smpl_rest(
+  arg_dataset   = tlr_adsl,
+  arg_text_desc = "This double-blind, placebo-controlled study randomized ",
+  arg_text_end  = " participants to"
+) %c%
+fct_var_text(
+  arg_dataset  = tlr_adsl,
+  arg_var_rest = TRT01A,
+  arg_lbl      = "nbr-pct"
+) %c%
+fct_smpl_rest(
+  arg_dataset   = tlr_adsl,
+  arg_fl_rest   = !duplicated(SITEID),
+  arg_text_desc = "across ",
+  arg_text_end  = " sites."
+)
+```
+
+---
+
+## `%c,%` — Comma separator {#op-comma}
+
+### Purpose
+
+`%c,%` concatenates two strings separated by `", "`. It is useful for building comma-delimited enumerations of items such as population labels, table references, or short summary values that belong to a flat list rather than a prose sentence.
+
+### Examples
+
+**Example 1 — Building an enumeration of treatment arms**
+
+```{r eval=FALSE}
+"Placebo" %c,% "Xanomeline Low Dose" %c,% "Xanomeline High Dose"
+```
+
+**Example 2 — Listing study endpoints**
+
+```{r eval=FALSE}
+endpoint1 <- "primary efficacy endpoint"
+endpoint2 <- "key secondary endpoint"
+endpoint3 <- "safety endpoint"
+
+endpoint1 %c,% endpoint2 %c,% endpoint3
+```
+
+**Example 3 — Combining with text-generation functions**
+
+Report safety and efficacy population sizes as a comma-separated pair.
+
+```{r eval=FALSE}
+fct_smpl_rest(
+  arg_dataset   = tlr_adsl,
+  arg_text_desc = "Safety population: ",
+  arg_fl_rest   = SAFFL == "Y"
+) %c,%
+fct_smpl_rest(
+  arg_dataset   = tlr_adsl,
+  arg_text_desc = "Efficacy population: ",
+  arg_fl_rest   = EFFFL == "Y"
+)
+```
+
+---
+
+## `%c&%` — "and" separator {#op-and}
+
+### Purpose
+
+`%c&%` concatenates two strings with `" and "` between them. It produces natural-language coordinations — the grammatically correct way to join the last two items in an English list, or to connect two independent statistics that belong together logically (e.g. two baseline variables in a demographics sentence).
+
+### Examples
+
+**Example 1 — Simple coordination**
+
+```{r eval=FALSE}
+"efficacy" %c&% "safety"
+```
+
+**Example 2 — Coordinating three items**
+
+```{r eval=FALSE}
+"tables" %c&% "listings" %c&% "figures"
+```
+
+**Example 3 — Combining with text-generation functions**
+
+Chain two baseline variable summaries into a single demographics sentence.
+
+```{r eval=FALSE}
+fct_bsl_stats(
+  arg_dataset = tlr_adsl,
+  arg_grp     = ARM,
+  arg_var_num = AGE,
+  arg_var1    = "median",
+  arg_var2    = "range",
+  arg_unit    = "years",
+  arg_label   = "age"
+) %c&%
+fct_bsl_stats(
+  arg_dataset = tlr_adsl,
+  arg_grp     = ARM,
+  arg_trt_inc = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+  arg_var_num = BMIBL,
+  arg_var1    = "mean",
+  arg_var2    = "sd",
+  arg_unit    = "kg/m²",
+  arg_label   = "baseline BMI",
+  arg_cvt_stg = stringr::str_to_lower
+)
+```
+
+---
+
+## `%c.%` — Period separator {#op-period}
+
+### Purpose
+
+`%c.%` concatenates two strings separated by `". "`. It is the natural choice for joining independent sentences or distinct findings into a paragraph. Each element produced by a text-generation function becomes its own sentence, and `%c.%` inserts the full stop and space needed to link them.
+
+### Examples
+
+**Example 1 — Joining two findings**
+
+```{r eval=FALSE}
+"The primary endpoint was met." %c.% "No new safety signals were identified."
+```
+
+**Example 2 — Chaining three sentences**
+
+```{r eval=FALSE}
+finding1 <- "The study met its primary endpoint"
+finding2 <- "Safety profile was consistent with the known profile"
+finding3 <- "No dose adjustments were required"
+
+finding1 %c.% finding2 %c.% finding3
+```
+
+**Example 3 — Combining with text-generation functions**
+
+Build a completers summary by chaining three time-point counts as separate sentences.
+
+```{r eval=FALSE}
+fct_smpl_rest(
+  arg_dataset   = tlr_adsl,
+  arg_fl_rest   = COMP8FL == "Y",
+  arg_text_desc = "At week 8, the number of completers were: "
+) %c.%
+fct_smpl_rest(
+  arg_dataset   = tlr_adsl,
+  arg_fl_rest   = COMP16FL == "Y",
+  arg_text_desc = "At week 16, the number of completers were: "
+) %c.%
+fct_smpl_rest(
+  arg_dataset   = tlr_adsl,
+  arg_fl_rest   = COMP24FL == "Y",
+  arg_text_desc = "At week 24, the number of completers were: "
+)
+```
+
+**Example 4 — Multi-operator chain**
+
+Combine all four operators in a single assignment to produce a complete demographic paragraph, mirroring the structure used in the full TLR workflow (Chapter 8).
+
+```{r eval=FALSE}
+TT_sexage_TT <-
+  fct_smpl_rest(
+    arg_dataset   = tlr_adsl,
+    arg_fl_rest   = SEX == "F",
+    arg_text_desc = "The study population included ",
+    arg_text_end  = " female participants and most participants were"
+  ) %c%
+  fct_var_text(
+    arg_dataset  = tlr_adsl,
+    arg_var_rest = RACE,
+    arg_order    = TRUE,
+    arg_cvt_stg  = stringr::str_to_title,
+    arg_lbl      = "pct",
+    arg_nbr_obs  = 2
+  ) %c.%
+  fct_bsl_stats(
+    arg_dataset = tlr_adsl,
+    arg_grp     = ARM,
+    arg_var_num = AGE,
+    arg_var1    = "median",
+    arg_var2    = "range",
+    arg_unit    = "years",
+    arg_label   = "age"
+  ) %c&%
+  fct_bsl_stats(
+    arg_dataset = tlr_adsl,
+    arg_grp     = ARM,
+    arg_trt_inc = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+    arg_var_num = BMIBL,
+    arg_var1    = "mean",
+    arg_var2    = "sd",
+    arg_unit    = "kg/m²",
+    arg_label   = "baseline BMI",
+    arg_cvt_stg = stringr::str_to_lower
+  )
+```

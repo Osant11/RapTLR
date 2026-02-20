@@ -6,6 +6,6 @@ rmd_files: [
   "03-appendix-creation.Rmd",
   "04-text-replacement.Rmd",
   "05-creating-text.Rmd",
-  # chapter 7 to be added here
+  "06-cust-opr.Rmd",
   "08-putting-together.Rmd"
 ]
