@@ -288,11 +288,11 @@ fct_var_text(
 
 ---
 
-## var_text_group() {#var-text-group}
+## fct_var_text_group() {#var-text-group}
 
 ### Purpose
 
-`var_text_group()` extends `fct_var_text()` by adding a per-group breakdown. For each category of the variable of interest it reports the **overall percentage** across all subjects and the **within-group percentage** for each level of a grouping variable (e.g. treatment arm).
+`fct_var_text_group()` extends `fct_var_text()` by adding a per-group breakdown. For each category of the variable of interest it reports the **overall percentage** across all subjects and the **within-group percentage** for each level of a grouping variable (e.g. treatment arm).
 
 The output format for each category is:
 
@@ -328,7 +328,7 @@ This is especially useful for:
 Summarise discontinuation reasons across all treatment arms in `TRT01P`, ordered by overall frequency.
 
 ```{r eval=FALSE}
-var_text_group(
+fct_var_text_group(
   arg_dataset   = tlr_adsl,
   arg_var_rest  = DCREASCD,
   arg_group_var = TRT01P
@@ -338,7 +338,7 @@ var_text_group(
 **Example 2 — Add a descriptive prefix**
 
 ```{r eval=FALSE}
-var_text_group(
+fct_var_text_group(
   arg_text_desc = "The most common reasons for discontinuation were:",
   arg_dataset   = tlr_adsl,
   arg_var_rest  = DCREASCD,
@@ -351,7 +351,7 @@ var_text_group(
 Set `arg_order = FALSE` when the variable has an inherent ordering (e.g., severity grades) that should be respected rather than re-sorted by frequency.
 
 ```{r eval=FALSE}
-var_text_group(
+fct_var_text_group(
   arg_dataset   = tlr_adsl,
   arg_var_rest  = DCREASCD,
   arg_group_var = TRT01P,
@@ -364,7 +364,7 @@ var_text_group(
 Pass a character vector to `arg_group_vals` to exclude one or more groups from the output. Groups not listed are ignored in both the overall count and the per-group breakdown.
 
 ```{r eval=FALSE}
-var_text_group(
+fct_var_text_group(
   arg_dataset    = tlr_adsl,
   arg_var_rest   = DCREASCD,
   arg_group_var  = TRT01P,
@@ -377,7 +377,7 @@ var_text_group(
 Long treatment names can make the sentence hard to read. `arg_group_lbl` lets you assign shorter display labels; the vector must correspond positionally to `arg_group_vals`.
 
 ```{r eval=FALSE}
-var_text_group(
+fct_var_text_group(
   arg_dataset    = tlr_adsl,
   arg_var_rest   = DCREASCD,
   arg_group_var  = TRT01P,
@@ -391,7 +391,7 @@ var_text_group(
 Show only the three most frequently occurring discontinuation reasons.
 
 ```{r eval=FALSE}
-var_text_group(
+fct_var_text_group(
   arg_dataset    = tlr_adsl,
   arg_var_rest   = DCREASCD,
   arg_group_var  = TRT01P,
@@ -407,7 +407,7 @@ var_text_group(
 Convert category labels to lowercase so the output reads naturally within a sentence.
 
 ```{r eval=FALSE}
-var_text_group(
+fct_var_text_group(
   arg_dataset   = tlr_adsl,
   arg_var_rest  = DCREASCD,
   arg_group_var = TRT01P,
@@ -421,7 +421,7 @@ var_text_group(
 Use `arg_fl_rest` to restrict the analysis before calculating frequencies. Percentages are computed within the filtered population.
 
 ```{r eval=FALSE}
-var_text_group(
+fct_var_text_group(
   arg_text_desc  = "Among safety population subjects,",
   arg_dataset    = tlr_adsl,
   arg_fl_rest    = SAFFL == "Y",
@@ -439,7 +439,7 @@ var_text_group(
 Use `tlr_adae` with `TRTA` as the grouping variable to summarise adverse events, filtered to severe events only and limited to the five most frequent preferred terms.
 
 ```{r eval=FALSE}
-var_text_group(
+fct_var_text_group(
   arg_text_desc = "The most frequently reported severe adverse events were:",
   arg_dataset   = tlr_adae,
   arg_fl_rest   = AESEV == "SEVERE",
