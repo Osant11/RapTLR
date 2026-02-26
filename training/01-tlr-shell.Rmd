@@ -36,13 +36,10 @@ To understand how it works, we provided shells and examples:
 
 **CRITICAL RULES for placeholders:**
 
-1.  **Each keyword must be on its own line**
-    -   Correct: Keyword on separate line
-    -   Wrong: Inline with other text
-2.  **Use distinctive, searchable keywords**
+1.  **Use distinctive, searchable keywords**
     -   Good examples: `TTsubjectTT`, `EFFICACY_RATE`, `N_SAFETY_POP`
     -   Avoid common words that might appear elsewhere
-3.  **Document your keywords**
+2.  **Document your keywords**
     -   Keep a list of what each placeholder represents
     -   Use consistent naming conventions
 
@@ -61,29 +58,3 @@ To specify the outputs and their corresponding order, the user has three differe
 -   Provide a csv, or excel file.  
 
 We explain in details how this feature works at the [dedicated chapter](#appendix-creation).
-
-
-## Best Practices
-
-### Naming Conventions
-
-Use prefixes to organize placeholders:
-
--   `TT...TT` - For text replacements
--   `N_...` - For counts
--   `PCT_...` - For percentages
--   `RESULT_...` - For analysis results
-
-### Version Control
-
--   Keep your shell document in version control
--   Use meaningful filenames: `TLR_shell_v1.0.docx`
--   Document changes to placeholder keywords
-
-## Common Mistakes to Avoid
-
-1.  **Inline placeholders** - Always put keywords on separate lines
-2.  **Duplicate keywords** - Each placeholder should be unique
-3.  **Missing appendix marker** - Don't forget LISTOFAPPENDICES
-
-Your shell is now ready for RapTLR processing!
