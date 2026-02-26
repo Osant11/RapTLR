@@ -4,13 +4,13 @@ The previous chapters introduced each RapTLR function in isolation. This chapter
 
 The pattern is always the same:
 
-1. Build a TLR shell document with appendices using `run_apdx()`
-2. Load the analysis datasets
-3. Generate narrative text for each placeholder using the text-generation functions
+1. Convert the .rtf outputs to .docx
+2. Build a TLR shell document with bookmarked appendices using `run_apdx()`
+3. Generate narrative text for each placeholder using the text-generation functions and analysis datasets
 4. Insert each text block into the document with `textReplace()`
 5. Save the final file
 
-The example below follows the structure of the RapTLR demo script and covers the four main report sections: general information, study disposition, demographics, and safety.
+The example below follows the structure of the RapTLR demo script and covers four main report sections: general information, study disposition, demographics, and safety.
 
 ---
 
