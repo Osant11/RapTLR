@@ -289,6 +289,19 @@ run_pptx <- function(path_outputs,
     }
   }
 
+  # Return the natural display size of a PNG in inches (pixels / dpi).
+  # Returns c(w, h) or NULL when magick is not available.
+  png_natural_size <- function(png_path) {
+    if (requireNamespace("magick", quietly = TRUE)) {
+      tryCatch({
+        info <- magick::image_info(magick::image_read(png_path))
+        c(w = info$width[1] / dpi, h = info$height[1] / dpi)
+      }, error = function(e) NULL)
+    } else {
+      NULL
+    }
+  }
+
   # Convert a .docx to one PNG per page via LibreOffice + pdftools / magick.
   # Returns a character vector of PNG file paths, or NULL on failure.
   docx_to_pngs <- function(docx_path) {
@@ -365,7 +378,9 @@ run_pptx <- function(path_outputs,
     if (length(png_outs) == 0) NULL else png_outs
   }
 
-  # Add a content slide with a compact title (18 pt) and a full-width image.
+  # Add a content slide with a compact title (18 pt) and a properly sized image.
+  # Small images are kept at their natural size and centred; large images are
+  # scaled down to fit without ever being upscaled.
   add_image_slide <- function(pptx, img_path, slide_title,
                               lo_content, ph_content) {
 
@@ -385,18 +400,36 @@ run_pptx <- function(path_outputs,
                                       height = 0.7)
     )
 
-    # Image fills the remaining height
-    img_top <- 0.9
-    img_h   <- slide_h - img_top - 0.1
-    img     <- officer::external_img(img_path,
-                                     width  = slide_w - 0.4,
-                                     height = img_h)
+    # Available content area below the title
+    img_area_top <- 0.9
+    avail_w      <- slide_w - 0.4
+    avail_h      <- slide_h - img_area_top - 0.1
+
+    # Determine display dimensions:
+    #   - If natural size (pixels / dpi) is known, fit it within the available
+    #     area while preserving aspect ratio and never upscaling.
+    #   - Fall back to filling the available area when dimensions are unknown.
+    nat <- png_natural_size(img_path)
+    if (!is.null(nat)) {
+      scale     <- min(avail_w / nat["w"], avail_h / nat["h"], 1.0)
+      display_w <- nat["w"] * scale
+      display_h <- nat["h"] * scale
+      img_left  <- 0.2 + (avail_w - display_w) / 2   # centre horizontally
+      img_top   <- img_area_top + (avail_h - display_h) / 2  # centre vertically
+    } else {
+      display_w <- avail_w
+      display_h <- avail_h
+      img_left  <- 0.2
+      img_top   <- img_area_top
+    }
+
+    img  <- officer::external_img(img_path, width = display_w, height = display_h)
     pptx <- officer::ph_with(
       pptx, value = img,
-      location = officer::ph_location(left   = 0.2,
+      location = officer::ph_location(left   = img_left,
                                       top    = img_top,
-                                      width  = slide_w - 0.4,
-                                      height = img_h)
+                                      width  = display_w,
+                                      height = display_h)
     )
     pptx
   }
