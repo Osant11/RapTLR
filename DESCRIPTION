@@ -30,4 +30,5 @@ Imports:
     readxl (>= 1.4.5),
     utils(>= 4.5.0)
 Suggests:
-    flextable (>= 0.9.0)
+    pdftools (>= 3.3.0),
+    magick (>= 2.7.0)

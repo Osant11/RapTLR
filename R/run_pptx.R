@@ -6,19 +6,29 @@
 #' [run_apdx()]: accepts the same `sections_structure` formats and discovers
 #' outputs from `path_outputs`.
 #'
-#' Each output becomes one slide:
+#' Each output becomes one slide (or several slides for multi-page outputs):
 #' \itemize{
 #'   \item **Image files** (`.png`, `.jpg`, `.jpeg`, `.svg`, `.bmp`, `.tiff`)
-#'     — embedded as full-slide figures.
-#'   \item **Word documents** (`.docx`) — the table title is extracted
-#'     automatically (same logic as [run_apdx()]) and the table content is
-#'     rendered as a native PowerPoint table. Requires the `flextable` package
-#'     for table rendering; a placeholder message is shown if it is not
-#'     installed.
+#'     — embedded as full-slide figures directly.
+#'   \item **Word documents** (`.docx`) — converted to images via LibreOffice
+#'     and embedded as slides. Requires **LibreOffice** to be installed on the
+#'     system, and either the **pdftools** or **magick** R package for the
+#'     PDF-to-image step. Multi-page tables produce one slide per page.
 #' }
 #'
 #' When sections are provided a section-divider slide is inserted before each
 #' group of outputs.
+#'
+#' @section System requirements for `.docx` table rendering:
+#' Converting Word tables to slides requires:
+#' \enumerate{
+#'   \item **LibreOffice** — available as `soffice` or `libreoffice` on the
+#'     system `PATH`. Used to convert `.docx` → PDF.
+#'   \item **pdftools** R package (preferred) *or* **magick** R package — used
+#'     to convert each PDF page to a PNG image.
+#' }
+#' If LibreOffice is not found, `.docx` outputs are rendered as title-only
+#' slides with a placeholder message.
 #'
 #' @param path_outputs Path to the folder containing TLF output files
 #'   (`.docx`, `.png`, `.jpg`, etc.).
@@ -39,13 +49,14 @@
 #'   (default) no title slide is added.
 #' @param subtitle Subtitle for the opening title slide. Only used when
 #'   `title` is not `NULL`. Default: `NULL`.
+#' @param dpi Resolution (dots per inch) used when converting `.docx` tables
+#'   to images. Higher values give sharper slides but larger files.
+#'   Default: `150`.
 #' @param return_to_file Path (with or without `.pptx` extension) where the
-#'   presentation is saved. When `NULL` (default) the officer pptx object is
-#'   returned invisibly so it can be piped into further officer calls.
+#'   presentation is saved. When `NULL` (default) the file is saved as
+#'   `presentation_processed.pptx` in the current working directory.
 #'
-#' @return When `return_to_file` is provided, saves the presentation and
-#'   returns the file path invisibly. Otherwise returns the officer pptx
-#'   object invisibly.
+#' @return The file path of the saved presentation, returned invisibly.
 #'
 #' @examples
 #' \dontrun{
@@ -75,14 +86,6 @@
 #'   sections_structure = TLF_list_csv,
 #'   return_to_file     = "study_csv.pptx"
 #' )
-#'
-#' # ── With a branded .pptx template ────────────────────────────────────────
-#' run_pptx(
-#'   path_outputs       = path_outputs,
-#'   sections_structure = TLF_list_csv,
-#'   pptx_template      = "company_template.pptx",
-#'   return_to_file     = "branded_results.pptx"
-#' )
 #' }
 #'
 #' @importFrom readxl read_excel
@@ -92,6 +95,7 @@ run_pptx <- function(path_outputs,
                      pptx_template      = NULL,
                      title              = NULL,
                      subtitle           = NULL,
+                     dpi                = 150,
                      return_to_file     = NULL) {
 
   img_ext <- c("png", "jpg", "jpeg", "svg", "bmp", "tiff", "tif")
@@ -110,8 +114,8 @@ run_pptx <- function(path_outputs,
   ]
 
   if (length(supported_files) == 0)
-    stop("Error: No supported output files (.docx, .png, .jpg, etc.) found in ",
-         "'path_outputs'.")
+    stop("Error: No supported output files (.docx, .png, .jpg, etc.) found ",
+         "in 'path_outputs'.")
 
   if (!is.null(pptx_template)) {
     if (!file.exists(pptx_template))
@@ -128,6 +132,34 @@ run_pptx <- function(path_outputs,
       return_to_file <- paste0(return_to_file, ".pptx")
   } else {
     return_to_file <- file.path(getwd(), "presentation_processed.pptx")
+  }
+
+  # ── Check system requirements for .docx conversion ────────────────────────
+
+  lo_path <- Sys.which(c("soffice", "libreoffice"))
+  lo_path <- lo_path[nchar(lo_path) > 0]
+  has_lo  <- length(lo_path) > 0
+
+  has_pdf_converter <- requireNamespace("pdftools", quietly = TRUE) ||
+                       requireNamespace("magick",   quietly = TRUE)
+
+  has_docx_any <- any(grepl("\\.docx$", supported_files, ignore.case = TRUE))
+
+  if (has_docx_any) {
+    if (!has_lo) {
+      message(
+        "[run_pptx] LibreOffice not found on PATH. ",
+        ".docx outputs will be rendered as title-only slides.\n",
+        "  Install LibreOffice (https://www.libreoffice.org) and ensure ",
+        "'soffice' or 'libreoffice' is accessible from R."
+      )
+    } else if (!has_pdf_converter) {
+      message(
+        "[run_pptx] Neither 'pdftools' nor 'magick' is installed. ",
+        ".docx outputs will be rendered as title-only slides.\n",
+        "  Run: install.packages('pdftools')"
+      )
+    }
   }
 
   # ── Load sections_structure (same logic as run_apdx) ──────────────────────
@@ -171,7 +203,6 @@ run_pptx <- function(path_outputs,
     }
 
   } else {
-    # NULL → include all supported files in one unnamed group
     all_stems             <- tools::file_path_sans_ext(supported_files)
     output_structure_list <- list(Outputs = all_stems)
   }
@@ -185,6 +216,8 @@ run_pptx <- function(path_outputs,
   }
 
   available_layouts <- officer::layout_summary(pptx)
+  slide_w <- officer::slide_size(pptx)$width
+  slide_h <- officer::slide_size(pptx)$height
 
   # ── Internal helpers ───────────────────────────────────────────────────────
 
@@ -204,7 +237,7 @@ run_pptx <- function(path_outputs,
                                master = master_for(layout_name))$type
   }
 
-  # Find output file: try with extension as-is, then try each supported ext
+  # Find output file: try stem with extension, then try each supported ext
   resolve_path <- function(stem) {
     if (tools::file_ext(stem) != "") {
       p <- file.path(path_outputs, stem)
@@ -245,59 +278,105 @@ run_pptx <- function(path_outputs,
     }, error = function(e) tools::file_path_sans_ext(basename(docx_path)))
   }
 
-  # Extract first table from a docx as a data frame (base R only)
-  extract_first_table_df <- function(docx_path) {
-    tryCatch({
-      tbi   <- officer::docx_summary(officer::read_docx(docx_path))
-      cells <- tbi[tbi$content_type == "table cell", ]
+  # Convert a .docx to one PNG per page via LibreOffice + pdftools / magick.
+  # Returns a character vector of PNG file paths, or NULL on failure.
+  docx_to_pngs <- function(docx_path) {
+    if (!has_lo || !has_pdf_converter) return(NULL)
 
-      if (nrow(cells) == 0) return(NULL)
+    stem   <- tools::file_path_sans_ext(basename(docx_path))
+    tmpdir <- tempfile(pattern = "raptlr_pptx_")
+    dir.create(tmpdir)
+    on.exit(unlink(tmpdir, recursive = TRUE), add = TRUE)
 
-      first_idx <- min(cells$doc_index)
-      cells     <- cells[cells$doc_index == first_idx,
-                         c("row_id", "cell_id", "text", "is_header")]
+    # docx → PDF
+    system2(lo_path[[1]],
+            args   = c("--headless", "--convert-to", "pdf",
+                       "--outdir", tmpdir, docx_path),
+            stdout = FALSE, stderr = FALSE)
 
-      # Drop duplicate cells (e.g. from spanning)
-      cells <- cells[!duplicated(cells[, c("row_id", "cell_id")]), ]
+    pdf_path <- file.path(tmpdir, paste0(stem, ".pdf"))
+    if (!file.exists(pdf_path)) return(NULL)
 
-      # Reshape to wide format (base R — no tidyr needed)
-      tbl <- reshape(cells[, c("row_id", "cell_id", "text")],
-                     idvar    = "row_id",
-                     timevar  = "cell_id",
-                     direction = "wide")
-      tbl <- tbl[order(tbl[["row_id"]]), ]
+    # Determine page count
+    n_pages <- tryCatch({
+      if (requireNamespace("pdftools", quietly = TRUE))
+        pdftools::pdf_info(pdf_path)$pages
+      else
+        1L
+    }, error = function(e) 1L)
 
-      # Derive column names from header rows (or first data row as fallback)
-      header_row_ids <- unique(cells$row_id[!is.na(cells$is_header) &
-                                              cells$is_header == TRUE])
+    # PDF pages → PNG files (kept in system tempdir, persists after cleanup)
+    png_outs <- character(0)
 
-      if (length(header_row_ids) > 0) {
-        hdr_id    <- min(header_row_ids)
-        hdr_cells <- cells[cells$row_id == hdr_id, ]
-        hdr_cells <- hdr_cells[order(hdr_cells$cell_id), ]
-        col_names <- hdr_cells$text
-        tbl       <- tbl[!tbl[["row_id"]] %in% header_row_ids, , drop = FALSE]
-      } else {
-        first_rid <- tbl[1, "row_id"]
-        fr_cells  <- cells[cells$row_id == first_rid, ]
-        fr_cells  <- fr_cells[order(fr_cells$cell_id), ]
-        col_names <- fr_cells$text
-        tbl       <- tbl[-1, , drop = FALSE]
+    if (requireNamespace("pdftools", quietly = TRUE)) {
+
+      for (p in seq_len(n_pages)) {
+        png_tmp <- file.path(tmpdir, sprintf("%s_p%03d.png", stem, p))
+        tryCatch(
+          pdftools::pdf_convert(pdf_path, format = "png", pages = p,
+                                filenames = png_tmp, dpi = dpi,
+                                verbose = FALSE),
+          error = function(e) NULL
+        )
+        if (file.exists(png_tmp)) {
+          png_out <- file.path(tempdir(),
+                               sprintf("%s_p%03d_%s.png",
+                                       stem, p, format(Sys.time(), "%H%M%S%OS3")))
+          file.copy(png_tmp, png_out, overwrite = TRUE)
+          png_outs <- c(png_outs, png_out)
+        }
       }
 
-      tbl[["row_id"]] <- NULL
-      names(tbl)      <- make.names(col_names, unique = TRUE)
-      rownames(tbl)   <- NULL
+    } else if (requireNamespace("magick", quietly = TRUE)) {
 
-      as.data.frame(tbl, stringsAsFactors = FALSE)
-    }, error = function(e) NULL)
+      tryCatch({
+        imgs <- magick::image_read_pdf(pdf_path, density = dpi)
+        for (p in seq_along(imgs)) {
+          png_tmp <- file.path(tmpdir, sprintf("%s_p%03d.png", stem, p))
+          magick::image_write(imgs[p], path = png_tmp, format = "png")
+          if (file.exists(png_tmp)) {
+            png_out <- file.path(tempdir(),
+                                 sprintf("%s_p%03d_%s.png",
+                                         stem, p, format(Sys.time(), "%H%M%S%OS3")))
+            file.copy(png_tmp, png_out, overwrite = TRUE)
+            png_outs <- c(png_outs, png_out)
+          }
+        }
+      }, error = function(e) NULL)
+    }
+
+    if (length(png_outs) == 0) NULL else png_outs
+  }
+
+  # Add a content slide with a full-slide image and a title bar
+  add_image_slide <- function(pptx, img_path, slide_title,
+                              lo_content, ph_content) {
+
+    pptx <- officer::add_slide(pptx, layout = lo_content,
+                               master = master_for(lo_content))
+
+    if ("title" %in% ph_content)
+      pptx <- officer::ph_with(pptx, value = slide_title,
+                               location = officer::ph_location_type("title"))
+
+    img  <- officer::external_img(img_path,
+                                  width  = slide_w - 0.4,
+                                  height = slide_h - 1.6)
+    pptx <- officer::ph_with(
+      pptx, value = img,
+      location = officer::ph_location(left   = 0.2,
+                                      top    = 1.3,
+                                      width  = slide_w - 0.4,
+                                      height = slide_h - 1.6)
+    )
+    pptx
   }
 
   # ── Opening title slide ────────────────────────────────────────────────────
 
   if (!is.null(title)) {
-    lo_title <- pick_layout("Title Slide", "Title, Content", "Blank")
-    ph_title <- ph_types_of(lo_title)
+    lo_title  <- pick_layout("Title Slide", "Title, Content", "Blank")
+    ph_title  <- ph_types_of(lo_title)
 
     pptx <- officer::add_slide(pptx, layout = lo_title,
                                master = master_for(lo_title))
@@ -313,20 +392,19 @@ run_pptx <- function(path_outputs,
 
   # ── Content slides ─────────────────────────────────────────────────────────
 
-  lo_content   <- pick_layout("Title and Content", "Title, Content", "Blank")
-  ph_content   <- ph_types_of(lo_content)
-  lo_section   <- pick_layout("Section Header", "Title Slide", lo_content)
-  ph_section   <- ph_types_of(lo_section)
+  lo_content <- pick_layout("Title and Content", "Title, Content", "Blank")
+  ph_content <- ph_types_of(lo_content)
+  lo_section <- pick_layout("Section Header", "Title Slide", lo_content)
+  ph_section <- ph_types_of(lo_section)
 
   for (section_name in names(output_structure_list)) {
 
     outputs_in_section <- output_structure_list[[section_name]]
 
-    # Section divider slide (only when caller supplied sections_structure)
+    # Section divider slide
     if (has_explicit_sections) {
       pptx <- officer::add_slide(pptx, layout = lo_section,
                                  master = master_for(lo_section))
-
       sec_ph <- if ("title" %in% ph_section) "title" else "ctrTitle"
       pptx   <- officer::ph_with(pptx, value = section_name,
                                  location = officer::ph_location_type(sec_ph))
@@ -341,67 +419,46 @@ run_pptx <- function(path_outputs,
         next
       }
 
-      pptx <- officer::add_slide(pptx, layout = lo_content,
-                                 master = master_for(lo_content))
-
       if (is_image(file_path)) {
-        # ── Figure slide ───────────────────────────────────────────────────
-
+        # ── Figure: embed image directly ───────────────────────────────────
         slide_title <- tools::file_path_sans_ext(basename(file_path))
-
-        if ("title" %in% ph_content)
-          pptx <- officer::ph_with(
-            pptx, value = slide_title,
-            location = officer::ph_location_type("title")
-          )
-
-        img  <- officer::external_img(file_path, width = 8.5, height = 4.8)
-        pptx <- officer::ph_with(
-          pptx, value = img,
-          location = officer::ph_location(left = 0.5, top = 1.4,
-                                          width = 9,   height = 5.2)
-        )
+        pptx        <- add_image_slide(pptx, file_path, slide_title,
+                                       lo_content, ph_content)
 
       } else if (grepl("\\.docx$", file_path, ignore.case = TRUE)) {
-        # ── Table slide ────────────────────────────────────────────────────
-
+        # ── Table: convert docx → PNG(s) and embed ─────────────────────────
         slide_title <- extract_tlf_title(file_path)
+        png_paths   <- docx_to_pngs(file_path)
 
-        if ("title" %in% ph_content)
-          pptx <- officer::ph_with(
-            pptx, value = slide_title,
-            location = officer::ph_location_type("title")
-          )
-
-        if (requireNamespace("flextable", quietly = TRUE)) {
-          tbl_df <- extract_first_table_df(file_path)
-
-          if (!is.null(tbl_df) && nrow(tbl_df) > 0) {
-            ft <- flextable::flextable(tbl_df)
-            ft <- flextable::fontsize(ft, size = 9, part = "all")
-            ft <- flextable::autofit(ft)
-            pptx <- officer::ph_with(
-              pptx, value = ft,
-              location = officer::ph_location(left = 0.3, top = 1.4,
-                                              width = 9.4, height = 5.5)
-            )
-          } else {
-            warning("Could not extract table content from '",
-                    basename(file_path), "'.")
+        if (!is.null(png_paths)) {
+          for (page_idx in seq_along(png_paths)) {
+            page_title <- if (page_idx == 1) {
+              slide_title
+            } else {
+              paste0(slide_title, " (cont'd)")
+            }
+            pptx <- add_image_slide(pptx, png_paths[[page_idx]], page_title,
+                                    lo_content, ph_content)
           }
-
         } else {
-          # flextable not available — show a placeholder
-          body_text <- paste0(
-            "Source: ", tools::file_path_sans_ext(basename(file_path)),
-            "\n\nInstall the 'flextable' package for full table rendering."
-          )
-          if ("body" %in% ph_content) {
+          # Fallback: title-only slide with install hint
+          pptx <- officer::add_slide(pptx, layout = lo_content,
+                                     master = master_for(lo_content))
+          if ("title" %in% ph_content)
             pptx <- officer::ph_with(
-              pptx, value = body_text,
+              pptx, value = slide_title,
+              location = officer::ph_location_type("title")
+            )
+          hint <- if (!has_lo) {
+            "Install LibreOffice to render this table as an image."
+          } else {
+            "Install the 'pdftools' package to render this table as an image.\nRun: install.packages('pdftools')"
+          }
+          if ("body" %in% ph_content)
+            pptx <- officer::ph_with(
+              pptx, value = hint,
               location = officer::ph_location_type("body")
             )
-          }
         }
 
       } else {
@@ -411,7 +468,7 @@ run_pptx <- function(path_outputs,
     }
   }
 
-  # ── Output ─────────────────────────────────────────────────────────────────
+  # ── Save ───────────────────────────────────────────────────────────────────
 
   print(pptx, target = return_to_file)
   message("PowerPoint saved to: ", return_to_file)
