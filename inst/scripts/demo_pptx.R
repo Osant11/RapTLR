@@ -1,139 +1,87 @@
 library( officer )
 library( RapTLR )
 
-# ── Load example clinical data ─────────────────────────────────────────────────
-data( tlr_adsl )
-data( tlr_adae )
+# Optional — install for full table rendering in slides:
+# install.packages("flextable")
+
+# ── Paths to built-in TLF outputs ─────────────────────────────────────────────
+path_outputs <- system.file( "extdata/TLF_outputs", package = "RapTLR" )
 
 
-# ── Generate narrative texts with fct_* functions ──────────────────────────────
+# ── Example 1: All outputs, no sections ───────────────────────────────────────
+# All .docx and image files found in the folder become slides.
 
-## General enrolment information
-text_enrolment <- fct_smpl_rest(
-  arg_dataset   = tlr_adsl,
-  arg_text_desc = "This double-blind, placebo-controlled study randomized ",
-  arg_text_end  = " participants to"
-) %c%
-  fct_var_text(
-    arg_dataset  = tlr_adsl,
-    arg_var_rest = TRT01A,
-    arg_lbl      = "nbr-pct"
-  )
-
-## Demographics: sex and age
-text_demographics <- fct_smpl_rest(
-  arg_dataset   = tlr_adsl,
-  arg_fl_rest   = SEX == "F",
-  arg_text_desc = "The study population included ",
-  arg_text_end  = " female participants and most participants were"
-) %c%
-  fct_var_text(
-    arg_dataset  = tlr_adsl,
-    arg_var_rest = RACE,
-    arg_order    = TRUE,
-    arg_cvt_stg  = stringr::str_to_title,
-    arg_lbl      = "pct",
-    arg_nbr_obs  = 2
-  ) %c.%
-  fct_bsl_stats(
-    arg_dataset = tlr_adsl,
-    arg_grp     = ARM,
-    arg_var_num = AGE,
-    arg_var1    = "median",
-    arg_var2    = "range",
-    arg_unit    = "years",
-    arg_label   = "age"
-  )
-
-## Most common adverse events (>= 15% on high dose arm)
-text_aes <- fct_mst_aes(
-  arg_data      = tlr_adae,
-  arg_data_adsl = tlr_adsl,
-  arg_grp       = ARM,
-  arg_var       = AEBODSYS,
-  arg_trt_flt   = `Xanomeline High Dose`,
-  arg_frq       = 15
-)
-
-## Study disposition / completers
-text_completers <- fct_smpl_rest(
-  arg_dataset   = tlr_adsl,
-  arg_fl_rest   = COMP24FL == "Y",
-  arg_text_desc = "At week 24, the number of completers were: "
-) %c.%
-  fct_smpl_rest(
-    arg_dataset   = tlr_adsl,
-    arg_fl_rest   = DISCONFL == "Y",
-    arg_text_desc = "Overall, ",
-    arg_text_end  = " participants discontinued the study."
-  )
-
-
-# ── Define the slide structure ─────────────────────────────────────────────────
-# Each row = one slide.
-# 'Content' can be:
-#   - A plain text string
-#   - A keyword (e.g. "TT_demo_TT") resolved from the 'replacements' list
-#   - A path to a PNG/JPG image file (auto-detected as type "image")
-
-slides <- data.frame(
-  Title   = c(
-    "Study Overview",
-    "Demographics & Baseline",
-    "Most Common Adverse Events",
-    "Study Disposition"
-  ),
-  Content = c(
-    "TT_enrolment_TT",
-    "TT_demographics_TT",
-    "TT_aes_TT",
-    "TT_completers_TT"
-  ),
-  stringsAsFactors = FALSE
-)
-
-
-# ── Generate the PowerPoint ────────────────────────────────────────────────────
 run_pptx(
-  slides_structure = slides,
-  replacements = list(
-    TT_enrolment_TT   = text_enrolment,
-    TT_demographics_TT = text_demographics,
-    TT_aes_TT         = text_aes,
-    TT_completers_TT  = text_completers
-  ),
+  path_outputs   = path_outputs,
   title          = "Clinical Study — Top-Line Results",
   subtitle       = paste0( "Generated on ", Sys.Date() ),
-  return_to_file = "study_toplevel.pptx"
+  return_to_file = "study_all_outputs.pptx"
 )
 
 
-# ── Optional: include an image slide ──────────────────────────────────────────
-# If you have a figure saved as a PNG, add it as a row with type "image":
-#
-# slides_with_fig <- rbind(
-#   slides,
-#   data.frame(
-#     Title   = "AE Overview Figure",
-#     Content = "path/to/ae_figure.png",
-#     stringsAsFactors = FALSE
-#   )
-# )
-#
+# ── Example 2: Curated selection with sections (named list) ───────────────────
+# Same format as run_apdx():
+#   list( "Section Title" = c( "output_stem1", "output_stem2" ), ... )
+# A section-divider slide is automatically added before each section.
+
+run_pptx(
+  path_outputs = path_outputs,
+  sections_structure = list(
+    Demographics = "tsidem03",
+    Safety       = c( "tsfae10", "lsfae03", "tefmad01a" )
+  ),
+  title          = "Clinical Study ABC-123",
+  subtitle       = "Top-Line Results",
+  return_to_file = "study_with_sections.pptx"
+)
+
+
+# ── Example 3: Using a CSV structure file ─────────────────────────────────────
+# Two-column CSV with headers "Section" and "Outputs".
+# Same format as run_apdx().
+
+TLF_list_csv <- system.file( "extdata", "TLF_list.csv", package = "RapTLR" )
+
+run_pptx(
+  path_outputs       = path_outputs,
+  sections_structure = TLF_list_csv,
+  return_to_file     = "study_from_csv.pptx"
+)
+
+
+# ── Example 4: Using an Excel structure file ──────────────────────────────────
+TLF_list_xlsx <- system.file( "extdata", "TLF_list.xlsx", package = "RapTLR" )
+
+run_pptx(
+  path_outputs       = path_outputs,
+  sections_structure = TLF_list_xlsx,
+  return_to_file     = "study_from_xlsx.pptx"
+)
+
+
+# ── Example 5: With a branded .pptx template ──────────────────────────────────
+# Pass a path to your company's PowerPoint template.
+# Slide layouts and master styles are inherited from the template.
+
 # run_pptx(
-#   slides_structure = slides_with_fig,
-#   replacements     = list( ... ),
-#   return_to_file   = "study_with_figure.pptx"
+#   path_outputs       = path_outputs,
+#   sections_structure = TLF_list_xlsx,
+#   pptx_template      = "path/to/company_template.pptx",
+#   return_to_file     = "branded_results.pptx"
 # )
 
 
-# ── Optional: use a CSV/Excel structure file ───────────────────────────────────
-# Instead of a data frame, you can pass a path to a CSV or XLSX file.
-# Required columns: Title, Content  (optional: Type)
+# ── Example 6: Mixing tables (.docx) and figures (images) ─────────────────────
+# Put your image files (PNG, JPG, SVG, ...) alongside the .docx files.
+# run_pptx() auto-detects the file type:
+#   .docx  → table slide (title extracted automatically)
+#   image  → figure slide (image embedded full-slide)
 #
 # run_pptx(
-#   slides_structure = "path/to/slides_plan.csv",
-#   replacements     = list( ... ),
-#   pptx_template    = "path/to/company_template.pptx",
-#   return_to_file   = "branded_results.pptx"
+#   path_outputs       = "path/to/mixed_outputs/",
+#   sections_structure = list(
+#     Efficacy = c( "km_curve.png", "tefmad01a" ),
+#     Safety   = c( "ae_barplot.png", "tsfae10" )
+#   ),
+#   return_to_file = "mixed_outputs.pptx"
 # )
