@@ -400,22 +400,20 @@ run_pptx <- function(path_outputs,
                                       height = 0.7)
     )
 
-    # Available content area below the title
-    img_area_top <- 0.9
+    # Image starts 3 lines of body text (~0.5") below the title, centred
+    # horizontally. The top is fixed so small tables sit close to the title
+    # rather than floating in the middle of the slide.
+    img_area_top <- 0.15 + 0.7 + 0.5   # title_top + title_h + 3-line gap
     avail_w      <- slide_w - 0.4
     avail_h      <- slide_h - img_area_top - 0.1
 
-    # Determine display dimensions:
-    #   - If natural size (pixels / dpi) is known, fit it within the available
-    #     area while preserving aspect ratio and never upscaling.
-    #   - Fall back to filling the available area when dimensions are unknown.
     nat <- png_natural_size(img_path)
     if (!is.null(nat)) {
       scale     <- min(avail_w / nat["w"], avail_h / nat["h"], 1.0)
       display_w <- nat["w"] * scale
       display_h <- nat["h"] * scale
       img_left  <- 0.2 + (avail_w - display_w) / 2   # centre horizontally
-      img_top   <- img_area_top + (avail_h - display_h) / 2  # centre vertically
+      img_top   <- img_area_top                        # fixed top, no vertical float
     } else {
       display_w <- avail_w
       display_h <- avail_h
