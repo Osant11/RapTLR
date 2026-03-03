@@ -278,6 +278,17 @@ run_pptx <- function(path_outputs,
     }, error = function(e) tools::file_path_sans_ext(basename(docx_path)))
   }
 
+  # Trim uniform-colour margins from a PNG in place (uses magick if available).
+  trim_png <- function(png_path) {
+    if (requireNamespace("magick", quietly = TRUE)) {
+      tryCatch({
+        img <- magick::image_read(png_path)
+        img <- magick::image_trim(img)
+        magick::image_write(img, path = png_path, format = "png")
+      }, error = function(e) NULL)
+    }
+  }
+
   # Convert a .docx to one PNG per page via LibreOffice + pdftools / magick.
   # Returns a character vector of PNG file paths, or NULL on failure.
   docx_to_pngs <- function(docx_path) {
@@ -312,13 +323,18 @@ run_pptx <- function(path_outputs,
 
       for (p in seq_len(n_pages)) {
         png_tmp <- file.path(tmpdir, sprintf("%s_p%03d.png", stem, p))
+        # suppressWarnings: pdf_convert internally calls sprintf(filenames, pages,
+        # format) which warns when the path has no % specifiers — harmless.
         tryCatch(
-          pdftools::pdf_convert(pdf_path, format = "png", pages = p,
-                                filenames = png_tmp, dpi = dpi,
-                                verbose = FALSE),
+          suppressWarnings(
+            pdftools::pdf_convert(pdf_path, format = "png", pages = p,
+                                  filenames = png_tmp, dpi = dpi,
+                                  verbose = FALSE)
+          ),
           error = function(e) NULL
         )
         if (file.exists(png_tmp)) {
+          trim_png(png_tmp)
           png_out <- file.path(tempdir(),
                                sprintf("%s_p%03d_%s.png",
                                        stem, p, format(Sys.time(), "%H%M%S%OS3")))
@@ -335,6 +351,7 @@ run_pptx <- function(path_outputs,
           png_tmp <- file.path(tmpdir, sprintf("%s_p%03d.png", stem, p))
           magick::image_write(imgs[p], path = png_tmp, format = "png")
           if (file.exists(png_tmp)) {
+            trim_png(png_tmp)
             png_out <- file.path(tempdir(),
                                  sprintf("%s_p%03d_%s.png",
                                          stem, p, format(Sys.time(), "%H%M%S%OS3")))
@@ -348,26 +365,38 @@ run_pptx <- function(path_outputs,
     if (length(png_outs) == 0) NULL else png_outs
   }
 
-  # Add a content slide with a full-slide image and a title bar
+  # Add a content slide with a compact title (18 pt) and a full-width image.
   add_image_slide <- function(pptx, img_path, slide_title,
                               lo_content, ph_content) {
 
     pptx <- officer::add_slide(pptx, layout = lo_content,
                                master = master_for(lo_content))
 
-    if ("title" %in% ph_content)
-      pptx <- officer::ph_with(pptx, value = slide_title,
-                               location = officer::ph_location_type("title"))
+    # Compact title: 18 pt bold, 0.7" tall — avoids the oversized default font
+    title_para <- officer::fpar(
+      officer::ftext(slide_title,
+                     officer::fp_text(font.size = 18, bold = TRUE))
+    )
+    pptx <- officer::ph_with(
+      pptx, value = title_para,
+      location = officer::ph_location(left   = 0.2,
+                                      top    = 0.15,
+                                      width  = slide_w - 0.4,
+                                      height = 0.7)
+    )
 
-    img  <- officer::external_img(img_path,
-                                  width  = slide_w - 0.4,
-                                  height = slide_h - 1.6)
+    # Image fills the remaining height
+    img_top <- 0.9
+    img_h   <- slide_h - img_top - 0.1
+    img     <- officer::external_img(img_path,
+                                     width  = slide_w - 0.4,
+                                     height = img_h)
     pptx <- officer::ph_with(
       pptx, value = img,
       location = officer::ph_location(left   = 0.2,
-                                      top    = 1.3,
+                                      top    = img_top,
                                       width  = slide_w - 0.4,
-                                      height = slide_h - 1.6)
+                                      height = img_h)
     )
     pptx
   }
