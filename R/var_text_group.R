@@ -41,7 +41,7 @@
 #' @examples
 #' # Example 1: Basic usage - summarize discontinuation reasons by treatment
 #' # Shows all discontinuation reasons ordered by frequency
-#' var_text_group(
+#' fct_var_text_group(
 #'   arg_dataset = tlr_adsl,
 #'   arg_var_rest = DCREASCD,
 #'   arg_group_var = TRT01P
@@ -49,7 +49,7 @@
 #'
 #' # Example 2: Add descriptive text prefix
 #' # Prepends custom text to the generated summary
-#' var_text_group(
+#' fct_var_text_group(
 #'   arg_text_desc = "The most common reasons for discontinuation were:",
 #'   arg_dataset = tlr_adsl,
 #'   arg_var_rest = DCREASCD,
@@ -58,7 +58,7 @@
 #'
 #' # Example 3: Disable ordering to maintain original variable order
 #' # Useful when variable has inherent ordering (e.g., severity grades)
-#' var_text_group(
+#' fct_var_text_group(
 #'   arg_dataset = tlr_adsl,
 #'   arg_var_rest = DCREASCD,
 #'   arg_group_var = TRT01P,
@@ -67,7 +67,7 @@
 #'
 #' # Example 4: Limit to specific treatment groups
 #' # Excludes placebo group from the analysis
-#' var_text_group(
+#' fct_var_text_group(
 #'   arg_dataset = tlr_adsl,
 #'   arg_var_rest = DCREASCD,
 #'   arg_group_var = TRT01P,
@@ -76,7 +76,7 @@
 #'
 #' # Example 5: Use custom group labels for cleaner output
 #' # Shortens long treatment names for readability
-#' var_text_group(
+#' fct_var_text_group(
 #'   arg_dataset = tlr_adsl,
 #'   arg_var_rest = DCREASCD,
 #'   arg_group_var = TRT01P,
@@ -86,7 +86,7 @@
 #'
 #' # Example 6: Limit output to top N categories
 #' # Shows only the 3 most common discontinuation reasons
-#' var_text_group(
+#' fct_var_text_group(
 #'   arg_dataset = tlr_adsl,
 #'   arg_var_rest = DCREASCD,
 #'   arg_group_var = TRT01P,
@@ -96,7 +96,7 @@
 #'
 #' # Example 7: Apply text transformation to variable labels
 #' # Converts labels to lowercase for consistent formatting
-#' var_text_group(
+#' fct_var_text_group(
 #'   arg_dataset = tlr_adsl,
 #'   arg_var_rest = DCREASCD,
 #'   arg_group_var = TRT01P,
@@ -107,7 +107,7 @@
 #'
 #' # Example 8: Combine multiple parameters for precise control
 #' # Filtered data, custom labels, limited output, with descriptive text
-#' var_text_group(
+#' fct_var_text_group(
 #'   arg_text_desc = "Among safety population patients,",
 #'   arg_dataset = tlr_adsl,
 #'   arg_fl_rest = SAFFL == "Y",
@@ -121,7 +121,7 @@
 #'
 #' # Example 9: Analyze adverse events by treatment group
 #' # Useful for safety summaries in TLR documents
-#' var_text_group(
+#' fct_var_text_group(
 #'   arg_text_desc = "The most frequently reported adverse events were:",
 #'   arg_dataset = tlr_adae,
 #'   arg_fl_rest = AESEV == "SEVERE",
@@ -136,7 +136,7 @@
 #' 
 #' @importFrom stringr str_replace str_squish
 #' @export
-var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, arg_var_rest, arg_group_var,  arg_group_vals = NULL,  arg_group_lbl = NULL, arg_order = TRUE, arg_cvt_stg = I, arg_nbr_obs = Inf ) {
+fct_var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, arg_var_rest, arg_group_var,  arg_group_vals = NULL,  arg_group_lbl = NULL, arg_order = TRUE, arg_cvt_stg = I, arg_nbr_obs = Inf ) {
   
   cond_fl <- rlang::enquo(arg_fl_rest)
 

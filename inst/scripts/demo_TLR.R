@@ -4,6 +4,7 @@ library( officer )
 library( crosstable )
 library( stringr )
 library( xml2 )
+library( RapTLR )
 
 # Creating the Appendice 
 path_TLFs <- system.file( "extdata/TLF_outputs", package = "RapTLR" )
@@ -17,7 +18,10 @@ run_apdx( path_TLFs = path_TLFs,
           return_to_file = "TLR_with_appendice.docx" )
 
 
+# Loading data 
+# Subject Level 
 data( tlr_adsl )
+# Adverse Event
 data( tlr_adae )
 
 # Create list for placeholders

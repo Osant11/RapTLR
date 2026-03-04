@@ -2,126 +2,158 @@
 
 ## The textReplace() Function
 
-RapTLR's second "killer feature" allows you to replace placeholder keywords with dynamically calculated values from your R analysis.
+The package provides also a function to replace placeholders in a .docx document with R values.
 
-## Why Use Dynamic Text?
+## Why using textReplace() Function?
 
-Traditional approach:
-- Run analysis in R
-- Manually copy numbers into Word
-- Data changes → manually update all numbers
+Traditional approach: - Run analysis in R - Manually copy numbers into Word - Data changes → manually update all numbers
 
-**RapTLR approach:**
-- Write shell with placeholders
-- Calculate values in R
-- Automatically replace all placeholders
-- Data changes → re-run script, done!
+**RapTLR approach:** - Write shell with placeholders - Calculate values in R - Automatically replace all placeholders - Data changes → re-run script, done!
+
+## Function Parameters
+
+### Required Parameters
+
+**doc_object**: Can be either a string or officer object. If string, a path where the .docx is saved. If officer object, should be the .docx loaded by officer::read_docx().
+
+**keyword**: Placeholders in the document to be replaced.
+
+**replacement**: Text that needs to be inserted at the keyword position.
+
+### Optional Parameters
+
+**return_to_file**: Path and name to save the modified document. If NULL, it is saving a new .docx in the current working directory called `TLR_updated.docx`.
 
 ## Basic Usage
+
+We provided a dummy .docx documents with placeholders that can be used for practicing. It can be downloaded [here](https://github.com/johnsonandjohnson/RapTLR/blob/main/inst/extdata/Keywords_replace.docx).
+
+The following code can be used to access it after installing the package.
+
+```{r eval=FALSE}
+imported_docx <- system.file( "extdata", "Keywords_replace.docx", package = "RapTLR" )
+```
+
+Within this document there are three placeholders, `TTsubjectTT`, `TTsiteTT`, `TTconclusionTT` and each of these placeholders can be replaced with R values using the `textReplace()` function:
 
 ```{r eval=FALSE}
 library(RapTLR)
 
-n_safety <- 500
-new_text <- paste0("The safety population included ", n_safety, " participants.")
+imported_docx <- system.file( "extdata", "Keywords_replace.docx", package = "RapTLR" )
 
-textReplace(
-  doc_object = "TLR_shell.docx",
+TTsubjectTT <- "There were 250 randomized subjects."
+TTsiteTT <- "There were 15 different sites."
+TTconclusionTT <- "The study succeeded."
+
+new_doc <- textReplace(
+  doc_object = imported_docx,
   keyword = "TTsubjectTT",
-  replacement = new_text,
-  return_to_file = "TLR_updated.docx"
+  replacement = TTsubjectTT
 )
+
+new_doc <- textReplace(
+  doc_object = new_doc,
+  keyword = "TTsiteTT",
+  replacement = TTsiteTT
+)
+
+new_doc <- textReplace(
+  doc_object = new_doc,
+  keyword = "TTconclusionTT",
+  replacement = TTconclusionTT
+)
+
 ```
 
-## Function Parameters
-
-**doc_object** - Path to Word document OR officer object
-
-**keyword** - Placeholder text to find and replace (must be on its own line)
-
-**replacement** - New text to insert
-
-**return_to_file** - Optional: path to save result
-
-## CRITICAL: Officer In-Place Modification
-
-**Important behavior:**
-
-```{r eval=FALSE}
-# This does NOT work as expected!
-x <- read_docx("shell.docx")
-y <- x  # y points to same object as x
-x <- textReplace(x, keyword = "TTtest", replacement = "New text")
-# Both x AND y are now modified!
-
-# Trying to replace same keyword twice will fail
-```
-
-**Solution:** Chain operations or use fresh document each time.
+Notice that the original .docx document is called only the first time and the updated document is saved in R as `new_doc` and is automatically saved as `TLR_updated.docx` in the current working directory.\
+For the two others placeholders, the update is made directly on `new_doc` and save again as `new_doc` and as `TLR_updated.docx`.
 
 ## Chaining Multiple Replacements
+
+Instead of calling the object multiple times, it is also possible to create a chain or pipe.
 
 ### Method 1: Base R Pipe
 
 ```{r eval=FALSE}
+library(RapTLR)
+
+imported_docx <- system.file( "extdata", "Keywords_replace.docx", package = "RapTLR" )
+
+TTsubjectTT <- "There were 250 randomized subjects."
+TTsiteTT <- "There were 15 different sites."
+TTconclusionTT <- "The study succeeded."
+
 textReplace(
-  doc_object = "TLR_shell.docx",
+  doc_object = imported_docx,
   keyword = "TTsubjectTT",
-  replacement = "500 participants enrolled"
+  replacement = TTsubjectTT
 ) |>
 textReplace(
-  keyword = "TTsomethingTT",
-  replacement = "Primary endpoint was met"
+  keyword = "TTsiteTT",
+  replacement = TTsiteTT
 ) |>
 textReplace(
-  keyword = "TTsomething2TT",
-  replacement = "Safety profile was acceptable",
+  keyword = "TTconclusionTT",
+  replacement = TTconclusionTT,
   return_to_file = "TLR_final.docx"
 )
 ```
 
-### Method 2: dplyr Pipe
+### Method 2: magrittr Pipe
 
 ```{r eval=FALSE}
-library(dplyr)
+library(RapTLR)
+library(magrittr)
+
+imported_docx <- system.file( "extdata", "Keywords_replace.docx", package = "RapTLR" )
+
+TTsubjectTT <- "There were 250 randomized subjects."
+TTsiteTT <- "There were 15 different sites."
+TTconclusionTT <- "The study succeeded."
 
 textReplace(
-  doc_object = "TLR_shell.docx",
+  doc_object = imported_docx,
   keyword = "TTsubjectTT",
-  replacement = "500 participants"
-) %>%
+  replacement = TTsubjectTT
+) %>% 
 textReplace(
-  keyword = "TTsomethingTT",
-  replacement = "Efficacy demonstrated"
-) %>%
+  keyword = "TTsiteTT",
+  replacement = TTsiteTT
+) %>% 
 textReplace(
-  keyword = "TTsomething2TT",
-  replacement = "Safety acceptable",
+  keyword = "TTconclusionTT",
+  replacement = TTconclusionTT,
   return_to_file = "TLR_final.docx"
 )
 ```
 
 ## Practical Examples
 
+In the package, we have also provided two dummy ADaM datasets (`tlr_adsl`, `tlr_adae`) that can be loaded in the R session with the function `data(...)`.  
+In the below examples we are using only `tlr_adsl` but we will use `tlr_adae` in the next chapter. 
+
 ### Example 1: Population Counts
 
 ```{r eval=FALSE}
-library(haven)
-adsl <- read_sas("adam/adsl.sas7bdat")
+library(RapTLR) 
 
-n_enrolled <- nrow(adsl)
-n_safety <- sum(adsl$SAFFL == "Y")
-n_efficacy <- sum(adsl$EFFFL == "Y")
+data("tlr_adsl")
+
+n_enrolled <- nrow(tlr_adsl)
+n_safety <- sum(tlr_adsl$SAFFL == "Y")
+n_efficacy <- sum(tlr_adsl$EFFFL == "Y")
 
 pop_text <- sprintf(
-  "A total of %d participants were enrolled. The safety population included %d participants.",
-  n_enrolled, n_safety
+  "A total of %d participants were enrolled. The safety population included %d participants and the efficacy population included %d participants.",
+  n_enrolled, n_safety, n_efficacy
 )
 
+imported_docx <- system.file( "extdata", "Keywords_replace.docx", package = "RapTLR" )
+
 textReplace(
-  doc_object = "TLR_shell.docx",
-  keyword = "TTpopulationTT",
-  replacement = pop_text,
+  doc_object = imported_docx,
+  keyword = "TTsubjectTT",
+  replacement = TTsubjectTT, 
   return_to_file = "TLR_updated.docx"
 )
 ```
@@ -138,10 +170,13 @@ efficacy_text <- sprintf(
   response_rate_pbo * 100
 )
 
+imported_docx <- system.file( "extdata", "Keywords_replace.docx", package = "RapTLR" )
+
 textReplace(
-  doc_object = doc,
-  keyword = "TTefficacyTT",
-  replacement = efficacy_text
+  doc_object = imported_docx,
+  keyword = "TTconclusionTT",
+  replacement = efficacy_text, 
+  return_to_file = "TLR_updated.docx"
 )
 ```
 
@@ -149,47 +184,54 @@ textReplace(
 
 ```{r eval=FALSE}
 library(RapTLR)
-library(haven)
+library(magrittr)
 
-adsl <- read_sas("adam/adsl.sas7bdat")
+data("tlr_adsl")
 
-n_safety <- sum(adsl$SAFFL == "Y")
-mean_age <- round(mean(adsl$AGE), 1)
+# Subjects
+n_enrolled <- nrow(tlr_adsl)
+n_safety <- sum(tlr_adsl$SAFFL == "Y")
+n_efficacy <- sum(tlr_adsl$EFFFL == "Y")
 
-text_population <- sprintf("Safety population: %d participants.", n_safety)
-text_demographics <- sprintf("Mean age was %.1f years.", mean_age)
-
-textReplace(
-  doc_object = "TLR_shell.docx",
-  keyword = "TTpopulationTT",
-  replacement = text_population
-) |>
-textReplace(
-  keyword = "TTdemographicsTT",
-  replacement = text_demographics,
-  return_to_file = "TLR_final.docx"
-)
-```
-
-## Combining with run_apdx()
-
-```{r eval=FALSE}
-doc <- run_apdx(
-  path_TLFs = "TLF_outputs/",
-  docx_object = "TLR_shell.docx",
-  keyword = "LISTOFAPPENDICES"
+pop_text <- sprintf(
+  "A total of %d participants were enrolled. The safety population included %d participants and the efficacy population included %d participants.",
+  n_enrolled, n_safety, n_efficacy
 )
 
-doc <- textReplace(doc, keyword = "TTsubjectTT", replacement = "500 participants")
-doc <- textReplace(doc, keyword = "TTefficacyTT", replacement = "Primary endpoint met")
+# Sites
+n_site <- length(unique(tlr_adsl$SITEID))
 
-print(doc, target = "TLR_complete.docx")
+site_text <- sprintf( 
+  "In total there were %d sites recruited"
+)
+
+
+# Efficacy
+response_rate_trt <- 0.45
+response_rate_pbo <- 0.30
+
+efficacy_text <- sprintf(
+  "The response rate was %.1f%% in treatment vs %.1f%% in placebo.",
+  response_rate_trt * 100,
+  response_rate_pbo * 100
+)
+
+# Docx document
+imported_docx <- system.file( "extdata", "Keywords_replace.docx", package = "RapTLR" )
+
+# Replacing placeholders
+textReplace(
+  doc_object = imported_docx,
+  keyword = "TTsubjectTT",
+  replacement = pop_text
+) %>% 
+textReplace(
+  keyword = "TTsiteTT", 
+  replacement = site_text
+) %>% 
+textReplace(
+  keyword = "TTconclusionTT",
+  replacement = efficacy_text, 
+  return_to_file = "TLR_updated.docx"
+)
 ```
-
-## Best Practices
-
-1. Use sprintf() for formatting
-2. Calculate all values first
-3. Test with simple examples
-4. Keep a keyword registry
-5. Use meaningful keywords

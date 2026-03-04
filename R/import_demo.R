@@ -4,7 +4,7 @@
 #'
 #' @examples
 #' # Just run the import_demo() function to create a copy called "demo_TLR.R" in your current working environment
-#' import_demo( )
+#' RapTLR::import_demo( )
 #' 
 #' @importFrom utils packageName
 #' @export

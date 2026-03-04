@@ -1,13 +1,11 @@
 book_filename: "RapTLR_Training"
-language:
-  ui:
-    chapter_name: "Chapter "
-delete_merged_file: true
 rmd_files: [
   "index.Rmd",
   "01-tlr-shell.Rmd",
   "02-output-conversion.Rmd",
   "03-appendix-creation.Rmd",
   "04-text-replacement.Rmd",
-  "05-creating-text.Rmd"
+  "05-creating-text.Rmd",
+  "06-cust-opr.Rmd",
+  "08-putting-together.Rmd"
 ]
