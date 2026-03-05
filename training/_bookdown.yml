@@ -7,5 +7,6 @@ rmd_files: [
   "04-text-replacement.Rmd",
   "05-creating-text.Rmd",
   "06-cust-opr.Rmd",
-  "08-putting-together.Rmd"
+  "07-putting-together.Rmd"
 ]
+output_dir: "_book"

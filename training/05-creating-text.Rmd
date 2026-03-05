@@ -6,6 +6,7 @@ RapTLR provides a set of text-generation functions that produce ready-to-insert 
 
 - **`fct_smpl_rest()`** — report a subject count (with optional percentage) for any filtered population
 - **`fct_var_text()`** — describe the distribution of a categorical variable as a formatted list
+- **`fct_var_text_group()`** — describe the distribution of a categorical variable per-group breakdown as a formatted list
 - **`fct_bsl_stats()`** — summarise a continuous baseline variable with central tendency and spread
 - **`fct_mst_aes()`** — identify and describe the most common treatment-emergent adverse events
 
