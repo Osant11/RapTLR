@@ -6,6 +6,7 @@ RapTLR provides a set of text-generation functions that produce ready-to-insert 
 
 - **`fct_smpl_rest()`** — report a subject count (with optional percentage) for any filtered population
 - **`fct_var_text()`** — describe the distribution of a categorical variable as a formatted list
+- **`fct_var_text_group()`** — describe the distribution of a categorical variable per-group breakdown as a formatted list
 - **`fct_bsl_stats()`** — summarise a continuous baseline variable with central tendency and spread
 - **`fct_mst_aes()`** — identify and describe the most common treatment-emergent adverse events
 
@@ -327,7 +328,7 @@ This is especially useful for:
 
 Summarise discontinuation reasons across all treatment arms in `TRT01P`, ordered by overall frequency.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text_group(
   arg_dataset   = tlr_adsl,
   arg_var_rest  = DCREASCD,
@@ -337,7 +338,7 @@ fct_var_text_group(
 
 **Example 2 — Add a descriptive prefix**
 
-```{r eval=FALSE}
+```{r}
 fct_var_text_group(
   arg_text_desc = "The most common reasons for discontinuation were:",
   arg_dataset   = tlr_adsl,
@@ -350,7 +351,7 @@ fct_var_text_group(
 
 Set `arg_order = FALSE` when the variable has an inherent ordering (e.g., severity grades) that should be respected rather than re-sorted by frequency.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text_group(
   arg_dataset   = tlr_adsl,
   arg_var_rest  = DCREASCD,
@@ -363,7 +364,7 @@ fct_var_text_group(
 
 Pass a character vector to `arg_group_vals` to exclude one or more groups from the output. Groups not listed are ignored in both the overall count and the per-group breakdown.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text_group(
   arg_dataset    = tlr_adsl,
   arg_var_rest   = DCREASCD,
@@ -376,7 +377,7 @@ fct_var_text_group(
 
 Long treatment names can make the sentence hard to read. `arg_group_lbl` lets you assign shorter display labels; the vector must correspond positionally to `arg_group_vals`.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text_group(
   arg_dataset    = tlr_adsl,
   arg_var_rest   = DCREASCD,
@@ -390,7 +391,7 @@ fct_var_text_group(
 
 Show only the three most frequently occurring discontinuation reasons.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text_group(
   arg_dataset    = tlr_adsl,
   arg_var_rest   = DCREASCD,
@@ -406,7 +407,7 @@ fct_var_text_group(
 
 Convert category labels to lowercase so the output reads naturally within a sentence.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text_group(
   arg_dataset   = tlr_adsl,
   arg_var_rest  = DCREASCD,
@@ -420,7 +421,7 @@ fct_var_text_group(
 
 Use `arg_fl_rest` to restrict the analysis before calculating frequencies. Percentages are computed within the filtered population.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text_group(
   arg_text_desc  = "Among safety population subjects,",
   arg_dataset    = tlr_adsl,
@@ -438,7 +439,7 @@ fct_var_text_group(
 
 Use `tlr_adae` with `TRTA` as the grouping variable to summarise adverse events, filtered to severe events only and limited to the five most frequent preferred terms.
 
-```{r eval=FALSE}
+```{r}
 fct_var_text_group(
   arg_text_desc = "The most frequently reported severe adverse events were:",
   arg_dataset   = tlr_adae,
@@ -455,7 +456,11 @@ fct_var_text_group(
 
 ## fct_bsl_stats() {#bsl-stats}
 
+### Purpose
+
 `fct_bsl_stats()` generates a formatted text summary of a continuous numeric variable at baseline. It calculates a measure of central tendency (mean or median) together with a measure of dispersion (standard deviation or range), both overall and optionally per treatment arm.
+
+### Parameters
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -468,6 +473,8 @@ fct_var_text_group(
 | `arg_unit` | character | `""` | Unit appended to each value (e.g., `"years"`, `"kg"`) |
 | `arg_label` | character | `""` | Variable description used in the output sentence |
 | `arg_cvt_stg` | function | `I` | Transformation applied to sentence connectors |
+
+### Examples
 
 **Example 1 — Overall mean age with standard deviation**
 
