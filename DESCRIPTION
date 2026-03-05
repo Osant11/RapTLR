@@ -1,6 +1,6 @@
 Package: RapTLR
 Title: Dynamic Text and Automatic Formatting – An R Package to Streamline Time-sensitive Formal Reports
-Version: 0.0.3.9000
+Version: 0.0.4
 Authors@R: 
     c( 
       person(given = "Xiang", family = "Li", email = "xli256@its.jnj.com", role = "aut"),
