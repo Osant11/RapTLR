@@ -456,7 +456,11 @@ fct_var_text_group(
 
 ## fct_bsl_stats() {#bsl-stats}
 
+### Purpose
+
 `fct_bsl_stats()` generates a formatted text summary of a continuous numeric variable at baseline. It calculates a measure of central tendency (mean or median) together with a measure of dispersion (standard deviation or range), both overall and optionally per treatment arm.
+
+### Parameters
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -469,6 +473,8 @@ fct_var_text_group(
 | `arg_unit` | character | `""` | Unit appended to each value (e.g., `"years"`, `"kg"`) |
 | `arg_label` | character | `""` | Variable description used in the output sentence |
 | `arg_cvt_stg` | function | `I` | Transformation applied to sentence connectors |
+
+### Examples
 
 **Example 1 — Overall mean age with standard deviation**
 
