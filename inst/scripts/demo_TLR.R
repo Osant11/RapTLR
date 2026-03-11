@@ -9,7 +9,6 @@ library( RapTLR )
 # Creating the Appendice 
 path_TLFs <- system.file( "extdata/TLF_outputs", package = "RapTLR" )
 path_docx <- system.file( "extdata/TLR_Shell.docx", package = "RapTLR" )
-path_result <- system.file( "docx_with_appendice", package = "RapTLR" )
 TLF_list_xlsx <- system.file( "extdata/TLF_list.xlsx", package = "RapTLR" )
 
 run_apdx( path_TLFs = path_TLFs,
@@ -50,7 +49,7 @@ textReplace( TLR, "TT_geninfo_TT", PLHD$TT_geninfo_TT )
 
 ### Study disp 
 PLHD$TT_studips_TT <- fct_smpl_rest( arg_dataset = tlr_adsl, arg_fl_rest = DISCONFL == "Y", arg_text_desc = "There were ", arg_text_end = " participants who discontinued the study, the main reason for treatment discontinuation were" ) %c%
-                      var_text_group( arg_dataset = tlr_adsl, arg_fl_rest = DISCONFL == "Y", arg_group_var = TRT01A, arg_var_rest = DCREASCD, arg_nbr_obs = 3, arg_order = TRUE,  ) %c.%
+                      fct_var_text_group( arg_dataset = tlr_adsl, arg_fl_rest = DISCONFL == "Y", arg_group_var = TRT01A, arg_var_rest = DCREASCD, arg_nbr_obs = 3, arg_order = TRUE,  ) %c.%
                       c( "Table \\@ref(TSIDEM03)" )
 
 PLHD$TT_studips_TT
