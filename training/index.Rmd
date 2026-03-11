@@ -34,13 +34,11 @@ Traditional TLR creation involves:
 
 ## Installation
 
-```{r eval=FALSE}
-# Install remotes if needed
-install.packages("remotes")
+RapTLR is hosted on RSPM (RStudio Package Manager), which streamlines downloading internal R packages to JnJ R servers (SPACE / Biostatshiny).
 
-# Install RapTLR from GitHub
-library(remotes)
-remotes::install_github("johnsonandjohnson/RapTLR")
+```{r eval=FALSE}
+# To install RapTLR on Jnj R server
+install.packages("RapTLR")
 ```
 
 ## Getting Started with Examples

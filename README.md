@@ -14,10 +14,11 @@ RapTLR is designed to enhance the generation of time-sensitive formal reports, p
 
 ## Installation
 
+RapTLR is hosted on RSPM (RStudio Package Manager), which streamlines downloading internal R packages to JnJ R servers (SPACE / Biostatshiny).
+
 ```r
-# Install from GitHub
-# install.packages("devtools")
-devtools::install_github("johnsonandjohnson/RapTLR")
+# To install RapTLR on Jnj R server
+install.packages("RapTLR")
 ```
 
 ## Quick Start
