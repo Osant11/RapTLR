@@ -2,7 +2,7 @@
 
 ## What is a TLR Shell?
 
-A TLR shell is a **template Word document** that contains 3 big parts:
+A TLR shell is a **template Word document** that contains 3 primary sections:
 
 -   Study Design: Key aspects of the study design in bullet format (study design, population, randomization, duration, endpoints... )
 -   Topline Results Summary: A concise, high-level summary highlighting the main findings and key metrics of a study.
@@ -10,7 +10,11 @@ A TLR shell is a **template Word document** that contains 3 big parts:
 
 ## Creating Your Shell Document
 
-To help you to create your first draft, you can check the form **TV-FRM-09874 2.0 Topline Results Document Template**
+To help you to create your first draft, you can look at:
+
+- [TV-FRM-09874 2.0 Topline Results Document Template](https://truvaultviewer.jnj.com/general/Search/Property?aDocId=108AEB1E-3664-46F9-9B92-0AFB21B66EDD&aRepo=TV&hideProperty=False)
+- [TV-SOP-05501: Preparation and Communication of Topline Results](https://truvaultviewer.jnj.com/general/Search/Property?aDocId=F84B8B9E-01E2-4D91-AC49-4E5FE67A6C52&aRepo=TV&hideProperty=False)
+
 
 ### Step 1: Prepare the study design summary of your study
 

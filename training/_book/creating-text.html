@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Creating Text with R | RapTLR Training Guide</title>
+  <title>6 Creating Text with R | RapTLR Training Guide</title>
   <meta name="description" content="Complete training material for the RapTLR package" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Creating Text with R | RapTLR Training Guide" />
+  <meta property="og:title" content="6 Creating Text with R | RapTLR Training Guide" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Complete training material for the RapTLR package" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Creating Text with R | RapTLR Training Guide" />
+  <meta name="twitter:title" content="6 Creating Text with R | RapTLR Training Guide" />
   
   <meta name="twitter:description" content="Complete training material for the RapTLR package" />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="RapTLR Development Team" />
 
 
-<meta name="date" content="2026-01-12" />
+<meta name="date" content="2026-03-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="text-replacement.html"/>
-
+<link rel="next" href="cust-opr.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -125,7 +125,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -138,9 +137,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">RapTLR Training Guide</a></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-raptlr"><i class="fa fa-check"></i><b>1.1</b> What is RapTLR?</a></li>
@@ -155,100 +151,127 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="tlr-shell.html"><a href="tlr-shell.html#what-is-a-tlr-shell"><i class="fa fa-check"></i><b>2.1</b> What is a TLR Shell?</a></li>
 <li class="chapter" data-level="2.2" data-path="tlr-shell.html"><a href="tlr-shell.html#creating-your-shell-document"><i class="fa fa-check"></i><b>2.2</b> Creating Your Shell Document</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="tlr-shell.html"><a href="tlr-shell.html#step-1-write-your-narrative"><i class="fa fa-check"></i><b>2.2.1</b> Step 1: Write Your Narrative</a></li>
+<li class="chapter" data-level="2.2.1" data-path="tlr-shell.html"><a href="tlr-shell.html#step-1-prepare-the-study-design-summary-of-your-study"><i class="fa fa-check"></i><b>2.2.1</b> Step 1: Prepare the study design summary of your study</a></li>
 <li class="chapter" data-level="2.2.2" data-path="tlr-shell.html"><a href="tlr-shell.html#step-2-add-placeholder-keywords"><i class="fa fa-check"></i><b>2.2.2</b> Step 2: Add Placeholder Keywords</a></li>
 <li class="chapter" data-level="2.2.3" data-path="tlr-shell.html"><a href="tlr-shell.html#step-3-add-appendix-marker"><i class="fa fa-check"></i><b>2.2.3</b> Step 3: Add Appendix Marker</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="tlr-shell.html"><a href="tlr-shell.html#best-practices"><i class="fa fa-check"></i><b>2.3</b> Best Practices</a>
-<ul>
-<li class="chapter" data-level="2.3.1" data-path="tlr-shell.html"><a href="tlr-shell.html#naming-conventions"><i class="fa fa-check"></i><b>2.3.1</b> Naming Conventions</a></li>
-<li class="chapter" data-level="2.3.2" data-path="tlr-shell.html"><a href="tlr-shell.html#version-control"><i class="fa fa-check"></i><b>2.3.2</b> Version Control</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="tlr-shell.html"><a href="tlr-shell.html#common-mistakes-to-avoid"><i class="fa fa-check"></i><b>2.4</b> Common Mistakes to Avoid</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="output-conversion.html"><a href="output-conversion.html"><i class="fa fa-check"></i><b>3</b> Output Conversion with 3C Helper</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="output-conversion.html"><a href="output-conversion.html#understanding-tlf-formats"><i class="fa fa-check"></i><b>3.1</b> Understanding TLF Formats</a></li>
 <li class="chapter" data-level="3.2" data-path="output-conversion.html"><a href="output-conversion.html#what-is-3c-helper"><i class="fa fa-check"></i><b>3.2</b> What is 3C Helper?</a></li>
-<li class="chapter" data-level="3.3" data-path="output-conversion.html"><a href="output-conversion.html#file-naming-conventions"><i class="fa fa-check"></i><b>3.3</b> File Naming Conventions</a>
+<li class="chapter" data-level="3.3" data-path="output-conversion.html"><a href="output-conversion.html#how-to-download-3c-helper"><i class="fa fa-check"></i><b>3.3</b> How to download 3C Helper</a></li>
+<li class="chapter" data-level="3.4" data-path="output-conversion.html"><a href="output-conversion.html#converting-your-rtf-outputs-into-docx"><i class="fa fa-check"></i><b>3.4</b> Converting your RTF outputs into DOCX</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="output-conversion.html"><a href="output-conversion.html#recommended-naming-pattern"><i class="fa fa-check"></i><b>3.3.1</b> Recommended Naming Pattern</a></li>
+<li class="chapter" data-level="3.4.1" data-path="output-conversion.html"><a href="output-conversion.html#example-from-the-tlr-package"><i class="fa fa-check"></i><b>3.4.1</b> Example from the TLR package</a></li>
+<li class="chapter" data-level="3.4.2" data-path="output-conversion.html"><a href="output-conversion.html#example-from-space"><i class="fa fa-check"></i><b>3.4.2</b> Example from SPACE</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="output-conversion.html"><a href="output-conversion.html#organizing-your-tlf-folder"><i class="fa fa-check"></i><b>3.4</b> Organizing Your TLF Folder</a></li>
-<li class="chapter" data-level="3.5" data-path="output-conversion.html"><a href="output-conversion.html#quality-checks-before-processing"><i class="fa fa-check"></i><b>3.5</b> Quality Checks Before Processing</a></li>
+<li class="chapter" data-level="3.5" data-path="output-conversion.html"><a href="output-conversion.html#organizing-your-tlf-folder"><i class="fa fa-check"></i><b>3.5</b> Organizing Your TLF Folder</a></li>
+<li class="chapter" data-level="3.6" data-path="output-conversion.html"><a href="output-conversion.html#quality-checks-before-processing"><i class="fa fa-check"></i><b>3.6</b> Quality Checks Before Processing</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="appendix-creation.html"><a href="appendix-creation.html"><i class="fa fa-check"></i><b>4</b> Appendix Creation</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="appendix-creation.html"><a href="appendix-creation.html#the-run_apdx-function"><i class="fa fa-check"></i><b>4.1</b> The run_apdx() Function</a></li>
-<li class="chapter" data-level="4.2" data-path="appendix-creation.html"><a href="appendix-creation.html#basic-usage"><i class="fa fa-check"></i><b>4.2</b> Basic Usage</a></li>
-<li class="chapter" data-level="4.3" data-path="appendix-creation.html"><a href="appendix-creation.html#function-parameters"><i class="fa fa-check"></i><b>4.3</b> Function Parameters</a>
+<li class="chapter" data-level="4.2" data-path="appendix-creation.html"><a href="appendix-creation.html#function-parameters"><i class="fa fa-check"></i><b>4.2</b> Function Parameters</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="appendix-creation.html"><a href="appendix-creation.html#required-parameters"><i class="fa fa-check"></i><b>4.3.1</b> Required Parameters</a></li>
-<li class="chapter" data-level="4.3.2" data-path="appendix-creation.html"><a href="appendix-creation.html#optional-parameters"><i class="fa fa-check"></i><b>4.3.2</b> Optional Parameters</a></li>
+<li class="chapter" data-level="4.2.1" data-path="appendix-creation.html"><a href="appendix-creation.html#required-parameters"><i class="fa fa-check"></i><b>4.2.1</b> Required Parameters</a></li>
+<li class="chapter" data-level="4.2.2" data-path="appendix-creation.html"><a href="appendix-creation.html#optional-parameters"><i class="fa fa-check"></i><b>4.2.2</b> Optional Parameters</a></li>
 </ul></li>
+<li class="chapter" data-level="4.3" data-path="appendix-creation.html"><a href="appendix-creation.html#basic-usage"><i class="fa fa-check"></i><b>4.3</b> Basic Usage</a></li>
 <li class="chapter" data-level="4.4" data-path="appendix-creation.html"><a href="appendix-creation.html#organizing-with-sections"><i class="fa fa-check"></i><b>4.4</b> Organizing with Sections</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="appendix-creation.html"><a href="appendix-creation.html#method-1-using-a-list"><i class="fa fa-check"></i><b>4.4.1</b> Method 1: Using a List</a></li>
-<li class="chapter" data-level="4.4.2" data-path="appendix-creation.html"><a href="appendix-creation.html#method-2-using-a-csv-file"><i class="fa fa-check"></i><b>4.4.2</b> Method 2: Using a CSV File</a></li>
+<li class="chapter" data-level="4.4.1" data-path="appendix-creation.html"><a href="appendix-creation.html#method-1-using-a-r-list"><i class="fa fa-check"></i><b>4.4.1</b> Method 1: Using a R List</a></li>
+<li class="chapter" data-level="4.4.2" data-path="appendix-creation.html"><a href="appendix-creation.html#method-2-using-a-csv-or-excel-file"><i class="fa fa-check"></i><b>4.4.2</b> Method 2: Using a CSV or Excel File</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="appendix-creation.html"><a href="appendix-creation.html#working-with-officer-objects"><i class="fa fa-check"></i><b>4.5</b> Working with Officer Objects</a></li>
-<li class="chapter" data-level="4.6" data-path="appendix-creation.html"><a href="appendix-creation.html#best-practices-1"><i class="fa fa-check"></i><b>4.6</b> Best Practices</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="text-replacement.html"><a href="text-replacement.html"><i class="fa fa-check"></i><b>5</b> Dynamic Text Replacement</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="text-replacement.html"><a href="text-replacement.html#the-textreplace-function"><i class="fa fa-check"></i><b>5.1</b> The textReplace() Function</a></li>
-<li class="chapter" data-level="5.2" data-path="text-replacement.html"><a href="text-replacement.html#why-use-dynamic-text"><i class="fa fa-check"></i><b>5.2</b> Why Use Dynamic Text?</a></li>
-<li class="chapter" data-level="5.3" data-path="text-replacement.html"><a href="text-replacement.html#basic-usage-1"><i class="fa fa-check"></i><b>5.3</b> Basic Usage</a></li>
-<li class="chapter" data-level="5.4" data-path="text-replacement.html"><a href="text-replacement.html#function-parameters-1"><i class="fa fa-check"></i><b>5.4</b> Function Parameters</a></li>
-<li class="chapter" data-level="5.5" data-path="text-replacement.html"><a href="text-replacement.html#critical-officer-in-place-modification"><i class="fa fa-check"></i><b>5.5</b> CRITICAL: Officer In-Place Modification</a></li>
-<li class="chapter" data-level="5.6" data-path="text-replacement.html"><a href="text-replacement.html#chaining-multiple-replacements"><i class="fa fa-check"></i><b>5.6</b> Chaining Multiple Replacements</a>
+<li class="chapter" data-level="5.2" data-path="text-replacement.html"><a href="text-replacement.html#why-using-textreplace-function"><i class="fa fa-check"></i><b>5.2</b> Why using textReplace() Function?</a></li>
+<li class="chapter" data-level="5.3" data-path="text-replacement.html"><a href="text-replacement.html#function-parameters-1"><i class="fa fa-check"></i><b>5.3</b> Function Parameters</a>
 <ul>
-<li class="chapter" data-level="5.6.1" data-path="text-replacement.html"><a href="text-replacement.html#method-1-base-r-pipe"><i class="fa fa-check"></i><b>5.6.1</b> Method 1: Base R Pipe</a></li>
-<li class="chapter" data-level="5.6.2" data-path="text-replacement.html"><a href="text-replacement.html#method-2-dplyr-pipe"><i class="fa fa-check"></i><b>5.6.2</b> Method 2: dplyr Pipe</a></li>
+<li class="chapter" data-level="5.3.1" data-path="text-replacement.html"><a href="text-replacement.html#required-parameters-1"><i class="fa fa-check"></i><b>5.3.1</b> Required Parameters</a></li>
+<li class="chapter" data-level="5.3.2" data-path="text-replacement.html"><a href="text-replacement.html#optional-parameters-1"><i class="fa fa-check"></i><b>5.3.2</b> Optional Parameters</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="text-replacement.html"><a href="text-replacement.html#practical-examples"><i class="fa fa-check"></i><b>5.7</b> Practical Examples</a>
+<li class="chapter" data-level="5.4" data-path="text-replacement.html"><a href="text-replacement.html#basic-usage-1"><i class="fa fa-check"></i><b>5.4</b> Basic Usage</a></li>
+<li class="chapter" data-level="5.5" data-path="text-replacement.html"><a href="text-replacement.html#chaining-multiple-replacements"><i class="fa fa-check"></i><b>5.5</b> Chaining Multiple Replacements</a>
 <ul>
-<li class="chapter" data-level="5.7.1" data-path="text-replacement.html"><a href="text-replacement.html#example-1-population-counts"><i class="fa fa-check"></i><b>5.7.1</b> Example 1: Population Counts</a></li>
-<li class="chapter" data-level="5.7.2" data-path="text-replacement.html"><a href="text-replacement.html#example-2-efficacy-results"><i class="fa fa-check"></i><b>5.7.2</b> Example 2: Efficacy Results</a></li>
+<li class="chapter" data-level="5.5.1" data-path="text-replacement.html"><a href="text-replacement.html#method-1-base-r-pipe"><i class="fa fa-check"></i><b>5.5.1</b> Method 1: Base R Pipe</a></li>
+<li class="chapter" data-level="5.5.2" data-path="text-replacement.html"><a href="text-replacement.html#method-2-magrittr-pipe"><i class="fa fa-check"></i><b>5.5.2</b> Method 2: magrittr Pipe</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="text-replacement.html"><a href="text-replacement.html#complete-workflow-example"><i class="fa fa-check"></i><b>5.8</b> Complete Workflow Example</a></li>
-<li class="chapter" data-level="5.9" data-path="text-replacement.html"><a href="text-replacement.html#combining-with-run_apdx"><i class="fa fa-check"></i><b>5.9</b> Combining with run_apdx()</a></li>
-<li class="chapter" data-level="5.10" data-path="text-replacement.html"><a href="text-replacement.html#best-practices-2"><i class="fa fa-check"></i><b>5.10</b> Best Practices</a></li>
+<li class="chapter" data-level="5.6" data-path="text-replacement.html"><a href="text-replacement.html#practical-examples"><i class="fa fa-check"></i><b>5.6</b> Practical Examples</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="text-replacement.html"><a href="text-replacement.html#example-1-population-counts"><i class="fa fa-check"></i><b>5.6.1</b> Example 1: Population Counts</a></li>
+<li class="chapter" data-level="5.6.2" data-path="text-replacement.html"><a href="text-replacement.html#example-2-efficacy-results"><i class="fa fa-check"></i><b>5.6.2</b> Example 2: Efficacy Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="text-replacement.html"><a href="text-replacement.html#complete-workflow-example"><i class="fa fa-check"></i><b>5.7</b> Complete Workflow Example</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="creating-text.html"><a href="creating-text.html"><i class="fa fa-check"></i><b>6</b> Creating Text with R</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="creating-text.html"><a href="creating-text.html#the-fct_var_text-function"><i class="fa fa-check"></i><b>6.1</b> The fct_var_text() Function</a></li>
-<li class="chapter" data-level="6.2" data-path="creating-text.html"><a href="creating-text.html#what-does-it-do"><i class="fa fa-check"></i><b>6.2</b> What Does It Do?</a></li>
-<li class="chapter" data-level="6.3" data-path="creating-text.html"><a href="creating-text.html#basic-usage-2"><i class="fa fa-check"></i><b>6.3</b> Basic Usage</a></li>
-<li class="chapter" data-level="6.4" data-path="creating-text.html"><a href="creating-text.html#function-parameters-2"><i class="fa fa-check"></i><b>6.4</b> Function Parameters</a></li>
-<li class="chapter" data-level="6.5" data-path="creating-text.html"><a href="creating-text.html#label-formats"><i class="fa fa-check"></i><b>6.5</b> Label Formats</a>
+<li class="chapter" data-level="6.1" data-path="creating-text.html"><a href="creating-text.html#fct_smpl_rest"><i class="fa fa-check"></i><b>6.1</b> <code>fct_smpl_rest()</code></a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="creating-text.html"><a href="creating-text.html#show-counts-only"><i class="fa fa-check"></i><b>6.5.1</b> Show Counts Only</a></li>
-<li class="chapter" data-level="6.5.2" data-path="creating-text.html"><a href="creating-text.html#show-percentages-only"><i class="fa fa-check"></i><b>6.5.2</b> Show Percentages Only</a></li>
-<li class="chapter" data-level="6.5.3" data-path="creating-text.html"><a href="creating-text.html#show-both"><i class="fa fa-check"></i><b>6.5.3</b> Show Both</a></li>
+<li class="chapter" data-level="6.1.1" data-path="creating-text.html"><a href="creating-text.html#purpose"><i class="fa fa-check"></i><b>6.1.1</b> Purpose</a></li>
+<li class="chapter" data-level="6.1.2" data-path="creating-text.html"><a href="creating-text.html#parameters"><i class="fa fa-check"></i><b>6.1.2</b> Parameters</a></li>
+<li class="chapter" data-level="6.1.3" data-path="creating-text.html"><a href="creating-text.html#examples"><i class="fa fa-check"></i><b>6.1.3</b> Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="creating-text.html"><a href="creating-text.html#advanced-features"><i class="fa fa-check"></i><b>6.6</b> Advanced Features</a>
+<li class="chapter" data-level="6.2" data-path="creating-text.html"><a href="creating-text.html#var-text"><i class="fa fa-check"></i><b>6.2</b> fct_var_text()</a>
 <ul>
-<li class="chapter" data-level="6.6.1" data-path="creating-text.html"><a href="creating-text.html#add-descriptive-prefix"><i class="fa fa-check"></i><b>6.6.1</b> Add Descriptive Prefix</a></li>
-<li class="chapter" data-level="6.6.2" data-path="creating-text.html"><a href="creating-text.html#sort-by-frequency"><i class="fa fa-check"></i><b>6.6.2</b> Sort by Frequency</a></li>
-<li class="chapter" data-level="6.6.3" data-path="creating-text.html"><a href="creating-text.html#limit-to-top-n"><i class="fa fa-check"></i><b>6.6.3</b> Limit to Top N</a></li>
-<li class="chapter" data-level="6.6.4" data-path="creating-text.html"><a href="creating-text.html#convert-label-case"><i class="fa fa-check"></i><b>6.6.4</b> Convert Label Case</a></li>
-<li class="chapter" data-level="6.6.5" data-path="creating-text.html"><a href="creating-text.html#filter-data-first"><i class="fa fa-check"></i><b>6.6.5</b> Filter Data First</a></li>
+<li class="chapter" data-level="6.2.1" data-path="creating-text.html"><a href="creating-text.html#purpose-1"><i class="fa fa-check"></i><b>6.2.1</b> Purpose</a></li>
+<li class="chapter" data-level="6.2.2" data-path="creating-text.html"><a href="creating-text.html#parameters-1"><i class="fa fa-check"></i><b>6.2.2</b> Parameters</a></li>
+<li class="chapter" data-level="6.2.3" data-path="creating-text.html"><a href="creating-text.html#examples-1"><i class="fa fa-check"></i><b>6.2.3</b> Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="6.7" data-path="creating-text.html"><a href="creating-text.html#practical-examples-1"><i class="fa fa-check"></i><b>6.7</b> Practical Examples</a>
+<li class="chapter" data-level="6.3" data-path="creating-text.html"><a href="creating-text.html#var-text-group"><i class="fa fa-check"></i><b>6.3</b> fct_var_text_group()</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="creating-text.html"><a href="creating-text.html#example-1-demographics-description"><i class="fa fa-check"></i><b>6.7.1</b> Example 1: Demographics Description</a></li>
-<li class="chapter" data-level="6.7.2" data-path="creating-text.html"><a href="creating-text.html#example-2-discontinuation-reasons"><i class="fa fa-check"></i><b>6.7.2</b> Example 2: Discontinuation Reasons</a></li>
-<li class="chapter" data-level="6.7.3" data-path="creating-text.html"><a href="creating-text.html#example-3-adverse-event-summary"><i class="fa fa-check"></i><b>6.7.3</b> Example 3: Adverse Event Summary</a></li>
+<li class="chapter" data-level="6.3.1" data-path="creating-text.html"><a href="creating-text.html#purpose-2"><i class="fa fa-check"></i><b>6.3.1</b> Purpose</a></li>
+<li class="chapter" data-level="6.3.2" data-path="creating-text.html"><a href="creating-text.html#parameters-2"><i class="fa fa-check"></i><b>6.3.2</b> Parameters</a></li>
+<li class="chapter" data-level="6.3.3" data-path="creating-text.html"><a href="creating-text.html#examples-2"><i class="fa fa-check"></i><b>6.3.3</b> Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="6.8" data-path="creating-text.html"><a href="creating-text.html#complete-workflow"><i class="fa fa-check"></i><b>6.8</b> Complete Workflow</a></li>
-<li class="chapter" data-level="6.9" data-path="creating-text.html"><a href="creating-text.html#integration-with-full-tlr-workflow"><i class="fa fa-check"></i><b>6.9</b> Integration with Full TLR Workflow</a></li>
-<li class="chapter" data-level="6.10" data-path="creating-text.html"><a href="creating-text.html#best-practices-3"><i class="fa fa-check"></i><b>6.10</b> Best Practices</a></li>
-<li class="chapter" data-level="6.11" data-path="creating-text.html"><a href="creating-text.html#tips"><i class="fa fa-check"></i><b>6.11</b> Tips</a></li>
+<li class="chapter" data-level="6.4" data-path="creating-text.html"><a href="creating-text.html#bsl-stats"><i class="fa fa-check"></i><b>6.4</b> fct_bsl_stats()</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="creating-text.html"><a href="creating-text.html#purpose-3"><i class="fa fa-check"></i><b>6.4.1</b> Purpose</a></li>
+<li class="chapter" data-level="6.4.2" data-path="creating-text.html"><a href="creating-text.html#parameters-3"><i class="fa fa-check"></i><b>6.4.2</b> Parameters</a></li>
+<li class="chapter" data-level="6.4.3" data-path="creating-text.html"><a href="creating-text.html#examples-3"><i class="fa fa-check"></i><b>6.4.3</b> Examples</a></li>
 </ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/johnsonandjohnson/RapTLR" target="blank">RapTLR on GitHub</a></li>
-
+<li class="chapter" data-level="6.5" data-path="creating-text.html"><a href="creating-text.html#mst-aes"><i class="fa fa-check"></i><b>6.5</b> fct_mst_aes()</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="creating-text.html"><a href="creating-text.html#purpose-4"><i class="fa fa-check"></i><b>6.5.1</b> Purpose</a></li>
+<li class="chapter" data-level="6.5.2" data-path="creating-text.html"><a href="creating-text.html#parameters-4"><i class="fa fa-check"></i><b>6.5.2</b> Parameters</a></li>
+<li class="chapter" data-level="6.5.3" data-path="creating-text.html"><a href="creating-text.html#examples-4"><i class="fa fa-check"></i><b>6.5.3</b> Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cust-opr.html"><a href="cust-opr.html"><i class="fa fa-check"></i><b>7</b> Custom String Operators</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cust-opr.html"><a href="cust-opr.html#op-space"><i class="fa fa-check"></i><b>7.1</b> <code>%c%</code> — Space separator</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="cust-opr.html"><a href="cust-opr.html#purpose-5"><i class="fa fa-check"></i><b>7.1.1</b> Purpose</a></li>
+<li class="chapter" data-level="7.1.2" data-path="cust-opr.html"><a href="cust-opr.html#examples-5"><i class="fa fa-check"></i><b>7.1.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="cust-opr.html"><a href="cust-opr.html#op-comma"><i class="fa fa-check"></i><b>7.2</b> <code>%c,%</code> — Comma separator</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="cust-opr.html"><a href="cust-opr.html#purpose-6"><i class="fa fa-check"></i><b>7.2.1</b> Purpose</a></li>
+<li class="chapter" data-level="7.2.2" data-path="cust-opr.html"><a href="cust-opr.html#examples-6"><i class="fa fa-check"></i><b>7.2.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="cust-opr.html"><a href="cust-opr.html#op-and"><i class="fa fa-check"></i><b>7.3</b> <code>%c&amp;%</code> — “and” separator</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="cust-opr.html"><a href="cust-opr.html#purpose-7"><i class="fa fa-check"></i><b>7.3.1</b> Purpose</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cust-opr.html"><a href="cust-opr.html#examples-7"><i class="fa fa-check"></i><b>7.3.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="cust-opr.html"><a href="cust-opr.html#op-period"><i class="fa fa-check"></i><b>7.4</b> <code>%c.%</code> — Period separator</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="cust-opr.html"><a href="cust-opr.html#purpose-8"><i class="fa fa-check"></i><b>7.4.1</b> Purpose</a></li>
+<li class="chapter" data-level="7.4.2" data-path="cust-opr.html"><a href="cust-opr.html#examples-8"><i class="fa fa-check"></i><b>7.4.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="cust-opr.html"><a href="cust-opr.html#an-example-where-all-operators-are-combined"><i class="fa fa-check"></i><b>7.5</b> An example where all operators are combined</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="putting-together.html"><a href="putting-together.html"><i class="fa fa-check"></i><b>8</b> Assembling the Complete Top-Line Results Report</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="putting-together.html"><a href="putting-together.html#setting-up"><i class="fa fa-check"></i><b>8.1</b> Setting Up</a></li>
+<li class="chapter" data-level="8.2" data-path="putting-together.html"><a href="putting-together.html#general-information"><i class="fa fa-check"></i><b>8.2</b> General Information</a></li>
+<li class="chapter" data-level="8.3" data-path="putting-together.html"><a href="putting-together.html#study-disposition"><i class="fa fa-check"></i><b>8.3</b> Study Disposition</a></li>
+<li class="chapter" data-level="8.4" data-path="putting-together.html"><a href="putting-together.html#demographics-and-baseline-characteristics"><i class="fa fa-check"></i><b>8.4</b> Demographics and Baseline Characteristics</a></li>
+<li class="chapter" data-level="8.5" data-path="putting-together.html"><a href="putting-together.html#safety"><i class="fa fa-check"></i><b>8.5</b> Safety</a></li>
+<li class="chapter" data-level="8.6" data-path="putting-together.html"><a href="putting-together.html#replacing-placeholders-and-saving"><i class="fa fa-check"></i><b>8.6</b> Replacing Placeholders and Saving</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -267,252 +290,852 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="creating-text" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Creating Text with R<a href="creating-text.html#creating-text" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="the-fct_var_text-function" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> The fct_var_text() Function<a href="creating-text.html#the-fct_var_text-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>RapTLR includes <code>fct_var_text()</code> to automatically create formatted text descriptions of categorical variable distributions.</p>
+<h1><span class="header-section-number">6</span> Creating Text with R<a href="creating-text.html#creating-text" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In a clinical Top-Line Results Report, much of the narrative consists of sentences derived directly from analysis datasets: how many subjects were enrolled, what the demographic profile looked like, which adverse events were most frequent. Traditionally these numbers are read from tables and typed into a Word document by hand — a process that is slow, error-prone, and must be repeated every time the data changes.</p>
+<p>RapTLR provides a set of text-generation functions that produce ready-to-insert narrative strings directly from your R datasets. Each function targets a specific, recurring reporting need:</p>
+<ul>
+<li><strong><code>fct_smpl_rest()</code></strong> — report a subject count (with optional percentage) for any filtered population</li>
+<li><strong><code>fct_var_text()</code></strong> — describe the distribution of a categorical variable as a formatted list</li>
+<li><strong><code>fct_var_text_group()</code></strong> — describe the distribution of a categorical variable per-group breakdown as a formatted list</li>
+<li><strong><code>fct_bsl_stats()</code></strong> — summarise a continuous baseline variable with central tendency and spread</li>
+<li><strong><code>fct_mst_aes()</code></strong> — identify and describe the most common treatment-emergent adverse events</li>
+</ul>
+<p>The outputs are plain character strings, so they slot directly into <code>textReplace()</code> to populate placeholders in your Word shell document. All examples in this chapter use the two built-in datasets:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="creating-text.html#cb17-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb17-2"><a href="creating-text.html#cb17-2" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="creating-text.html#cb17-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tlr_adsl&quot;</span>)   <span class="co"># Subject-level analysis dataset (ADSL) — 254 subjects</span></span>
+<span id="cb17-4"><a href="creating-text.html#cb17-4" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tlr_adae&quot;</span>)   <span class="co"># Adverse events analysis dataset (ADAE)</span></span></code></pre></div>
+<hr />
+<div id="fct_smpl_rest" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> <code>fct_smpl_rest()</code><a href="creating-text.html#fct_smpl_rest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="purpose" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Purpose<a href="creating-text.html#purpose" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>fct_smpl_rest()</code> counts rows in a dataset and returns the result as a formatted character string. Two optional filter expressions can be chained: the first (<code>arg_fl_rest</code>) defines the reference population used as the denominator for percentage calculations, and the second (<code>arg_var_rest</code>) defines the subgroup to count as the numerator.</p>
 </div>
-<div id="what-does-it-do" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> What Does It Do?<a href="creating-text.html#what-does-it-do" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Converts this:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="creating-text.html#cb22-1" tabindex="-1"></a><span class="fu">table</span>(adsl<span class="sc">$</span>RACE)</span>
-<span id="cb22-2"><a href="creating-text.html#cb22-2" tabindex="-1"></a><span class="co"># WHITE  BLACK  ASIAN  OTHER</span></span>
-<span id="cb22-3"><a href="creating-text.html#cb22-3" tabindex="-1"></a><span class="co">#   150     80     50     20</span></span></code></pre></div>
-<p>Into this:</p>
-<pre><code>&quot;White (n=150; 50%), Black (n=80; 26.7%), Asian (n=50; 16.7%) and Other (n=20; 6.7%)&quot;</code></pre>
+<div id="parameters" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Parameters<a href="creating-text.html#parameters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>arg_dataset</code></td>
+<td>data frame</td>
+<td>—</td>
+<td>Dataset to filter and count</td>
+</tr>
+<tr class="even">
+<td><code>arg_text_desc</code></td>
+<td>character</td>
+<td><code>""</code></td>
+<td>Text prepended before the count</td>
+</tr>
+<tr class="odd">
+<td><code>arg_text_end</code></td>
+<td>character</td>
+<td><code>""</code></td>
+<td>Text appended after the count</td>
+</tr>
+<tr class="even">
+<td><code>arg_fl_rest</code></td>
+<td>expression</td>
+<td>—</td>
+<td>First filter — defines the denominator population</td>
+</tr>
+<tr class="odd">
+<td><code>arg_var_rest</code></td>
+<td>expression</td>
+<td>—</td>
+<td>Second filter — defines the subgroup to count</td>
+</tr>
+<tr class="even">
+<td><code>arg_lbl</code></td>
+<td>character</td>
+<td><code>"nbr"</code></td>
+<td>Output format: <code>"nbr"</code>, <code>"pct"</code>, or <code>"nbr-pct"</code></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="basic-usage-2" class="section level2 hasAnchor" number="6.3">
-<h2><span class="header-section-number">6.3</span> Basic Usage<a href="creating-text.html#basic-usage-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="creating-text.html#cb24-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
-<span id="cb24-2"><a href="creating-text.html#cb24-2" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="creating-text.html#cb24-3" tabindex="-1"></a><span class="co"># Simple distribution</span></span>
-<span id="cb24-4"><a href="creating-text.html#cb24-4" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb24-5"><a href="creating-text.html#cb24-5" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb24-6"><a href="creating-text.html#cb24-6" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE</span>
-<span id="cb24-7"><a href="creating-text.html#cb24-7" tabindex="-1"></a>)</span></code></pre></div>
-<p>Output: <code>"WHITE (n=150), BLACK (n=80), ASIAN (n=50) and OTHER (n=20)"</code></p>
+<div id="examples" class="section level3 hasAnchor" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> Examples<a href="creating-text.html#examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Example 1 — Total number of subjects</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="creating-text.html#cb18-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(<span class="at">arg_dataset =</span> tlr_adsl)</span>
+<span id="cb18-2"><a href="creating-text.html#cb18-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;254&quot;</span></span></code></pre></div>
+<p><strong>Example 2 — Count within a population flag</strong></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="creating-text.html#cb19-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb19-2"><a href="creating-text.html#cb19-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb19-3"><a href="creating-text.html#cb19-3" tabindex="-1"></a>  <span class="at">arg_fl_rest =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb19-4"><a href="creating-text.html#cb19-4" tabindex="-1"></a>)</span>
+<span id="cb19-5"><a href="creating-text.html#cb19-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;254&quot;</span></span></code></pre></div>
+<p><strong>Example 3 — Embed the count in a sentence</strong></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="creating-text.html#cb20-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb20-2"><a href="creating-text.html#cb20-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb20-3"><a href="creating-text.html#cb20-3" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;This study enrolled &quot;</span>,</span>
+<span id="cb20-4"><a href="creating-text.html#cb20-4" tabindex="-1"></a>  <span class="at">arg_text_end  =</span> <span class="st">&quot; participants in the safety population.&quot;</span>,</span>
+<span id="cb20-5"><a href="creating-text.html#cb20-5" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb20-6"><a href="creating-text.html#cb20-6" tabindex="-1"></a>)</span>
+<span id="cb20-7"><a href="creating-text.html#cb20-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;This study enrolled 254 participants in the safety population.&quot;</span></span></code></pre></div>
+<p><strong>Example 4 — Subgroup count within a population</strong></p>
+<p>The denominator is the safety population (254); the numerator is subjects assigned to Xanomeline High Dose (84).</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="creating-text.html#cb21-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb21-2"><a href="creating-text.html#cb21-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
+<span id="cb21-3"><a href="creating-text.html#cb21-3" tabindex="-1"></a>  <span class="at">arg_fl_rest  =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb21-4"><a href="creating-text.html#cb21-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> ARM <span class="sc">==</span> <span class="st">&quot;Xanomeline High Dose&quot;</span></span>
+<span id="cb21-5"><a href="creating-text.html#cb21-5" tabindex="-1"></a>)</span>
+<span id="cb21-6"><a href="creating-text.html#cb21-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;84&quot;</span></span></code></pre></div>
+<p><strong>Example 5 — Return as a percentage</strong></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="creating-text.html#cb22-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb22-2"><a href="creating-text.html#cb22-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
+<span id="cb22-3"><a href="creating-text.html#cb22-3" tabindex="-1"></a>  <span class="at">arg_fl_rest  =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb22-4"><a href="creating-text.html#cb22-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> ARM <span class="sc">==</span> <span class="st">&quot;Xanomeline High Dose&quot;</span>,</span>
+<span id="cb22-5"><a href="creating-text.html#cb22-5" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span></span>
+<span id="cb22-6"><a href="creating-text.html#cb22-6" tabindex="-1"></a>)</span>
+<span id="cb22-7"><a href="creating-text.html#cb22-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;33.1%&quot;</span></span></code></pre></div>
+<p><strong>Example 6 — Return count and percentage together</strong></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="creating-text.html#cb23-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb23-2"><a href="creating-text.html#cb23-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
+<span id="cb23-3"><a href="creating-text.html#cb23-3" tabindex="-1"></a>  <span class="at">arg_fl_rest  =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb23-4"><a href="creating-text.html#cb23-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> ARM <span class="sc">==</span> <span class="st">&quot;Xanomeline High Dose&quot;</span>,</span>
+<span id="cb23-5"><a href="creating-text.html#cb23-5" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb23-6"><a href="creating-text.html#cb23-6" tabindex="-1"></a>)</span>
+<span id="cb23-7"><a href="creating-text.html#cb23-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;84 (33.1%)&quot;</span></span></code></pre></div>
+<p><strong>Example 7 — Compound conditions and descriptive framing</strong></p>
+<p>Filter arguments accept any logical expression, including compound conditions with <code>&amp;</code>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="creating-text.html#cb24-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb24-2"><a href="creating-text.html#cb24-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb24-3"><a href="creating-text.html#cb24-3" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The study population included &quot;</span>,</span>
+<span id="cb24-4"><a href="creating-text.html#cb24-4" tabindex="-1"></a>  <span class="at">arg_text_end  =</span> <span class="st">&quot; female participants.&quot;</span>,</span>
+<span id="cb24-5"><a href="creating-text.html#cb24-5" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> SEX <span class="sc">==</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb24-6"><a href="creating-text.html#cb24-6" tabindex="-1"></a>)</span>
+<span id="cb24-7"><a href="creating-text.html#cb24-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The study population included 143 female participants.&quot;</span></span></code></pre></div>
+<p><strong>Example 8 — Study completers at multiple time points</strong></p>
+<p>Chain calls with <code>paste()</code> to build a multi-sentence summary.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="creating-text.html#cb25-1" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb25-2"><a href="creating-text.html#cb25-2" tabindex="-1"></a>  <span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb25-3"><a href="creating-text.html#cb25-3" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb25-4"><a href="creating-text.html#cb25-4" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;At week 8, the number of completers were: &quot;</span>,</span>
+<span id="cb25-5"><a href="creating-text.html#cb25-5" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> COMP8FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb25-6"><a href="creating-text.html#cb25-6" tabindex="-1"></a>  ),</span>
+<span id="cb25-7"><a href="creating-text.html#cb25-7" tabindex="-1"></a>  <span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb25-8"><a href="creating-text.html#cb25-8" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb25-9"><a href="creating-text.html#cb25-9" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;At week 16, the number of completers were: &quot;</span>,</span>
+<span id="cb25-10"><a href="creating-text.html#cb25-10" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> COMP16FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb25-11"><a href="creating-text.html#cb25-11" tabindex="-1"></a>  ),</span>
+<span id="cb25-12"><a href="creating-text.html#cb25-12" tabindex="-1"></a>  <span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb25-13"><a href="creating-text.html#cb25-13" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb25-14"><a href="creating-text.html#cb25-14" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;At week 24, the number of completers were: &quot;</span>,</span>
+<span id="cb25-15"><a href="creating-text.html#cb25-15" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> COMP24FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb25-16"><a href="creating-text.html#cb25-16" tabindex="-1"></a>  ),</span>
+<span id="cb25-17"><a href="creating-text.html#cb25-17" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot; &quot;</span></span>
+<span id="cb25-18"><a href="creating-text.html#cb25-18" tabindex="-1"></a>)</span>
+<span id="cb25-19"><a href="creating-text.html#cb25-19" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;At week 8, the number of completers were: 190 At week 16, the number of completers were: 147 At week 24, the number of completers were: 118&quot;</span></span></code></pre></div>
+<hr />
 </div>
-<div id="function-parameters-2" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> Function Parameters<a href="creating-text.html#function-parameters-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>arg_text_desc</strong> - Prefix text (default: ““)</p>
-<p><strong>arg_dataset</strong> - Data frame containing the variable</p>
-<p><strong>arg_fl_rest</strong> - Optional filtering condition</p>
-<p><strong>arg_var_rest</strong> - Unquoted variable name to analyze</p>
-<p><strong>arg_order</strong> - Sort by frequency? (default: FALSE)</p>
-<p><strong>arg_cvt_stg</strong> - Function to apply to labels (default: identity)</p>
-<p><strong>arg_nbr_obs</strong> - Number of levels to include (default: Inf)</p>
-<p><strong>arg_lbl</strong> - Format: “nbr”, “pct”, or “nbr-pct”</p>
 </div>
-<div id="label-formats" class="section level2 hasAnchor" number="6.5">
-<h2><span class="header-section-number">6.5</span> Label Formats<a href="creating-text.html#label-formats" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="show-counts-only" class="section level3 hasAnchor" number="6.5.1">
-<h3><span class="header-section-number">6.5.1</span> Show Counts Only<a href="creating-text.html#show-counts-only" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="creating-text.html#cb25-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb25-2"><a href="creating-text.html#cb25-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb25-3"><a href="creating-text.html#cb25-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb25-4"><a href="creating-text.html#cb25-4" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr&quot;</span></span>
-<span id="cb25-5"><a href="creating-text.html#cb25-5" tabindex="-1"></a>)</span></code></pre></div>
-<p>Output: <code>"WHITE (n=150), BLACK (n=80), ASIAN (n=50) and OTHER (n=20)"</code></p>
+<div id="var-text" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> fct_var_text()<a href="creating-text.html#var-text" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="purpose-1" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Purpose<a href="creating-text.html#purpose-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>fct_var_text()</code> creates a formatted text description of the distribution of a categorical variable. It counts how often each level appears, computes percentages, and returns a sentence listing the categories — connected with commas and “and” before the last item.</p>
+<p>This is ideal for:</p>
+<ul>
+<li>Race and sex distributions in demographics sections</li>
+<li>Discontinuation reasons in disposition sections</li>
+<li>Any categorical variable where a compact ranked summary is needed</li>
+</ul>
 </div>
-<div id="show-percentages-only" class="section level3 hasAnchor" number="6.5.2">
-<h3><span class="header-section-number">6.5.2</span> Show Percentages Only<a href="creating-text.html#show-percentages-only" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="parameters-1" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Parameters<a href="creating-text.html#parameters-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>arg_text_desc</code></td>
+<td>character</td>
+<td><code>""</code></td>
+<td>Prefix text prepended to the output</td>
+</tr>
+<tr class="even">
+<td><code>arg_dataset</code></td>
+<td>data frame</td>
+<td>—</td>
+<td>Dataset containing the variable</td>
+</tr>
+<tr class="odd">
+<td><code>arg_fl_rest</code></td>
+<td>expression</td>
+<td><code>NULL</code></td>
+<td>Optional filter applied before analysis</td>
+</tr>
+<tr class="even">
+<td><code>arg_var_rest</code></td>
+<td>unquoted name</td>
+<td>—</td>
+<td>Categorical variable to analyse</td>
+</tr>
+<tr class="odd">
+<td><code>arg_order</code></td>
+<td>logical</td>
+<td><code>FALSE</code></td>
+<td>If <code>TRUE</code>, sort categories by descending frequency</td>
+</tr>
+<tr class="even">
+<td><code>arg_cvt_stg</code></td>
+<td>function</td>
+<td><code>I</code></td>
+<td>Transformation applied to category labels (e.g., <code>str_to_sentence</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>arg_nbr_obs</code></td>
+<td>numeric</td>
+<td><code>Inf</code></td>
+<td>Maximum number of categories to include</td>
+</tr>
+<tr class="even">
+<td><code>arg_lbl</code></td>
+<td>character</td>
+<td><code>"pct"</code></td>
+<td>Format: <code>"nbr"</code>, <code>"pct"</code>, or <code>"nbr-pct"</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="examples-1" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> Examples<a href="creating-text.html#examples-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Example 1 — Counts only</strong></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="creating-text.html#cb26-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb26-2"><a href="creating-text.html#cb26-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb26-2"><a href="creating-text.html#cb26-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
 <span id="cb26-3"><a href="creating-text.html#cb26-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb26-4"><a href="creating-text.html#cb26-4" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;pct&quot;</span></span>
-<span id="cb26-5"><a href="creating-text.html#cb26-5" tabindex="-1"></a>)</span></code></pre></div>
-<p>Output: <code>"WHITE (50%), BLACK (26.7%), ASIAN (16.7%) and OTHER (6.7%)"</code></p>
-</div>
-<div id="show-both" class="section level3 hasAnchor" number="6.5.3">
-<h3><span class="header-section-number">6.5.3</span> Show Both<a href="creating-text.html#show-both" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<span id="cb26-4"><a href="creating-text.html#cb26-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;nbr&quot;</span></span>
+<span id="cb26-5"><a href="creating-text.html#cb26-5" tabindex="-1"></a>)</span>
+<span id="cb26-6"><a href="creating-text.html#cb26-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;AMERICAN INDIAN OR ALASKA NATIVE (n=1), BLACK OR AFRICAN AMERICAN (n=23) and WHITE (n=230)&quot;</span></span></code></pre></div>
+<p><strong>Example 2 — Percentages only (default)</strong></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="creating-text.html#cb27-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb27-2"><a href="creating-text.html#cb27-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb27-2"><a href="creating-text.html#cb27-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
 <span id="cb27-3"><a href="creating-text.html#cb27-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb27-4"><a href="creating-text.html#cb27-4" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
-<span id="cb27-5"><a href="creating-text.html#cb27-5" tabindex="-1"></a>)</span></code></pre></div>
-<p>Output: <code>"WHITE (n=150; 50%), BLACK (n=80; 26.7%) and ASIAN (n=50; 16.7%)"</code></p>
-</div>
-</div>
-<div id="advanced-features" class="section level2 hasAnchor" number="6.6">
-<h2><span class="header-section-number">6.6</span> Advanced Features<a href="creating-text.html#advanced-features" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="add-descriptive-prefix" class="section level3 hasAnchor" number="6.6.1">
-<h3><span class="header-section-number">6.6.1</span> Add Descriptive Prefix<a href="creating-text.html#add-descriptive-prefix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<span id="cb27-4"><a href="creating-text.html#cb27-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span></span>
+<span id="cb27-5"><a href="creating-text.html#cb27-5" tabindex="-1"></a>)</span>
+<span id="cb27-6"><a href="creating-text.html#cb27-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;AMERICAN INDIAN OR ALASKA NATIVE (0.4%), BLACK OR AFRICAN AMERICAN (9.1%) and WHITE (90.6%)&quot;</span></span></code></pre></div>
+<p><strong>Example 3 — Counts and percentages combined</strong></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="creating-text.html#cb28-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb28-2"><a href="creating-text.html#cb28-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;Patients were&quot;</span>,</span>
-<span id="cb28-3"><a href="creating-text.html#cb28-3" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb28-4"><a href="creating-text.html#cb28-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE</span>
-<span id="cb28-5"><a href="creating-text.html#cb28-5" tabindex="-1"></a>)</span></code></pre></div>
-<p>Output: <code>"Patients were WHITE (n=150), BLACK (n=80) and ASIAN (n=50)"</code></p>
-</div>
-<div id="sort-by-frequency" class="section level3 hasAnchor" number="6.6.2">
-<h3><span class="header-section-number">6.6.2</span> Sort by Frequency<a href="creating-text.html#sort-by-frequency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<span id="cb28-2"><a href="creating-text.html#cb28-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
+<span id="cb28-3"><a href="creating-text.html#cb28-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb28-4"><a href="creating-text.html#cb28-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb28-5"><a href="creating-text.html#cb28-5" tabindex="-1"></a>)</span>
+<span id="cb28-6"><a href="creating-text.html#cb28-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;AMERICAN INDIAN OR ALASKA NATIVE (n=1; 0.4%), BLACK OR AFRICAN AMERICAN (n=23; 9.1%) and WHITE (n=230; 90.6%)&quot;</span></span></code></pre></div>
+<p><strong>Example 4 — Add a descriptive prefix</strong></p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="creating-text.html#cb29-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb29-2"><a href="creating-text.html#cb29-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb29-3"><a href="creating-text.html#cb29-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb29-4"><a href="creating-text.html#cb29-4" tabindex="-1"></a>  <span class="at">arg_order =</span> <span class="cn">TRUE</span></span>
-<span id="cb29-5"><a href="creating-text.html#cb29-5" tabindex="-1"></a>)</span></code></pre></div>
-<p>Output shows most common first.</p>
-</div>
-<div id="limit-to-top-n" class="section level3 hasAnchor" number="6.6.3">
-<h3><span class="header-section-number">6.6.3</span> Limit to Top N<a href="creating-text.html#limit-to-top-n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<span id="cb29-2"><a href="creating-text.html#cb29-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The study population comprised&quot;</span>,</span>
+<span id="cb29-3"><a href="creating-text.html#cb29-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb29-4"><a href="creating-text.html#cb29-4" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> RACE,</span>
+<span id="cb29-5"><a href="creating-text.html#cb29-5" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;pct&quot;</span></span>
+<span id="cb29-6"><a href="creating-text.html#cb29-6" tabindex="-1"></a>)</span>
+<span id="cb29-7"><a href="creating-text.html#cb29-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The study population comprised AMERICAN INDIAN OR ALASKA NATIVE (0.4%), BLACK OR AFRICAN AMERICAN (9.1%) and WHITE (90.6%)&quot;</span></span></code></pre></div>
+<p><strong>Example 5 — Convert labels to sentence case</strong></p>
+<p>Raw dataset values are often uppercase. <code>arg_cvt_stg</code> applies any string-transformation function to the labels.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="creating-text.html#cb30-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb30-2"><a href="creating-text.html#cb30-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb30-3"><a href="creating-text.html#cb30-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb30-4"><a href="creating-text.html#cb30-4" tabindex="-1"></a>  <span class="at">arg_order =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb30-5"><a href="creating-text.html#cb30-5" tabindex="-1"></a>  <span class="at">arg_nbr_obs =</span> <span class="dv">3</span></span>
-<span id="cb30-6"><a href="creating-text.html#cb30-6" tabindex="-1"></a>)</span></code></pre></div>
-<p>Shows only top 3 most frequent categories.</p>
-</div>
-<div id="convert-label-case" class="section level3 hasAnchor" number="6.6.4">
-<h3><span class="header-section-number">6.6.4</span> Convert Label Case<a href="creating-text.html#convert-label-case" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<span id="cb30-2"><a href="creating-text.html#cb30-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The study population comprised&quot;</span>,</span>
+<span id="cb30-3"><a href="creating-text.html#cb30-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb30-4"><a href="creating-text.html#cb30-4" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> RACE,</span>
+<span id="cb30-5"><a href="creating-text.html#cb30-5" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;pct&quot;</span>,</span>
+<span id="cb30-6"><a href="creating-text.html#cb30-6" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_sentence</span>
+<span id="cb30-7"><a href="creating-text.html#cb30-7" tabindex="-1"></a>)</span>
+<span id="cb30-8"><a href="creating-text.html#cb30-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The study population comprised American indian or alaska native (0.4%), Black or african american (9.1%) and White (90.6%)&quot;</span></span></code></pre></div>
+<p><strong>Example 6 — Sort by frequency, most common and capitalised per words</strong></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="creating-text.html#cb31-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb31-2"><a href="creating-text.html#cb31-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb31-2"><a href="creating-text.html#cb31-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
 <span id="cb31-3"><a href="creating-text.html#cb31-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb31-4"><a href="creating-text.html#cb31-4" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_sentence</span>
-<span id="cb31-5"><a href="creating-text.html#cb31-5" tabindex="-1"></a>)</span></code></pre></div>
-<p>Output: <code>"White (n=150), Black (n=80) and Asian (n=50)"</code></p>
-</div>
-<div id="filter-data-first" class="section level3 hasAnchor" number="6.6.5">
-<h3><span class="header-section-number">6.6.5</span> Filter Data First<a href="creating-text.html#filter-data-first" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<span id="cb31-4"><a href="creating-text.html#cb31-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span>,</span>
+<span id="cb31-5"><a href="creating-text.html#cb31-5" tabindex="-1"></a>  <span class="at">arg_order    =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb31-6"><a href="creating-text.html#cb31-6" tabindex="-1"></a>  <span class="at">arg_cvt_stg  =</span> stringr<span class="sc">::</span>str_to_title</span>
+<span id="cb31-7"><a href="creating-text.html#cb31-7" tabindex="-1"></a>)</span>
+<span id="cb31-8"><a href="creating-text.html#cb31-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;White (90.6%), Black Or African American (9.1%) and American Indian Or Alaska Native (0.4%)&quot;</span></span></code></pre></div>
+<p><strong>Example 7 — Limit to top 2 categories and capitalized words</strong></p>
+<p>Combine <code>arg_order = TRUE</code> with <code>arg_nbr_obs</code> to report only the most frequent categories.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="creating-text.html#cb32-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb32-2"><a href="creating-text.html#cb32-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb32-3"><a href="creating-text.html#cb32-3" tabindex="-1"></a>  <span class="at">arg_fl_rest =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb32-4"><a href="creating-text.html#cb32-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE</span>
-<span id="cb32-5"><a href="creating-text.html#cb32-5" tabindex="-1"></a>)</span></code></pre></div>
-<p>Analyzes only safety population.</p>
-</div>
-</div>
-<div id="practical-examples-1" class="section level2 hasAnchor" number="6.7">
-<h2><span class="header-section-number">6.7</span> Practical Examples<a href="creating-text.html#practical-examples-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="example-1-demographics-description" class="section level3 hasAnchor" number="6.7.1">
-<h3><span class="header-section-number">6.7.1</span> Example 1: Demographics Description<a href="creating-text.html#example-1-demographics-description" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="creating-text.html#cb33-1" tabindex="-1"></a>race_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
-<span id="cb33-2"><a href="creating-text.html#cb33-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The study population was&quot;</span>,</span>
-<span id="cb33-3"><a href="creating-text.html#cb33-3" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adsl,</span>
-<span id="cb33-4"><a href="creating-text.html#cb33-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb33-5"><a href="creating-text.html#cb33-5" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_lower,</span>
-<span id="cb33-6"><a href="creating-text.html#cb33-6" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;pct&quot;</span></span>
-<span id="cb33-7"><a href="creating-text.html#cb33-7" tabindex="-1"></a>)</span>
-<span id="cb33-8"><a href="creating-text.html#cb33-8" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="creating-text.html#cb33-9" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb33-10"><a href="creating-text.html#cb33-10" tabindex="-1"></a>  <span class="at">doc_object =</span> doc,</span>
-<span id="cb33-11"><a href="creating-text.html#cb33-11" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTraceTT&quot;</span>,</span>
-<span id="cb33-12"><a href="creating-text.html#cb33-12" tabindex="-1"></a>  <span class="at">replacement =</span> race_text</span>
-<span id="cb33-13"><a href="creating-text.html#cb33-13" tabindex="-1"></a>)</span></code></pre></div>
-</div>
-<div id="example-2-discontinuation-reasons" class="section level3 hasAnchor" number="6.7.2">
-<h3><span class="header-section-number">6.7.2</span> Example 2: Discontinuation Reasons<a href="creating-text.html#example-2-discontinuation-reasons" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="creating-text.html#cb34-1" tabindex="-1"></a>disc_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
-<span id="cb34-2"><a href="creating-text.html#cb34-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most common reasons for discontinuation were:&quot;</span>,</span>
-<span id="cb34-3"><a href="creating-text.html#cb34-3" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adsl,</span>
-<span id="cb34-4"><a href="creating-text.html#cb34-4" tabindex="-1"></a>  <span class="at">arg_fl_rest =</span> DISCONFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb34-5"><a href="creating-text.html#cb34-5" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> DCREASCD,</span>
-<span id="cb34-6"><a href="creating-text.html#cb34-6" tabindex="-1"></a>  <span class="at">arg_order =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb34-7"><a href="creating-text.html#cb34-7" tabindex="-1"></a>  <span class="at">arg_nbr_obs =</span> <span class="dv">3</span>,</span>
-<span id="cb34-8"><a href="creating-text.html#cb34-8" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_lower,</span>
-<span id="cb34-9"><a href="creating-text.html#cb34-9" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb32-2"><a href="creating-text.html#cb32-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
+<span id="cb32-3"><a href="creating-text.html#cb32-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb32-4"><a href="creating-text.html#cb32-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span>,</span>
+<span id="cb32-5"><a href="creating-text.html#cb32-5" tabindex="-1"></a>  <span class="at">arg_order    =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb32-6"><a href="creating-text.html#cb32-6" tabindex="-1"></a>  <span class="at">arg_nbr_obs  =</span> <span class="dv">2</span>,</span>
+<span id="cb32-7"><a href="creating-text.html#cb32-7" tabindex="-1"></a>  <span class="at">arg_cvt_stg  =</span> stringr<span class="sc">::</span>str_to_title</span>
+<span id="cb32-8"><a href="creating-text.html#cb32-8" tabindex="-1"></a>)</span>
+<span id="cb32-9"><a href="creating-text.html#cb32-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;White (90.6%) and Black Or African American (9.1%)&quot;</span></span></code></pre></div>
+<p><strong>Example 8 — Filter to a specific population first and first word capitalized</strong></p>
+<p>Percentages are computed within the filtered population. Here the safety flag makes no difference since all subjects have <code>SAFFL == "Y"</code>, but the pattern is useful when subsets differ.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="creating-text.html#cb33-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb33-2"><a href="creating-text.html#cb33-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;Among the safety population, most were&quot;</span>,</span>
+<span id="cb33-3"><a href="creating-text.html#cb33-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb33-4"><a href="creating-text.html#cb33-4" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb33-5"><a href="creating-text.html#cb33-5" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> RACE,</span>
+<span id="cb33-6"><a href="creating-text.html#cb33-6" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;pct&quot;</span>,</span>
+<span id="cb33-7"><a href="creating-text.html#cb33-7" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb33-8"><a href="creating-text.html#cb33-8" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">3</span>,</span>
+<span id="cb33-9"><a href="creating-text.html#cb33-9" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_sentence</span>
+<span id="cb33-10"><a href="creating-text.html#cb33-10" tabindex="-1"></a>)</span>
+<span id="cb33-11"><a href="creating-text.html#cb33-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Among the safety population, most were White (90.6%), Black or african american (9.1%) and American indian or alaska native (0.4%)&quot;</span></span></code></pre></div>
+<p><strong>Example 9 — Discontinuation reasons (complete example)</strong></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="creating-text.html#cb34-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb34-2"><a href="creating-text.html#cb34-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most common reasons for treatment discontinuation were:&quot;</span>,</span>
+<span id="cb34-3"><a href="creating-text.html#cb34-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb34-4"><a href="creating-text.html#cb34-4" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> DISCONFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb34-5"><a href="creating-text.html#cb34-5" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
+<span id="cb34-6"><a href="creating-text.html#cb34-6" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb34-7"><a href="creating-text.html#cb34-7" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">3</span>,</span>
+<span id="cb34-8"><a href="creating-text.html#cb34-8" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_lower,</span>
+<span id="cb34-9"><a href="creating-text.html#cb34-9" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
 <span id="cb34-10"><a href="creating-text.html#cb34-10" tabindex="-1"></a>)</span>
-<span id="cb34-11"><a href="creating-text.html#cb34-11" tabindex="-1"></a></span>
-<span id="cb34-12"><a href="creating-text.html#cb34-12" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb34-13"><a href="creating-text.html#cb34-13" tabindex="-1"></a>  <span class="at">doc_object =</span> doc,</span>
-<span id="cb34-14"><a href="creating-text.html#cb34-14" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTdiscontinuationTT&quot;</span>,</span>
-<span id="cb34-15"><a href="creating-text.html#cb34-15" tabindex="-1"></a>  <span class="at">replacement =</span> disc_text</span>
-<span id="cb34-16"><a href="creating-text.html#cb34-16" tabindex="-1"></a>)</span></code></pre></div>
-</div>
-<div id="example-3-adverse-event-summary" class="section level3 hasAnchor" number="6.7.3">
-<h3><span class="header-section-number">6.7.3</span> Example 3: Adverse Event Summary<a href="creating-text.html#example-3-adverse-event-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-text.html#cb35-1" tabindex="-1"></a>ae_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
-<span id="cb35-2"><a href="creating-text.html#cb35-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most frequent adverse events were&quot;</span>,</span>
-<span id="cb35-3"><a href="creating-text.html#cb35-3" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adae,</span>
-<span id="cb35-4"><a href="creating-text.html#cb35-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> AEDECOD,</span>
-<span id="cb35-5"><a href="creating-text.html#cb35-5" tabindex="-1"></a>  <span class="at">arg_order =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb35-6"><a href="creating-text.html#cb35-6" tabindex="-1"></a>  <span class="at">arg_nbr_obs =</span> <span class="dv">5</span>,</span>
-<span id="cb35-7"><a href="creating-text.html#cb35-7" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
-<span id="cb35-8"><a href="creating-text.html#cb35-8" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb34-11"><a href="creating-text.html#cb34-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common reasons for treatment discontinuation were: adverse event (n=92; 63.9%), withdrew consent (n=27; 18.8%) and sponsor decision (n=7; 4.9%)&quot;</span></span></code></pre></div>
+<hr />
 </div>
 </div>
-<div id="complete-workflow" class="section level2 hasAnchor" number="6.8">
-<h2><span class="header-section-number">6.8</span> Complete Workflow<a href="creating-text.html#complete-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="creating-text.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
-<span id="cb36-2"><a href="creating-text.html#cb36-2" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb36-3"><a href="creating-text.html#cb36-3" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb36-4"><a href="creating-text.html#cb36-4" tabindex="-1"></a></span>
-<span id="cb36-5"><a href="creating-text.html#cb36-5" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> <span class="fu">read_sas</span>(<span class="st">&quot;adam/adsl.sas7bdat&quot;</span>)</span>
-<span id="cb36-6"><a href="creating-text.html#cb36-6" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="creating-text.html#cb36-7" tabindex="-1"></a><span class="co"># Create multiple text descriptions</span></span>
-<span id="cb36-8"><a href="creating-text.html#cb36-8" tabindex="-1"></a>race_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
-<span id="cb36-9"><a href="creating-text.html#cb36-9" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;Patients were&quot;</span>,</span>
-<span id="cb36-10"><a href="creating-text.html#cb36-10" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adsl,</span>
-<span id="cb36-11"><a href="creating-text.html#cb36-11" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb36-12"><a href="creating-text.html#cb36-12" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> str_to_lower,</span>
-<span id="cb36-13"><a href="creating-text.html#cb36-13" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;pct&quot;</span></span>
-<span id="cb36-14"><a href="creating-text.html#cb36-14" tabindex="-1"></a>)</span>
-<span id="cb36-15"><a href="creating-text.html#cb36-15" tabindex="-1"></a></span>
-<span id="cb36-16"><a href="creating-text.html#cb36-16" tabindex="-1"></a>country_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
-<span id="cb36-17"><a href="creating-text.html#cb36-17" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The top enrollment countries were&quot;</span>,</span>
-<span id="cb36-18"><a href="creating-text.html#cb36-18" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adsl,</span>
-<span id="cb36-19"><a href="creating-text.html#cb36-19" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> COUNTRY,</span>
-<span id="cb36-20"><a href="creating-text.html#cb36-20" tabindex="-1"></a>  <span class="at">arg_order =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb36-21"><a href="creating-text.html#cb36-21" tabindex="-1"></a>  <span class="at">arg_nbr_obs =</span> <span class="dv">5</span>,</span>
-<span id="cb36-22"><a href="creating-text.html#cb36-22" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr&quot;</span></span>
-<span id="cb36-23"><a href="creating-text.html#cb36-23" tabindex="-1"></a>)</span>
-<span id="cb36-24"><a href="creating-text.html#cb36-24" tabindex="-1"></a></span>
-<span id="cb36-25"><a href="creating-text.html#cb36-25" tabindex="-1"></a><span class="co"># Replace in document</span></span>
-<span id="cb36-26"><a href="creating-text.html#cb36-26" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb36-27"><a href="creating-text.html#cb36-27" tabindex="-1"></a>  <span class="at">doc_object =</span> <span class="st">&quot;TLR_shell.docx&quot;</span>,</span>
-<span id="cb36-28"><a href="creating-text.html#cb36-28" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTraceTT&quot;</span>,</span>
-<span id="cb36-29"><a href="creating-text.html#cb36-29" tabindex="-1"></a>  <span class="at">replacement =</span> race_text</span>
-<span id="cb36-30"><a href="creating-text.html#cb36-30" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb36-31"><a href="creating-text.html#cb36-31" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb36-32"><a href="creating-text.html#cb36-32" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTcountryTT&quot;</span>,</span>
-<span id="cb36-33"><a href="creating-text.html#cb36-33" tabindex="-1"></a>  <span class="at">replacement =</span> country_text,</span>
-<span id="cb36-34"><a href="creating-text.html#cb36-34" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_final.docx&quot;</span></span>
-<span id="cb36-35"><a href="creating-text.html#cb36-35" tabindex="-1"></a>)</span></code></pre></div>
+<div id="var-text-group" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> fct_var_text_group()<a href="creating-text.html#var-text-group" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="purpose-2" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Purpose<a href="creating-text.html#purpose-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>fct_var_text_group()</code> extends <code>fct_var_text()</code> by adding a per-group breakdown. For each category of the variable of interest it reports the <strong>overall percentage</strong> across all subjects and the <strong>within-group percentage</strong> for each level of a grouping variable (e.g. treatment arm).</p>
+<p>The output format for each category is:</p>
+<pre><code>X% category (A% on Group1, B% on Group2, ...)</code></pre>
+<p>This is especially useful for:</p>
+<ul>
+<li>Discontinuation reasons broken down by treatment arm</li>
+<li>Adverse event terms reported per treatment group</li>
+<li>Any categorical variable where between-group differences matter</li>
+</ul>
 </div>
-<div id="integration-with-full-tlr-workflow" class="section level2 hasAnchor" number="6.9">
-<h2><span class="header-section-number">6.9</span> Integration with Full TLR Workflow<a href="creating-text.html#integration-with-full-tlr-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-text.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
-<span id="cb37-2"><a href="creating-text.html#cb37-2" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="creating-text.html#cb37-3" tabindex="-1"></a><span class="co"># Step 1: Add appendices</span></span>
-<span id="cb37-4"><a href="creating-text.html#cb37-4" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">run_apdx</span>(</span>
-<span id="cb37-5"><a href="creating-text.html#cb37-5" tabindex="-1"></a>  <span class="at">path_TLFs =</span> <span class="st">&quot;TLF_outputs/&quot;</span>,</span>
-<span id="cb37-6"><a href="creating-text.html#cb37-6" tabindex="-1"></a>  <span class="at">docx_object =</span> <span class="st">&quot;TLR_shell.docx&quot;</span>,</span>
-<span id="cb37-7"><a href="creating-text.html#cb37-7" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;LISTOFAPPENDICES&quot;</span></span>
-<span id="cb37-8"><a href="creating-text.html#cb37-8" tabindex="-1"></a>)</span>
-<span id="cb37-9"><a href="creating-text.html#cb37-9" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="creating-text.html#cb37-10" tabindex="-1"></a><span class="co"># Step 2: Create formatted text</span></span>
-<span id="cb37-11"><a href="creating-text.html#cb37-11" tabindex="-1"></a>race_text <span class="ot">&lt;-</span> <span class="fu">fct_var_text</span>(</span>
-<span id="cb37-12"><a href="creating-text.html#cb37-12" tabindex="-1"></a>  <span class="at">arg_dataset =</span> adsl,</span>
-<span id="cb37-13"><a href="creating-text.html#cb37-13" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb37-14"><a href="creating-text.html#cb37-14" tabindex="-1"></a>  <span class="at">arg_lbl =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
-<span id="cb37-15"><a href="creating-text.html#cb37-15" tabindex="-1"></a>)</span>
-<span id="cb37-16"><a href="creating-text.html#cb37-16" tabindex="-1"></a></span>
-<span id="cb37-17"><a href="creating-text.html#cb37-17" tabindex="-1"></a><span class="co"># Step 3: Replace text</span></span>
-<span id="cb37-18"><a href="creating-text.html#cb37-18" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">textReplace</span>(doc, <span class="at">keyword =</span> <span class="st">&quot;TTraceTT&quot;</span>, <span class="at">replacement =</span> race_text)</span>
-<span id="cb37-19"><a href="creating-text.html#cb37-19" tabindex="-1"></a></span>
-<span id="cb37-20"><a href="creating-text.html#cb37-20" tabindex="-1"></a><span class="co"># Step 4: Save</span></span>
-<span id="cb37-21"><a href="creating-text.html#cb37-21" tabindex="-1"></a><span class="fu">print</span>(doc, <span class="at">target =</span> <span class="st">&quot;TLR_complete.docx&quot;</span>)</span></code></pre></div>
+<div id="parameters-2" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Parameters<a href="creating-text.html#parameters-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>arg_text_desc</code></td>
+<td>character</td>
+<td><code>""</code></td>
+<td>Prefix text prepended to the output</td>
+</tr>
+<tr class="even">
+<td><code>arg_dataset</code></td>
+<td>data frame</td>
+<td>—</td>
+<td>Dataset containing the variables</td>
+</tr>
+<tr class="odd">
+<td><code>arg_fl_rest</code></td>
+<td>expression</td>
+<td><code>NULL</code></td>
+<td>Optional filter applied before analysis</td>
+</tr>
+<tr class="even">
+<td><code>arg_var_rest</code></td>
+<td>unquoted name</td>
+<td>—</td>
+<td>Categorical variable to summarise</td>
+</tr>
+<tr class="odd">
+<td><code>arg_group_var</code></td>
+<td>unquoted name</td>
+<td>—</td>
+<td>Grouping variable (e.g., treatment arm)</td>
+</tr>
+<tr class="even">
+<td><code>arg_group_vals</code></td>
+<td>character vector</td>
+<td><code>NULL</code></td>
+<td>Subset of group values to include; <code>NULL</code> = all groups</td>
+</tr>
+<tr class="odd">
+<td><code>arg_group_lbl</code></td>
+<td>character vector</td>
+<td><code>NULL</code></td>
+<td>Custom display labels for groups (must match <code>arg_group_vals</code> order)</td>
+</tr>
+<tr class="even">
+<td><code>arg_order</code></td>
+<td>logical</td>
+<td><code>TRUE</code></td>
+<td>If <code>TRUE</code>, order categories by descending overall frequency</td>
+</tr>
+<tr class="odd">
+<td><code>arg_cvt_stg</code></td>
+<td>function</td>
+<td><code>I</code></td>
+<td>Transformation applied to category labels (e.g., <code>tolower</code>)</td>
+</tr>
+<tr class="even">
+<td><code>arg_nbr_obs</code></td>
+<td>numeric</td>
+<td><code>Inf</code></td>
+<td>Maximum number of categories to include</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="best-practices-3" class="section level2 hasAnchor" number="6.10">
-<h2><span class="header-section-number">6.10</span> Best Practices<a href="creating-text.html#best-practices-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="examples-2" class="section level3 hasAnchor" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Examples<a href="creating-text.html#examples-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Example 1 — Basic grouped summary</strong></p>
+<p>Summarise discontinuation reasons across all treatment arms in <code>TRT01P</code>, ordered by overall frequency.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="creating-text.html#cb36-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb36-2"><a href="creating-text.html#cb36-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb36-3"><a href="creating-text.html#cb36-3" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
+<span id="cb36-4"><a href="creating-text.html#cb36-4" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P</span>
+<span id="cb36-5"><a href="creating-text.html#cb36-5" tabindex="-1"></a>)</span>
+<span id="cb36-6"><a href="creating-text.html#cb36-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% Completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 36.2% Adverse Event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 10.6% Withdrew Consent (33.3% on Placebo, 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose), 2.8% Sponsor Decision (28.6% on Placebo, 42.9% on Xanomeline High Dose and 28.6% on Xanomeline Low Dose), 1.6% Lack of Efficacy (75% on Placebo and 25% on Xanomeline High Dose), 1.2% Death (66.7% on Placebo and 33.3% on Xanomeline Low Dose), 1.2% I/E Not Met (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Physician Decision (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Protocol Violation (33.3% on Placebo, 33.3% on Xanomeline High Dose and 33.3% on Xanomeline Low Dose) and 0.8% Lost to Follow-up (50% on Placebo and 50% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<p><strong>Example 2 — Add a descriptive prefix</strong></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-text.html#cb37-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb37-2"><a href="creating-text.html#cb37-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most common reasons for discontinuation were:&quot;</span>,</span>
+<span id="cb37-3"><a href="creating-text.html#cb37-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb37-4"><a href="creating-text.html#cb37-4" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
+<span id="cb37-5"><a href="creating-text.html#cb37-5" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P</span>
+<span id="cb37-6"><a href="creating-text.html#cb37-6" tabindex="-1"></a>)</span>
+<span id="cb37-7"><a href="creating-text.html#cb37-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common reasons for discontinuation were: 43.3% Completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 36.2% Adverse Event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 10.6% Withdrew Consent (33.3% on Placebo, 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose), 2.8% Sponsor Decision (28.6% on Placebo, 42.9% on Xanomeline High Dose and 28.6% on Xanomeline Low Dose), 1.6% Lack of Efficacy (75% on Placebo and 25% on Xanomeline High Dose), 1.2% Death (66.7% on Placebo and 33.3% on Xanomeline Low Dose), 1.2% I/E Not Met (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Physician Decision (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Protocol Violation (33.3% on Placebo, 33.3% on Xanomeline High Dose and 33.3% on Xanomeline Low Dose) and 0.8% Lost to Follow-up (50% on Placebo and 50% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<p><strong>Example 3 — Preserve original variable order</strong></p>
+<p>Set <code>arg_order = FALSE</code> when the variable has an inherent ordering (e.g., severity grades) that should be respected rather than re-sorted by frequency.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="creating-text.html#cb38-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb38-2"><a href="creating-text.html#cb38-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb38-3"><a href="creating-text.html#cb38-3" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
+<span id="cb38-4"><a href="creating-text.html#cb38-4" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P,</span>
+<span id="cb38-5"><a href="creating-text.html#cb38-5" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">FALSE</span></span>
+<span id="cb38-6"><a href="creating-text.html#cb38-6" tabindex="-1"></a>)</span>
+<span id="cb38-7"><a href="creating-text.html#cb38-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;36.2% Adverse Event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 43.3% Completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 1.2% Death (66.7% on Placebo and 33.3% on Xanomeline Low Dose), 1.2% I/E Not Met (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.6% Lack of Efficacy (75% on Placebo and 25% on Xanomeline High Dose), 0.8% Lost to Follow-up (50% on Placebo and 50% on Xanomeline Low Dose), 1.2% Physician Decision (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Protocol Violation (33.3% on Placebo, 33.3% on Xanomeline High Dose and 33.3% on Xanomeline Low Dose), 2.8% Sponsor Decision (28.6% on Placebo, 42.9% on Xanomeline High Dose and 28.6% on Xanomeline Low Dose), 10.6% Withdrew Consent (33.3% on Placebo and 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<p><strong>Example 4 — Restrict to specific treatment groups</strong></p>
+<p>Pass a character vector to <code>arg_group_vals</code> to exclude one or more groups from the output. Groups not listed are ignored in both the overall count and the per-group breakdown.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="creating-text.html#cb39-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb39-2"><a href="creating-text.html#cb39-2" tabindex="-1"></a>  <span class="at">arg_dataset    =</span> tlr_adsl,</span>
+<span id="cb39-3"><a href="creating-text.html#cb39-3" tabindex="-1"></a>  <span class="at">arg_var_rest   =</span> DCREASCD,</span>
+<span id="cb39-4"><a href="creating-text.html#cb39-4" tabindex="-1"></a>  <span class="at">arg_group_var  =</span> TRT01P,</span>
+<span id="cb39-5"><a href="creating-text.html#cb39-5" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>)</span>
+<span id="cb39-6"><a href="creating-text.html#cb39-6" tabindex="-1"></a>)</span>
+<span id="cb39-7"><a href="creating-text.html#cb39-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;50% Adverse Event (47.6% on Xanomeline High Dose and 52.4% on Xanomeline Low Dose), 31% Completed (51.9% on Xanomeline High Dose and 48.1% on Xanomeline Low Dose), 10.7% Withdrew Consent (44.4% on Xanomeline High Dose and 55.6% on Xanomeline Low Dose), 3% Sponsor Decision (60% on Xanomeline High Dose and 40% on Xanomeline Low Dose), 1.2% I/E Not Met (100% on Xanomeline High Dose), 1.2% Physician Decision (100% on Xanomeline High Dose), 1.2% Protocol Violation (50% on Xanomeline High Dose and 50% on Xanomeline Low Dose), 0.6% Death (100% on Xanomeline Low Dose), 0.6% Lack of Efficacy (100% on Xanomeline High Dose) and 0.6% Lost to Follow-up (100% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<p><strong>Example 5 — Shorten group labels in the output</strong></p>
+<p>Long treatment names can make the sentence hard to read. <code>arg_group_lbl</code> lets you assign shorter display labels; the vector must correspond positionally to <code>arg_group_vals</code>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="creating-text.html#cb40-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb40-2"><a href="creating-text.html#cb40-2" tabindex="-1"></a>  <span class="at">arg_dataset    =</span> tlr_adsl,</span>
+<span id="cb40-3"><a href="creating-text.html#cb40-3" tabindex="-1"></a>  <span class="at">arg_var_rest   =</span> DCREASCD,</span>
+<span id="cb40-4"><a href="creating-text.html#cb40-4" tabindex="-1"></a>  <span class="at">arg_group_var  =</span> TRT01P,</span>
+<span id="cb40-5"><a href="creating-text.html#cb40-5" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb40-6"><a href="creating-text.html#cb40-6" tabindex="-1"></a>  <span class="at">arg_group_lbl  =</span> <span class="fu">c</span>(<span class="st">&quot;XAN-H&quot;</span>, <span class="st">&quot;XAN-L&quot;</span>, <span class="st">&quot;PBO&quot;</span>)</span>
+<span id="cb40-7"><a href="creating-text.html#cb40-7" tabindex="-1"></a>)</span>
+<span id="cb40-8"><a href="creating-text.html#cb40-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% Completed (24.5% on XAN-H, 22.7% on XAN-L and 52.7% on PBO), 36.2% Adverse Event (43.5% on XAN-H, 47.8% on XAN-L and 8.7% on PBO), 10.6% Withdrew Consent (29.6% on XAN-H, 37% on XAN-L and 33.3% on PBO), 2.8% Sponsor Decision (42.9% on XAN-H, 28.6% on XAN-L and 28.6% on PBO), 1.6% Lack of Efficacy (25% on XAN-H and 75% on PBO), 1.2% Death (33.3% on XAN-L and 66.7% on PBO), 1.2% I/E Not Met (66.7% on XAN-H and 33.3% on PBO), 1.2% Physician Decision (66.7% on XAN-H and 33.3% on PBO), 1.2% Protocol Violation (33.3% on XAN-H, 33.3% on XAN-L and 33.3% on PBO) and 0.8% Lost to Follow-up (50% on XAN-L and 50% on PBO)&quot;</span></span></code></pre></div>
+<p><strong>Example 6 — Limit to the top N categories</strong></p>
+<p>Show only the three most frequently occurring discontinuation reasons.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="creating-text.html#cb41-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb41-2"><a href="creating-text.html#cb41-2" tabindex="-1"></a>  <span class="at">arg_dataset    =</span> tlr_adsl,</span>
+<span id="cb41-3"><a href="creating-text.html#cb41-3" tabindex="-1"></a>  <span class="at">arg_var_rest   =</span> DCREASCD,</span>
+<span id="cb41-4"><a href="creating-text.html#cb41-4" tabindex="-1"></a>  <span class="at">arg_group_var  =</span> TRT01P,</span>
+<span id="cb41-5"><a href="creating-text.html#cb41-5" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb41-6"><a href="creating-text.html#cb41-6" tabindex="-1"></a>  <span class="at">arg_group_lbl  =</span> <span class="fu">c</span>(<span class="st">&quot;XAN-H&quot;</span>, <span class="st">&quot;XAN-L&quot;</span>, <span class="st">&quot;PBO&quot;</span>),</span>
+<span id="cb41-7"><a href="creating-text.html#cb41-7" tabindex="-1"></a>  <span class="at">arg_order      =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb41-8"><a href="creating-text.html#cb41-8" tabindex="-1"></a>  <span class="at">arg_nbr_obs    =</span> <span class="dv">3</span></span>
+<span id="cb41-9"><a href="creating-text.html#cb41-9" tabindex="-1"></a>)</span>
+<span id="cb41-10"><a href="creating-text.html#cb41-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% Completed (24.5% on XAN-H, 22.7% on XAN-L and 52.7% on PBO), 36.2% Adverse Event (43.5% on XAN-H, 47.8% on XAN-L and 8.7% on PBO), 10.6% Withdrew Consent (29.6% on XAN-H and 37% on XAN-L and 33.3% on PBO)&quot;</span></span></code></pre></div>
+<p><strong>Example 7 — Apply a label transformation</strong></p>
+<p>Convert category labels to lowercase so the output reads naturally within a sentence.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="creating-text.html#cb42-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb42-2"><a href="creating-text.html#cb42-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb42-3"><a href="creating-text.html#cb42-3" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
+<span id="cb42-4"><a href="creating-text.html#cb42-4" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P,</span>
+<span id="cb42-5"><a href="creating-text.html#cb42-5" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> tolower,</span>
+<span id="cb42-6"><a href="creating-text.html#cb42-6" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">3</span></span>
+<span id="cb42-7"><a href="creating-text.html#cb42-7" tabindex="-1"></a>)</span>
+<span id="cb42-8"><a href="creating-text.html#cb42-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 36.2% adverse event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 10.6% withdrew consent (33.3% on Placebo and 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<p><strong>Example 8 — Filter to a specific population first</strong></p>
+<p>Use <code>arg_fl_rest</code> to restrict the analysis before calculating frequencies. Percentages are computed within the filtered population.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="creating-text.html#cb43-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb43-2"><a href="creating-text.html#cb43-2" tabindex="-1"></a>  <span class="at">arg_text_desc  =</span> <span class="st">&quot;Among safety population subjects,&quot;</span>,</span>
+<span id="cb43-3"><a href="creating-text.html#cb43-3" tabindex="-1"></a>  <span class="at">arg_dataset    =</span> tlr_adsl,</span>
+<span id="cb43-4"><a href="creating-text.html#cb43-4" tabindex="-1"></a>  <span class="at">arg_fl_rest    =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb43-5"><a href="creating-text.html#cb43-5" tabindex="-1"></a>  <span class="at">arg_var_rest   =</span> DCREASCD,</span>
+<span id="cb43-6"><a href="creating-text.html#cb43-6" tabindex="-1"></a>  <span class="at">arg_group_var  =</span> TRT01P,</span>
+<span id="cb43-7"><a href="creating-text.html#cb43-7" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb43-8"><a href="creating-text.html#cb43-8" tabindex="-1"></a>  <span class="at">arg_group_lbl  =</span> <span class="fu">c</span>(<span class="st">&quot;XAN-H&quot;</span>, <span class="st">&quot;XAN-L&quot;</span>, <span class="st">&quot;PBO&quot;</span>),</span>
+<span id="cb43-9"><a href="creating-text.html#cb43-9" tabindex="-1"></a>  <span class="at">arg_order      =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb43-10"><a href="creating-text.html#cb43-10" tabindex="-1"></a>  <span class="at">arg_nbr_obs    =</span> <span class="dv">5</span></span>
+<span id="cb43-11"><a href="creating-text.html#cb43-11" tabindex="-1"></a>)</span>
+<span id="cb43-12"><a href="creating-text.html#cb43-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Among safety population subjects, 43.3% Completed (24.5% on XAN-H, 22.7% on XAN-L and 52.7% on PBO), 36.2% Adverse Event (43.5% on XAN-H, 47.8% on XAN-L and 8.7% on PBO), 10.6% Withdrew Consent (29.6% on XAN-H, 37% on XAN-L and 33.3% on PBO), 2.8% Sponsor Decision (42.9% on XAN-H, 28.6% on XAN-L and 28.6% on PBO) and 1.6% Lack of Efficacy (25% on XAN-H and 75% on PBO)&quot;</span></span></code></pre></div>
+<p><strong>Example 9 — Adverse events by treatment group (complete example)</strong></p>
+<p>Use <code>tlr_adae</code> with <code>TRTA</code> as the grouping variable to summarise adverse events, filtered to severe events only and limited to the five most frequent preferred terms.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="creating-text.html#cb44-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb44-2"><a href="creating-text.html#cb44-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most frequently reported severe adverse events were:&quot;</span>,</span>
+<span id="cb44-3"><a href="creating-text.html#cb44-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adae,</span>
+<span id="cb44-4"><a href="creating-text.html#cb44-4" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> AESEV <span class="sc">==</span> <span class="st">&quot;SEVERE&quot;</span>,</span>
+<span id="cb44-5"><a href="creating-text.html#cb44-5" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> AEDECOD,</span>
+<span id="cb44-6"><a href="creating-text.html#cb44-6" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRTA,</span>
+<span id="cb44-7"><a href="creating-text.html#cb44-7" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb44-8"><a href="creating-text.html#cb44-8" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">5</span>,</span>
+<span id="cb44-9"><a href="creating-text.html#cb44-9" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_sentence</span>
+<span id="cb44-10"><a href="creating-text.html#cb44-10" tabindex="-1"></a>)</span>
+<span id="cb44-11"><a href="creating-text.html#cb44-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most frequently reported severe adverse events were: 9.3% Syncope (75% on Xanomeline Low Dose and 25% on Xanomeline High Dose), 7% Application site erythema (100% on Xanomeline Low Dose), 7% Application site irritation (100% on Xanomeline Low Dose), 7% Hip fracture (66.7% on Placebo and 33.3% on Xanomeline High Dose) and 4.7% Blister (100% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<hr />
+</div>
+</div>
+<div id="bsl-stats" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> fct_bsl_stats()<a href="creating-text.html#bsl-stats" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="purpose-3" class="section level3 hasAnchor" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Purpose<a href="creating-text.html#purpose-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>fct_bsl_stats()</code> generates a formatted text summary of a continuous numeric variable at baseline. It calculates a measure of central tendency (mean or median) together with a measure of dispersion (standard deviation or range), both overall and optionally per treatment arm.</p>
+</div>
+<div id="parameters-3" class="section level3 hasAnchor" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Parameters<a href="creating-text.html#parameters-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>arg_dataset</code></td>
+<td>data frame</td>
+<td>—</td>
+<td>Dataset containing the numeric variable</td>
+</tr>
+<tr class="even">
+<td><code>arg_grp</code></td>
+<td>unquoted name</td>
+<td>—</td>
+<td>Grouping variable (e.g., <code>ARM</code>, <code>TRT01A</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>arg_trt_inc</code></td>
+<td>character vector</td>
+<td><code>NULL</code></td>
+<td>Treatment groups for the per-arm breakdown; <code>NULL</code> = overall total only</td>
+</tr>
+<tr class="even">
+<td><code>arg_var_num</code></td>
+<td>unquoted name</td>
+<td>—</td>
+<td>Numeric variable to summarise (e.g., <code>AGE</code>, <code>WEIGHTBL</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>arg_var1</code></td>
+<td>character</td>
+<td><code>"mean"</code></td>
+<td>Central tendency: <code>"mean"</code> or <code>"median"</code></td>
+</tr>
+<tr class="even">
+<td><code>arg_var2</code></td>
+<td>character</td>
+<td><code>"sd"</code></td>
+<td>Dispersion: <code>"sd"</code> (standard deviation) or <code>"range"</code> (min, max)</td>
+</tr>
+<tr class="odd">
+<td><code>arg_unit</code></td>
+<td>character</td>
+<td><code>""</code></td>
+<td>Unit appended to each value (e.g., <code>"years"</code>, <code>"kg"</code>)</td>
+</tr>
+<tr class="even">
+<td><code>arg_label</code></td>
+<td>character</td>
+<td><code>""</code></td>
+<td>Variable description used in the output sentence</td>
+</tr>
+<tr class="odd">
+<td><code>arg_cvt_stg</code></td>
+<td>function</td>
+<td><code>I</code></td>
+<td>Transformation applied to sentence connectors</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="examples-3" class="section level3 hasAnchor" number="6.4.3">
+<h3><span class="header-section-number">6.4.3</span> Examples<a href="creating-text.html#examples-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Example 1 — Overall mean age with standard deviation</strong></p>
+<p>Without <code>arg_trt_inc</code>, only the total across all arms is reported.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="creating-text.html#cb45-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
+<span id="cb45-2"><a href="creating-text.html#cb45-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb45-3"><a href="creating-text.html#cb45-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> ARM,</span>
+<span id="cb45-4"><a href="creating-text.html#cb45-4" tabindex="-1"></a>  <span class="at">arg_var_num =</span> AGE,</span>
+<span id="cb45-5"><a href="creating-text.html#cb45-5" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb45-6"><a href="creating-text.html#cb45-6" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
+<span id="cb45-7"><a href="creating-text.html#cb45-7" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
+<span id="cb45-8"><a href="creating-text.html#cb45-8" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb45-9"><a href="creating-text.html#cb45-9" tabindex="-1"></a>)</span>
+<span id="cb45-10"><a href="creating-text.html#cb45-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall mean was 75.1 years (SD 8.2)&quot;</span></span></code></pre></div>
+<p><strong>Example 2 — Overall median age with range</strong></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="creating-text.html#cb46-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
+<span id="cb46-2"><a href="creating-text.html#cb46-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb46-3"><a href="creating-text.html#cb46-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> ARM,</span>
+<span id="cb46-4"><a href="creating-text.html#cb46-4" tabindex="-1"></a>  <span class="at">arg_var_num =</span> AGE,</span>
+<span id="cb46-5"><a href="creating-text.html#cb46-5" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;median&quot;</span>,</span>
+<span id="cb46-6"><a href="creating-text.html#cb46-6" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;range&quot;</span>,</span>
+<span id="cb46-7"><a href="creating-text.html#cb46-7" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
+<span id="cb46-8"><a href="creating-text.html#cb46-8" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb46-9"><a href="creating-text.html#cb46-9" tabindex="-1"></a>)</span>
+<span id="cb46-10"><a href="creating-text.html#cb46-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall median was 77 years (range: 51, 89)&quot;</span></span></code></pre></div>
+<p><strong>Example 3 — Mean age broken down by treatment arm</strong></p>
+<p>Pass the arm names to <code>arg_trt_inc</code> to append per-arm statistics after the overall total.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="creating-text.html#cb47-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
+<span id="cb47-2"><a href="creating-text.html#cb47-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb47-3"><a href="creating-text.html#cb47-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> ARM,</span>
+<span id="cb47-4"><a href="creating-text.html#cb47-4" tabindex="-1"></a>  <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Xanomeline High Dose&quot;</span>),</span>
+<span id="cb47-5"><a href="creating-text.html#cb47-5" tabindex="-1"></a>  <span class="at">arg_var_num =</span> AGE,</span>
+<span id="cb47-6"><a href="creating-text.html#cb47-6" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb47-7"><a href="creating-text.html#cb47-7" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
+<span id="cb47-8"><a href="creating-text.html#cb47-8" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
+<span id="cb47-9"><a href="creating-text.html#cb47-9" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb47-10"><a href="creating-text.html#cb47-10" tabindex="-1"></a>)</span>
+<span id="cb47-11"><a href="creating-text.html#cb47-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall mean was 75.1 years (SD 8.2), for Placebo the mean was 75.2 years (SD 8.6), for Xanomeline Low Dose the mean was 75.7 years (SD 8.3), and for Xanomeline High Dose the mean was 74.4 years (SD 7.9)&quot;</span></span></code></pre></div>
+<p><strong>Example 4 — Median baseline weight with range by arm</strong></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="creating-text.html#cb48-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
+<span id="cb48-2"><a href="creating-text.html#cb48-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb48-3"><a href="creating-text.html#cb48-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> ARM,</span>
+<span id="cb48-4"><a href="creating-text.html#cb48-4" tabindex="-1"></a>  <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Xanomeline High Dose&quot;</span>),</span>
+<span id="cb48-5"><a href="creating-text.html#cb48-5" tabindex="-1"></a>  <span class="at">arg_var_num =</span> WEIGHTBL,</span>
+<span id="cb48-6"><a href="creating-text.html#cb48-6" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;median&quot;</span>,</span>
+<span id="cb48-7"><a href="creating-text.html#cb48-7" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;range&quot;</span>,</span>
+<span id="cb48-8"><a href="creating-text.html#cb48-8" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;kg&quot;</span>,</span>
+<span id="cb48-9"><a href="creating-text.html#cb48-9" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;baseline weight&quot;</span></span>
+<span id="cb48-10"><a href="creating-text.html#cb48-10" tabindex="-1"></a>)</span>
+<span id="cb48-11"><a href="creating-text.html#cb48-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For baseline weight the overall median was 66.7 kg (range: 34, 108), for Placebo the median was 60.5 kg (range: 34, 86.2), for Xanomeline Low Dose the median was 64.9 kg (range: 45.4, 106.1), and for Xanomeline High Dose the median was 69.2 kg (range: 41.7, 108)&quot;</span></span></code></pre></div>
+<p><strong>Example 5 — Mean baseline BMI using <code>TRT01A</code> as the grouping variable</strong></p>
+<p>Any treatment variable present in the dataset can serve as <code>arg_grp</code>.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="creating-text.html#cb49-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
+<span id="cb49-2"><a href="creating-text.html#cb49-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb49-3"><a href="creating-text.html#cb49-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> TRT01A,</span>
+<span id="cb49-4"><a href="creating-text.html#cb49-4" tabindex="-1"></a>  <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb49-5"><a href="creating-text.html#cb49-5" tabindex="-1"></a>  <span class="at">arg_var_num =</span> BMIBL,</span>
+<span id="cb49-6"><a href="creating-text.html#cb49-6" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb49-7"><a href="creating-text.html#cb49-7" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
+<span id="cb49-8"><a href="creating-text.html#cb49-8" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;kg/m²&quot;</span>,</span>
+<span id="cb49-9"><a href="creating-text.html#cb49-9" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;baseline BMI&quot;</span>,</span>
+<span id="cb49-10"><a href="creating-text.html#cb49-10" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_lower</span>
+<span id="cb49-11"><a href="creating-text.html#cb49-11" tabindex="-1"></a>)</span>
+<span id="cb49-12"><a href="creating-text.html#cb49-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;for baseline BMI the overall mean was 24.7 kg/m² (SD 4.1), for Xanomeline High Dose the mean was 25.3 kg/m² (SD 4.2), for Xanomeline Low Dose the mean was 25.1 kg/m² (SD 4.3), and for Placebo the mean was 23.6 kg/m² (SD 3.7)&quot;</span></span></code></pre></div>
+<p><strong>Example 6 — Combine two baseline variables into one sentence</strong></p>
+<p>The <code>%c&amp;%</code> operator (from <code>cust_opr.R</code>) joins strings with ” and “, making it easy to chain multiple <code>fct_bsl_stats()</code> calls.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="creating-text.html#cb50-1" tabindex="-1"></a></span>
+<span id="cb50-2"><a href="creating-text.html#cb50-2" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
+<span id="cb50-3"><a href="creating-text.html#cb50-3" tabindex="-1"></a>    <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb50-4"><a href="creating-text.html#cb50-4" tabindex="-1"></a>    <span class="at">arg_grp     =</span> ARM,</span>
+<span id="cb50-5"><a href="creating-text.html#cb50-5" tabindex="-1"></a>    <span class="at">arg_var_num =</span> AGE,</span>
+<span id="cb50-6"><a href="creating-text.html#cb50-6" tabindex="-1"></a>    <span class="at">arg_var1    =</span> <span class="st">&quot;median&quot;</span>,</span>
+<span id="cb50-7"><a href="creating-text.html#cb50-7" tabindex="-1"></a>    <span class="at">arg_var2    =</span> <span class="st">&quot;range&quot;</span>,</span>
+<span id="cb50-8"><a href="creating-text.html#cb50-8" tabindex="-1"></a>    <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
+<span id="cb50-9"><a href="creating-text.html#cb50-9" tabindex="-1"></a>    <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb50-10"><a href="creating-text.html#cb50-10" tabindex="-1"></a>) <span class="sc">%c&amp;%</span></span>
+<span id="cb50-11"><a href="creating-text.html#cb50-11" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
+<span id="cb50-12"><a href="creating-text.html#cb50-12" tabindex="-1"></a>    <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb50-13"><a href="creating-text.html#cb50-13" tabindex="-1"></a>    <span class="at">arg_grp     =</span> ARM,</span>
+<span id="cb50-14"><a href="creating-text.html#cb50-14" tabindex="-1"></a>    <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb50-15"><a href="creating-text.html#cb50-15" tabindex="-1"></a>    <span class="at">arg_var_num =</span> BMIBL,</span>
+<span id="cb50-16"><a href="creating-text.html#cb50-16" tabindex="-1"></a>    <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb50-17"><a href="creating-text.html#cb50-17" tabindex="-1"></a>    <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
+<span id="cb50-18"><a href="creating-text.html#cb50-18" tabindex="-1"></a>    <span class="at">arg_unit    =</span> <span class="st">&quot;kg/m²&quot;</span>,</span>
+<span id="cb50-19"><a href="creating-text.html#cb50-19" tabindex="-1"></a>    <span class="at">arg_label   =</span> <span class="st">&quot;baseline BMI&quot;</span>,</span>
+<span id="cb50-20"><a href="creating-text.html#cb50-20" tabindex="-1"></a>    <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_lower</span>
+<span id="cb50-21"><a href="creating-text.html#cb50-21" tabindex="-1"></a>)</span>
+<span id="cb50-22"><a href="creating-text.html#cb50-22" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall median was 77 years (range: 51, 89) and for baseline BMI the overall mean was 24.7 kg/m² (SD 4.1), for Xanomeline High Dose the mean was 25.3 kg/m² (SD 4.2), for Xanomeline Low Dose the mean was 25.1 kg/m² (SD 4.3), and for Placebo the mean was 23.6 kg/m² (SD 3.7)&quot;</span></span></code></pre></div>
+<hr />
+</div>
+</div>
+<div id="mst-aes" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> fct_mst_aes()<a href="creating-text.html#mst-aes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="purpose-4" class="section level3 hasAnchor" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Purpose<a href="creating-text.html#purpose-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>fct_mst_aes()</code> identifies the most common treatment-emergent adverse events (TEAEs) in a specified treatment group and returns a formatted sentence listing each event with its frequency across all groups.</p>
+<p>The function works by:</p>
 <ol style="list-style-type: decimal">
-<li>Use arg_order = TRUE for most common first</li>
-<li>Limit with arg_nbr_obs to avoid long lists</li>
-<li>Use str_to_lower or str_to_sentence for readability</li>
-<li>Choose appropriate label format for context</li>
-<li>Filter data with arg_fl_rest when needed</li>
+<li>Merging the AE dataset with the subject-level dataset on <code>USUBJID</code></li>
+<li>Counting distinct subjects with each event per treatment group</li>
+<li>Computing frequency as a percentage of each group’s population</li>
+<li>Filtering to events that meet or exceed the threshold in the target arm</li>
+<li>Returning a publication-ready sentence with all frequencies</li>
 </ol>
 </div>
-<div id="tips" class="section level2 hasAnchor" number="6.11">
-<h2><span class="header-section-number">6.11</span> Tips<a href="creating-text.html#tips" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Test output in console before using in document</li>
-<li>Combine with sprintf() for more complex sentences</li>
-<li>Use consistent case conversion across document</li>
-<li>Consider your audience when choosing format</li>
-</ul>
-<p>You now have all the tools to create complete, automated TLRs!</p>
+<div id="parameters-4" class="section level3 hasAnchor" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> Parameters<a href="creating-text.html#parameters-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>arg_data</code></td>
+<td>data frame</td>
+<td>—</td>
+<td>Adverse event dataset (e.g., <code>tlr_adae</code>); must include <code>USUBJID</code></td>
+</tr>
+<tr class="even">
+<td><code>arg_data_adsl</code></td>
+<td>data frame</td>
+<td>—</td>
+<td>Subject-level dataset (e.g., <code>tlr_adsl</code>); must include <code>USUBJID</code> and the grouping variable</td>
+</tr>
+<tr class="odd">
+<td><code>arg_grp</code></td>
+<td>unquoted name</td>
+<td>—</td>
+<td>Treatment group variable (e.g., <code>ARM</code>, <code>TRT01A</code>)</td>
+</tr>
+<tr class="even">
+<td><code>arg_var</code></td>
+<td>unquoted name</td>
+<td>—</td>
+<td>AE variable to analyse (<code>AEDECOD</code> for preferred term, <code>AEBODSYS</code> for SOC)</td>
+</tr>
+<tr class="odd">
+<td><code>arg_trt_flt</code></td>
+<td>unquoted name</td>
+<td>—</td>
+<td>Treatment arm used as the frequency threshold reference (use backticks if the name contains spaces)</td>
+</tr>
+<tr class="even">
+<td><code>arg_frq</code></td>
+<td>numeric</td>
+<td><code>15</code></td>
+<td>Minimum frequency (%) in <code>arg_trt_flt</code> for an event to be included</td>
+</tr>
+<tr class="odd">
+<td><code>arg_freq_num</code></td>
+<td>logical</td>
+<td><code>TRUE</code></td>
+<td>If <code>TRUE</code>, frequencies are returned as numbers</td>
+</tr>
+<tr class="even">
+<td><code>arg_rounding</code></td>
+<td>numeric</td>
+<td><code>1</code></td>
+<td>Number of decimal places</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="examples-4" class="section level3 hasAnchor" number="6.5.3">
+<h3><span class="header-section-number">6.5.3</span> Examples<a href="creating-text.html#examples-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Example 1 — Most common AEs (≥15%) by preferred term in the Xanomeline High Dose arm</strong></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="creating-text.html#cb51-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
+<span id="cb51-2"><a href="creating-text.html#cb51-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
+<span id="cb51-3"><a href="creating-text.html#cb51-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
+<span id="cb51-4"><a href="creating-text.html#cb51-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> ARM,</span>
+<span id="cb51-5"><a href="creating-text.html#cb51-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEDECOD,</span>
+<span id="cb51-6"><a href="creating-text.html#cb51-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span></span>
+<span id="cb51-7"><a href="creating-text.html#cb51-7" tabindex="-1"></a>)</span>
+<span id="cb51-8"><a href="creating-text.html#cb51-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: pruritus (31% Xanomeline high dose; 27.4% Xanomeline low dose; 9.3% Placebo), application site pruritus (26.2% Xanomeline high dose; 26.2% Xanomeline low dose; 7% Placebo), application site erythema (17.9% Xanomeline high dose; 14.3% Xanomeline low dose; 3.5% Placebo), and erythema (16.7% Xanomeline high dose; 17.9% Xanomeline low dose; 10.5% Placebo)&quot;</span></span></code></pre></div>
+<p><strong>Example 2 — Lower frequency threshold to include more events</strong></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="creating-text.html#cb52-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
+<span id="cb52-2"><a href="creating-text.html#cb52-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
+<span id="cb52-3"><a href="creating-text.html#cb52-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
+<span id="cb52-4"><a href="creating-text.html#cb52-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> ARM,</span>
+<span id="cb52-5"><a href="creating-text.html#cb52-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEDECOD,</span>
+<span id="cb52-6"><a href="creating-text.html#cb52-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
+<span id="cb52-7"><a href="creating-text.html#cb52-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">10</span></span>
+<span id="cb52-8"><a href="creating-text.html#cb52-8" tabindex="-1"></a>)</span>
+<span id="cb52-9"><a href="creating-text.html#cb52-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥10% on Xanomeline High Dose were: pruritus (31% Xanomeline high dose; 27.4% Xanomeline low dose; 9.3% Placebo), application site pruritus (26.2% Xanomeline high dose; 26.2% Xanomeline low dose; 7% Placebo), application site erythema (17.9% Xanomeline high dose; 14.3% Xanomeline low dose; 3.5% Placebo), erythema (16.7% Xanomeline high dose; 17.9% Xanomeline low dose; 10.5% Placebo), dizziness (14.3% Xanomeline high dose; 9.5% Xanomeline low dose; 2.3% Placebo), rash (13.1% Xanomeline high dose; 15.5% Xanomeline low dose; 5.8% Placebo), and application site irritation (10.7% Xanomeline high dose; 10.7% Xanomeline low dose; 3.5% Placebo)&quot;</span></span></code></pre></div>
+<p><strong>Example 3 — Higher threshold with two decimal places</strong></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="creating-text.html#cb53-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
+<span id="cb53-2"><a href="creating-text.html#cb53-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
+<span id="cb53-3"><a href="creating-text.html#cb53-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
+<span id="cb53-4"><a href="creating-text.html#cb53-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> ARM,</span>
+<span id="cb53-5"><a href="creating-text.html#cb53-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEDECOD,</span>
+<span id="cb53-6"><a href="creating-text.html#cb53-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
+<span id="cb53-7"><a href="creating-text.html#cb53-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">20</span>,</span>
+<span id="cb53-8"><a href="creating-text.html#cb53-8" tabindex="-1"></a>  <span class="at">arg_rounding  =</span> <span class="dv">2</span></span>
+<span id="cb53-9"><a href="creating-text.html#cb53-9" tabindex="-1"></a>)</span>
+<span id="cb53-10"><a href="creating-text.html#cb53-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥20% on Xanomeline High Dose were: pruritus (30.95% Xanomeline high dose; 27.38% Xanomeline low dose; 9.3% Placebo), and application site pruritus (26.19% Xanomeline high dose; 26.19% Xanomeline low dose; 6.98% Placebo)&quot;</span></span></code></pre></div>
+<p><strong>Example 4 — Summarise by system organ class (SOC)</strong></p>
+<p>Replace <code>AEDECOD</code> with <code>AEBODSYS</code> for a higher-level safety overview. This is the call used in the standard RapTLR demo.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="creating-text.html#cb54-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
+<span id="cb54-2"><a href="creating-text.html#cb54-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
+<span id="cb54-3"><a href="creating-text.html#cb54-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
+<span id="cb54-4"><a href="creating-text.html#cb54-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> ARM,</span>
+<span id="cb54-5"><a href="creating-text.html#cb54-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEBODSYS,</span>
+<span id="cb54-6"><a href="creating-text.html#cb54-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
+<span id="cb54-7"><a href="creating-text.html#cb54-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">15</span></span>
+<span id="cb54-8"><a href="creating-text.html#cb54-8" tabindex="-1"></a>)</span>
+<span id="cb54-9"><a href="creating-text.html#cb54-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: skin and subcutaneous tissue disorders (50% Xanomeline low dose; 50% Xanomeline high dose; 24.4% Placebo), general disorders and administration site conditions (56% Xanomeline low dose; 47.6% Xanomeline high dose; 24.4% Placebo), nervous system disorders (23.8% Xanomeline low dose; 32.1% Xanomeline high dose; 14% Placebo), gastrointestinal disorders (17.9% Xanomeline low dose; 25% Xanomeline high dose; 19.8% Placebo), cardiac disorders (15.5% Xanomeline low dose; 21.4% Xanomeline high dose; 15.1% Placebo), and infections and infestations (11.9% Xanomeline low dose; 15.5% Xanomeline high dose; 18.6% Placebo)&quot;</span></span></code></pre></div>
+<p><strong>Example 5 — Use <code>TRT01A</code> as the grouping variable</strong></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="creating-text.html#cb55-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
+<span id="cb55-2"><a href="creating-text.html#cb55-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
+<span id="cb55-3"><a href="creating-text.html#cb55-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
+<span id="cb55-4"><a href="creating-text.html#cb55-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> TRT01A,</span>
+<span id="cb55-5"><a href="creating-text.html#cb55-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEDECOD,</span>
+<span id="cb55-6"><a href="creating-text.html#cb55-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
+<span id="cb55-7"><a href="creating-text.html#cb55-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">15</span>,</span>
+<span id="cb55-8"><a href="creating-text.html#cb55-8" tabindex="-1"></a>  <span class="at">arg_rounding  =</span> <span class="dv">2</span></span>
+<span id="cb55-9"><a href="creating-text.html#cb55-9" tabindex="-1"></a>)</span>
+<span id="cb55-10"><a href="creating-text.html#cb55-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: pruritus (30.95% Xanomeline high dose; 27.38% Xanomeline low dose; 9.3% Placebo), application site pruritus (26.19% Xanomeline high dose; 26.19% Xanomeline low dose; 6.98% Placebo), application site erythema (17.86% Xanomeline high dose; 14.29% Xanomeline low dose; 3.49% Placebo), and erythema (16.67% Xanomeline high dose; 17.86% Xanomeline low dose; 10.47% Placebo)&quot;</span></span></code></pre></div>
+<p><strong>Example 6 — Complete safety paragraph</strong></p>
+<p>Combine <code>fct_mst_aes()</code> with <code>fct_smpl_rest()</code> using the <code>%c%</code> operator (space-join) to build a full safety narrative sentence.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="creating-text.html#cb56-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb56-2"><a href="creating-text.html#cb56-2" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb56-3"><a href="creating-text.html#cb56-3" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;A total of &quot;</span>,</span>
+<span id="cb56-4"><a href="creating-text.html#cb56-4" tabindex="-1"></a>    <span class="at">arg_text_end  =</span> <span class="st">&quot; subjects were included in the safety population.&quot;</span>,</span>
+<span id="cb56-5"><a href="creating-text.html#cb56-5" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb56-6"><a href="creating-text.html#cb56-6" tabindex="-1"></a>) <span class="sc">%c%</span></span>
+<span id="cb56-7"><a href="creating-text.html#cb56-7" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
+<span id="cb56-8"><a href="creating-text.html#cb56-8" tabindex="-1"></a>    <span class="at">arg_data      =</span> tlr_adae,</span>
+<span id="cb56-9"><a href="creating-text.html#cb56-9" tabindex="-1"></a>    <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
+<span id="cb56-10"><a href="creating-text.html#cb56-10" tabindex="-1"></a>    <span class="at">arg_grp       =</span> ARM,</span>
+<span id="cb56-11"><a href="creating-text.html#cb56-11" tabindex="-1"></a>    <span class="at">arg_var       =</span> AEBODSYS,</span>
+<span id="cb56-12"><a href="creating-text.html#cb56-12" tabindex="-1"></a>    <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
+<span id="cb56-13"><a href="creating-text.html#cb56-13" tabindex="-1"></a>    <span class="at">arg_frq       =</span> <span class="dv">15</span></span>
+<span id="cb56-14"><a href="creating-text.html#cb56-14" tabindex="-1"></a>)</span>
+<span id="cb56-15"><a href="creating-text.html#cb56-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;A total of 254 subjects were included in the safety population. The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: skin and subcutaneous tissue disorders (50% Xanomeline low dose; 50% Xanomeline high dose; 24.4% Placebo), general disorders and administration site conditions (56% Xanomeline low dose; 47.6% Xanomeline high dose; 24.4% Placebo), nervous system disorders (23.8% Xanomeline low dose; 32.1% Xanomeline high dose; 14% Placebo), gastrointestinal disorders (17.9% Xanomeline low dose; 25% Xanomeline high dose; 19.8% Placebo), cardiac disorders (15.5% Xanomeline low dose; 21.4% Xanomeline high dose; 15.1% Placebo), and infections and infestations (11.9% Xanomeline low dose; 15.5% Xanomeline high dose; 18.6% Placebo)&quot;</span></span></code></pre></div>
 
+</div>
 </div>
 </div>
             </section>
@@ -520,8 +1143,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="text-replacement.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="text-replacement.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cust-opr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -563,7 +1186,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["RapTLR_Training.pdf", "RapTLR_Training.epub"],
+  "download": null,
   "search": {
     "engine": "fuse",
     "options": null

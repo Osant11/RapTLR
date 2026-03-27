@@ -4,7 +4,7 @@
 
 The `run_apdx()` function automatically:
 
-1.  Reads all .docx files from a specified folder
+1.  Reads all .DOCX files from a specified folder
 2.  Inserts them into your Word document
 3.  Creates a table of contents with hyperlinks
 4.  Organizes outputs into sections (optional)
@@ -15,7 +15,7 @@ In the RapTLR package, we provided few examples to cover most of the use cases f
 
 ### Required Parameters
 
-**path_TLFs**: Path to folder containing .docx outputs.
+**path_TLFs**: Path to folder containing .DOCX outputs.
 
 **docx_object**: Path to your shell Word document.
 
@@ -31,12 +31,12 @@ In the RapTLR package, we provided few examples to cover most of the use cases f
 
 The most simple case, two arguments are needed:
 
--   path_TLFs: Path of the directory where the .docx outputs are saved
--   docx_object: Path of the targeted .docx is saved. (e.g. TLR_shell.docx)
+-   path_TLFs: Path of the directory where the .DOCX outputs are saved
+-   docx_object: Path of the targeted .DOCX is saved. (e.g. TLR_shell.docx)
 
-Automatically, the function will create a subfolder called `bookmarked` at the same directory of `path_TLFs` and will create bookmarked .docx outputs for each .docx outputs. under \``path_TLFs`\`.
+Automatically, the function will create a subfolder called `bookmarked` at the same directory of `path_TLFs` and will create bookmarked .DOCX outputs for each .DOCX outputs. under \``path_TLFs`\`.
 
-In the Package, we provided dummy .docx outputs and a TLR shell for practicing. You can find them [here](https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata).
+In the Package, we provided dummy .DOCX outputs and a TLR shell for practicing. You can find them [here](https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata).
 
 When you download the package, you can get their location using R in that way:
 
@@ -58,7 +58,7 @@ run_apdx( path_TLFs = system.file( "extdata/TLF_outputs", package = "RapTLR" ),
 ```
 
 If you desire to change the name and location of the new document, you can use the function argument `return_to_file`. \
-By default, it is saving in the current working directory and no need to add the .docx extension.
+By default, it is saving in the current working directory and no need to add the .DOCX extension.
 
 ```{r eval=FALSE}
 library(RapTLR)
@@ -84,7 +84,7 @@ The user can use a R list to create a structured appendix. With that technique, 
 Be careful:
 
 -   The different names will defined the order of the sub-sections in the appendix.
--   Do not add the .docx extension in the output IDs
+-   Do not add the .DOCX extension in the output IDs
 
 ```{r eval=FALSE}
 library( RapTLR )
@@ -114,7 +114,7 @@ run_apdx( path_TLFs = system.file( "extdata/TLF_outputs", package = "RapTLR" ),
 
 It is also possible to create a structured appendix by importing a CSV or Excel file.
 
-**Be careful**, it has to be a two columns table, the first with the sub-sections and the other with the output IDs (without the .docx extension).
+**Be careful**, it has to be a two columns table, the first with the sub-sections and the other with the output IDs (without the .DOCX extension).
 
 In the package we provided two dummy tables (`TLF_list.csv` and `TLF_list.xlsx`) that the user can download and look ([here](https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata))
 
