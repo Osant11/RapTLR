@@ -23,7 +23,7 @@
 <meta name="author" content="RapTLR Development Team" />
 
 
-<meta name="date" content="2026-03-16" />
+<meta name="date" content="2026-03-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -145,6 +145,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#getting-started-with-examples"><i class="fa fa-check"></i><b>1.4</b> Getting Started with Examples</a></li>
 <li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#typical-workflow"><i class="fa fa-check"></i><b>1.5</b> Typical Workflow</a></li>
 <li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#package-dependencies"><i class="fa fa-check"></i><b>1.6</b> Package Dependencies</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#organizing-your-tlf-folder"><i class="fa fa-check"></i><b>1.7</b> Organizing Your TLF Folder</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="tlr-shell.html"><a href="tlr-shell.html"><i class="fa fa-check"></i><b>2</b> TLR Shell Preparation</a>
 <ul>
@@ -164,9 +165,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="output-conversion.html"><a href="output-conversion.html#converting-your-rtf-outputs-into-docx"><i class="fa fa-check"></i><b>3.4</b> Converting your RTF outputs into DOCX</a>
 <ul>
 <li class="chapter" data-level="3.4.1" data-path="output-conversion.html"><a href="output-conversion.html#example-from-the-tlr-package"><i class="fa fa-check"></i><b>3.4.1</b> Example from the TLR package</a></li>
-<li class="chapter" data-level="3.4.2" data-path="output-conversion.html"><a href="output-conversion.html#example-from-space"><i class="fa fa-check"></i><b>3.4.2</b> Example from SPACE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="output-conversion.html"><a href="output-conversion.html#summary-video-no-sound"><i class="fa fa-check"></i><b>3.4.2</b> Summary video (no sound)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="output-conversion.html"><a href="output-conversion.html#organizing-your-tlf-folder"><i class="fa fa-check"></i><b>3.5</b> Organizing Your TLF Folder</a></li>
+<li class="chapter" data-level="3.5" data-path="output-conversion.html"><a href="output-conversion.html#working-with-space"><i class="fa fa-check"></i><b>3.5</b> Working with SPACE</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="output-conversion.html"><a href="output-conversion.html#accessing-the-report-effort"><i class="fa fa-check"></i><b>3.5.1</b> Accessing the Report Effort</a></li>
+</ul></li>
 <li class="chapter" data-level="3.6" data-path="output-conversion.html"><a href="output-conversion.html#quality-checks-before-processing"><i class="fa fa-check"></i><b>3.6</b> Quality Checks Before Processing</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="appendix-creation.html"><a href="appendix-creation.html"><i class="fa fa-check"></i><b>4</b> Appendix Creation</a>
@@ -293,7 +297,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title">RapTLR Training Guide</h1>
 <h2 class="subtitle"><em>Rapid Top-Line Report Generation with R</em></h2>
 <p class="author"><em>RapTLR Development Team</em></p>
-<p class="date"><em>2026-03-16</em></p>
+<p class="date"><em>2026-03-27</em></p>
 </div>
 <div id="intro" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Introduction<a href="index.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -351,9 +355,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Documents are R objects that can be modified</li>
 <li>Changes can be chained together</li>
-<li>Final output is written to as a docx file</li>
+<li>Final output is written to as a .DOCX file</li>
 </ul>
-<p>Let’s dive into each component!</p>
+</div>
+<div id="organizing-your-tlf-folder" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Organizing Your TLF Folder<a href="index.html#organizing-your-tlf-folder" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To keep things organized, we recommend to create a clear folder structure (see below).<br />
+When you run run_apdx(), it will automatically create a new bookmarked subfolder wihtin the same directory of the .docx outputs and it will store the new bookmarked outputs there.</p>
+<pre><code>TLR_project/
+├── TLF_outputs/
+│   ├── rtf/
+│      ├── t_demographics_01.rtf
+│      ├── t_efficacy_02.rtf
+│      └── l_adverse_events_01.rtf
+│   ├── docx/
+│      ├── t_demographics_01.docx
+│      ├── t_efficacy_02.docx
+│      └── l_adverse_events_01.docx
+│      ├── bookmarked/
+│         ├── LKt_demographics_01.docx
+│         ├── LKt_efficacy_02.docx
+│         └── LKl_adverse_events_01.docx
+├── TLR_shell/
+│   ├── TLR_shell.docx
+│   ├── TLR_final.docx
+└── scripts/
+    └── generate_tlr.R</code></pre>
 
 </div>
 </div>

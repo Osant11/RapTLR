@@ -5,6 +5,7 @@ installation
 getting-started-with-examples
 typical-workflow
 package-dependencies
+organizing-your-tlf-folder
 tlr-shell
 what-is-a-tlr-shell
 creating-your-shell-document
@@ -17,8 +18,9 @@ what-is-3c-helper
 how-to-download-3c-helper
 converting-your-rtf-outputs-into-docx
 example-from-the-tlr-package
-example-from-space
-organizing-your-tlf-folder
+summary-video-no-sound
+working-with-space
+accessing-the-report-effort
 quality-checks-before-processing
 appendix-creation
 the-run_apdx-function
@@ -85,6 +87,3 @@ study-disposition
 demographics-and-baseline-characteristics
 safety
 replacing-placeholders-and-saving
-summary-video-no-sound
-working-with-space
-accessing-the-report-effort

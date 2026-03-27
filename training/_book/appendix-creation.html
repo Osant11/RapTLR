@@ -23,7 +23,7 @@
 <meta name="author" content="RapTLR Development Team" />
 
 
-<meta name="date" content="2026-03-16" />
+<meta name="date" content="2026-03-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -145,6 +145,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#getting-started-with-examples"><i class="fa fa-check"></i><b>1.4</b> Getting Started with Examples</a></li>
 <li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#typical-workflow"><i class="fa fa-check"></i><b>1.5</b> Typical Workflow</a></li>
 <li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#package-dependencies"><i class="fa fa-check"></i><b>1.6</b> Package Dependencies</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#organizing-your-tlf-folder"><i class="fa fa-check"></i><b>1.7</b> Organizing Your TLF Folder</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="tlr-shell.html"><a href="tlr-shell.html"><i class="fa fa-check"></i><b>2</b> TLR Shell Preparation</a>
 <ul>
@@ -164,9 +165,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="output-conversion.html"><a href="output-conversion.html#converting-your-rtf-outputs-into-docx"><i class="fa fa-check"></i><b>3.4</b> Converting your RTF outputs into DOCX</a>
 <ul>
 <li class="chapter" data-level="3.4.1" data-path="output-conversion.html"><a href="output-conversion.html#example-from-the-tlr-package"><i class="fa fa-check"></i><b>3.4.1</b> Example from the TLR package</a></li>
-<li class="chapter" data-level="3.4.2" data-path="output-conversion.html"><a href="output-conversion.html#example-from-space"><i class="fa fa-check"></i><b>3.4.2</b> Example from SPACE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="output-conversion.html"><a href="output-conversion.html#summary-video-no-sound"><i class="fa fa-check"></i><b>3.4.2</b> Summary video (no sound)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="output-conversion.html"><a href="output-conversion.html#organizing-your-tlf-folder"><i class="fa fa-check"></i><b>3.5</b> Organizing Your TLF Folder</a></li>
+<li class="chapter" data-level="3.5" data-path="output-conversion.html"><a href="output-conversion.html#working-with-space"><i class="fa fa-check"></i><b>3.5</b> Working with SPACE</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="output-conversion.html"><a href="output-conversion.html#accessing-the-report-effort"><i class="fa fa-check"></i><b>3.5.1</b> Accessing the Report Effort</a></li>
+</ul></li>
 <li class="chapter" data-level="3.6" data-path="output-conversion.html"><a href="output-conversion.html#quality-checks-before-processing"><i class="fa fa-check"></i><b>3.6</b> Quality Checks Before Processing</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="appendix-creation.html"><a href="appendix-creation.html"><i class="fa fa-check"></i><b>4</b> Appendix Creation</a>
@@ -295,7 +299,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> The run_apdx() Function<a href="appendix-creation.html#the-run_apdx-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>run_apdx()</code> function automatically:</p>
 <ol style="list-style-type: decimal">
-<li>Reads all .docx files from a specified folder</li>
+<li>Reads all .DOCX files from a specified folder</li>
 <li>Inserts them into your Word document</li>
 <li>Creates a table of contents with hyperlinks</li>
 <li>Organizes outputs into sections (optional)</li>
@@ -306,7 +310,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.2</span> Function Parameters<a href="appendix-creation.html#function-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="required-parameters" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Required Parameters<a href="appendix-creation.html#required-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>path_TLFs</strong>: Path to folder containing .docx outputs.</p>
+<p><strong>path_TLFs</strong>: Path to folder containing .DOCX outputs.</p>
 <p><strong>docx_object</strong>: Path to your shell Word document.</p>
 <p><strong>keyword</strong>: Placeholder text to be replaced by the new appendix.</p>
 </div>
@@ -320,27 +324,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.3</span> Basic Usage<a href="appendix-creation.html#basic-usage" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The most simple case, two arguments are needed:</p>
 <ul>
-<li>path_TLFs: Path of the directory where the .docx outputs are saved</li>
-<li>docx_object: Path of the targeted .docx is saved. (e.g. TLR_shell.docx)</li>
+<li>path_TLFs: Path of the directory where the .DOCX outputs are saved</li>
+<li>docx_object: Path of the targeted .DOCX is saved. (e.g. TLR_shell.docx)</li>
 </ul>
-<p>Automatically, the function will create a subfolder called <code>bookmarked</code> at the same directory of <code>path_TLFs</code> and will create bookmarked .docx outputs for each .docx outputs. under `<code>path_TLFs</code>`.</p>
-<p>In the Package, we provided dummy .docx outputs and a TLR shell for practicing. You can find them <a href="https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata">here</a>.</p>
+<p>Automatically, the function will create a subfolder called <code>bookmarked</code> at the same directory of <code>path_TLFs</code> and will create bookmarked .DOCX outputs for each .DOCX outputs. under `<code>path_TLFs</code>`.</p>
+<p>In the Package, we provided dummy .DOCX outputs and a TLR shell for practicing. You can find them <a href="https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata">here</a>.</p>
 <p>When you download the package, you can get their location using R in that way:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="appendix-creation.html#cb5-1" tabindex="-1"></a>path_TLFs <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
-<span id="cb5-2"><a href="appendix-creation.html#cb5-2" tabindex="-1"></a>path_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="appendix-creation.html#cb6-1" tabindex="-1"></a>path_TLFs <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
+<span id="cb6-2"><a href="appendix-creation.html#cb6-2" tabindex="-1"></a>path_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span></code></pre></div>
 <p>Those two paths can be used in the function <code>run_apdx()</code> to create a TLR with the appendix.<br />
 By default the new TLR will be called <code>appendix_processed.docx</code> and will be saved in the current working directory. That will be mentioned in the console.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="appendix-creation.html#cb6-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
-<span id="cb6-2"><a href="appendix-creation.html#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="appendix-creation.html#cb6-3" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
-<span id="cb6-4"><a href="appendix-creation.html#cb6-4" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ) ) </span></code></pre></div>
-<p>If you desire to change the name and location of the new document, you can use the function argument <code>return_to_file</code>.<br />
-By default, it is saving in the current working directory and no need to add the .docx extension.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="appendix-creation.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
 <span id="cb7-2"><a href="appendix-creation.html#cb7-2" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="appendix-creation.html#cb7-3" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
-<span id="cb7-4"><a href="appendix-creation.html#cb7-4" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ), </span>
-<span id="cb7-5"><a href="appendix-creation.html#cb7-5" tabindex="-1"></a>          <span class="at">return_to_file =</span> <span class="st">&quot;new_doc&quot;</span> )</span></code></pre></div>
+<span id="cb7-4"><a href="appendix-creation.html#cb7-4" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ) ) </span></code></pre></div>
+<p>If you desire to change the name and location of the new document, you can use the function argument <code>return_to_file</code>.<br />
+By default, it is saving in the current working directory and no need to add the .DOCX extension.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="appendix-creation.html#cb8-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb8-2"><a href="appendix-creation.html#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="appendix-creation.html#cb8-3" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
+<span id="cb8-4"><a href="appendix-creation.html#cb8-4" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ), </span>
+<span id="cb8-5"><a href="appendix-creation.html#cb8-5" tabindex="-1"></a>          <span class="at">return_to_file =</span> <span class="st">&quot;new_doc&quot;</span> )</span></code></pre></div>
 <p>We have set the keyword argument to <code>LISTOFAPPENDICES</code>, this can take any value but <strong>be sure</strong> it is also reflected in your original document where you want to create the appendix.</p>
 </div>
 <div id="organizing-with-sections" class="section level2 hasAnchor" number="4.4">
@@ -353,45 +357,45 @@ By default, it is saving in the current working directory and no need to add the
 <p>Be careful:</p>
 <ul>
 <li>The different names will defined the order of the sub-sections in the appendix.</li>
-<li>Do not add the .docx extension in the output IDs</li>
+<li>Do not add the .DOCX extension in the output IDs</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="appendix-creation.html#cb8-1" tabindex="-1"></a><span class="fu">library</span>( RapTLR )</span>
-<span id="cb8-2"><a href="appendix-creation.html#cb8-2" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="appendix-creation.html#cb8-3" tabindex="-1"></a>output_list_1 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb8-4"><a href="appendix-creation.html#cb8-4" tabindex="-1"></a>  <span class="st">&quot;Efficacy Section&quot;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;tefmad01a&quot;</span> ),</span>
-<span id="cb8-5"><a href="appendix-creation.html#cb8-5" tabindex="-1"></a>  <span class="st">&quot;Safety Section&quot;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;tsfae10&quot;</span>, <span class="st">&quot;lsfae03&quot;</span> ),</span>
-<span id="cb8-6"><a href="appendix-creation.html#cb8-6" tabindex="-1"></a>  <span class="st">&quot;Demographic Section&quot;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;tsidem03&quot;</span> ) </span>
-<span id="cb8-7"><a href="appendix-creation.html#cb8-7" tabindex="-1"></a>)</span>
-<span id="cb8-8"><a href="appendix-creation.html#cb8-8" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="appendix-creation.html#cb8-9" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
-<span id="cb8-10"><a href="appendix-creation.html#cb8-10" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
-<span id="cb8-11"><a href="appendix-creation.html#cb8-11" tabindex="-1"></a>          <span class="at">sections_structure =</span> output_list_1 ) </span>
-<span id="cb8-12"><a href="appendix-creation.html#cb8-12" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="appendix-creation.html#cb8-13" tabindex="-1"></a>output_list_2 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb8-14"><a href="appendix-creation.html#cb8-14" tabindex="-1"></a>  <span class="st">&quot;Demographic&quot;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;tsidem03&quot;</span> ),</span>
-<span id="cb8-15"><a href="appendix-creation.html#cb8-15" tabindex="-1"></a>  <span class="st">&quot;Safety&quot;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;tsfae10&quot;</span> )</span>
-<span id="cb8-16"><a href="appendix-creation.html#cb8-16" tabindex="-1"></a>)</span>
-<span id="cb8-17"><a href="appendix-creation.html#cb8-17" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="appendix-creation.html#cb8-18" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
-<span id="cb8-19"><a href="appendix-creation.html#cb8-19" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
-<span id="cb8-20"><a href="appendix-creation.html#cb8-20" tabindex="-1"></a>          <span class="at">sections_structure =</span> output_list_2 ) </span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="appendix-creation.html#cb9-1" tabindex="-1"></a><span class="fu">library</span>( RapTLR )</span>
+<span id="cb9-2"><a href="appendix-creation.html#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="appendix-creation.html#cb9-3" tabindex="-1"></a>output_list_1 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb9-4"><a href="appendix-creation.html#cb9-4" tabindex="-1"></a>  <span class="st">&quot;Efficacy Section&quot;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;tefmad01a&quot;</span> ),</span>
+<span id="cb9-5"><a href="appendix-creation.html#cb9-5" tabindex="-1"></a>  <span class="st">&quot;Safety Section&quot;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;tsfae10&quot;</span>, <span class="st">&quot;lsfae03&quot;</span> ),</span>
+<span id="cb9-6"><a href="appendix-creation.html#cb9-6" tabindex="-1"></a>  <span class="st">&quot;Demographic Section&quot;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;tsidem03&quot;</span> ) </span>
+<span id="cb9-7"><a href="appendix-creation.html#cb9-7" tabindex="-1"></a>)</span>
+<span id="cb9-8"><a href="appendix-creation.html#cb9-8" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="appendix-creation.html#cb9-9" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
+<span id="cb9-10"><a href="appendix-creation.html#cb9-10" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
+<span id="cb9-11"><a href="appendix-creation.html#cb9-11" tabindex="-1"></a>          <span class="at">sections_structure =</span> output_list_1 ) </span>
+<span id="cb9-12"><a href="appendix-creation.html#cb9-12" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="appendix-creation.html#cb9-13" tabindex="-1"></a>output_list_2 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb9-14"><a href="appendix-creation.html#cb9-14" tabindex="-1"></a>  <span class="st">&quot;Demographic&quot;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;tsidem03&quot;</span> ),</span>
+<span id="cb9-15"><a href="appendix-creation.html#cb9-15" tabindex="-1"></a>  <span class="st">&quot;Safety&quot;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;tsfae10&quot;</span> )</span>
+<span id="cb9-16"><a href="appendix-creation.html#cb9-16" tabindex="-1"></a>)</span>
+<span id="cb9-17"><a href="appendix-creation.html#cb9-17" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="appendix-creation.html#cb9-18" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
+<span id="cb9-19"><a href="appendix-creation.html#cb9-19" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
+<span id="cb9-20"><a href="appendix-creation.html#cb9-20" tabindex="-1"></a>          <span class="at">sections_structure =</span> output_list_2 ) </span></code></pre></div>
 </div>
 <div id="method-2-using-a-csv-or-excel-file" class="section level3 hasAnchor" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> Method 2: Using a CSV or Excel File<a href="appendix-creation.html#method-2-using-a-csv-or-excel-file" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It is also possible to create a structured appendix by importing a CSV or Excel file.</p>
-<p><strong>Be careful</strong>, it has to be a two columns table, the first with the sub-sections and the other with the output IDs (without the .docx extension).</p>
+<p><strong>Be careful</strong>, it has to be a two columns table, the first with the sub-sections and the other with the output IDs (without the .DOCX extension).</p>
 <p>In the package we provided two dummy tables (<code>TLF_list.csv</code> and <code>TLF_list.xlsx</code>) that the user can download and look (<a href="https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata">here</a>)</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="appendix-creation.html#cb9-1" tabindex="-1"></a><span class="co"># Using a CSV file</span></span>
-<span id="cb9-2"><a href="appendix-creation.html#cb9-2" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
-<span id="cb9-3"><a href="appendix-creation.html#cb9-3" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ), </span>
-<span id="cb9-4"><a href="appendix-creation.html#cb9-4" tabindex="-1"></a>          <span class="at">sections_structure =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLF_list.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ) </span>
-<span id="cb9-5"><a href="appendix-creation.html#cb9-5" tabindex="-1"></a>)</span>
-<span id="cb9-6"><a href="appendix-creation.html#cb9-6" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="appendix-creation.html#cb9-7" tabindex="-1"></a><span class="co"># Using an Excel file</span></span>
-<span id="cb9-8"><a href="appendix-creation.html#cb9-8" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
-<span id="cb9-9"><a href="appendix-creation.html#cb9-9" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ), </span>
-<span id="cb9-10"><a href="appendix-creation.html#cb9-10" tabindex="-1"></a>          <span class="at">sections_structure =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLF_list.xlsx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ) </span>
-<span id="cb9-11"><a href="appendix-creation.html#cb9-11" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="appendix-creation.html#cb10-1" tabindex="-1"></a><span class="co"># Using a CSV file</span></span>
+<span id="cb10-2"><a href="appendix-creation.html#cb10-2" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
+<span id="cb10-3"><a href="appendix-creation.html#cb10-3" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ), </span>
+<span id="cb10-4"><a href="appendix-creation.html#cb10-4" tabindex="-1"></a>          <span class="at">sections_structure =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLF_list.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ) </span>
+<span id="cb10-5"><a href="appendix-creation.html#cb10-5" tabindex="-1"></a>)</span>
+<span id="cb10-6"><a href="appendix-creation.html#cb10-6" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="appendix-creation.html#cb10-7" tabindex="-1"></a><span class="co"># Using an Excel file</span></span>
+<span id="cb10-8"><a href="appendix-creation.html#cb10-8" tabindex="-1"></a><span class="fu">run_apdx</span>( <span class="at">path_TLFs =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata/TLF_outputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ),</span>
+<span id="cb10-9"><a href="appendix-creation.html#cb10-9" tabindex="-1"></a>          <span class="at">docx_object =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLR_Shell.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ), </span>
+<span id="cb10-10"><a href="appendix-creation.html#cb10-10" tabindex="-1"></a>          <span class="at">sections_structure =</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;TLF_list.xlsx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> ) </span>
+<span id="cb10-11"><a href="appendix-creation.html#cb10-11" tabindex="-1"></a>)</span></code></pre></div>
 
 </div>
 </div>
