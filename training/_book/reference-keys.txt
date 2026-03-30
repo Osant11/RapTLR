@@ -87,3 +87,6 @@ study-disposition
 demographics-and-baseline-characteristics
 safety
 replacing-placeholders-and-saving
+how-to-use-3c-helper
+accessing-the-report-effort-and-connect-to-r
+how-to-convert-outputs-in-space
