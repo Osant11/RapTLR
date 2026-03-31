@@ -33,9 +33,9 @@ It's possible to not use the dynamic feature of text replacement / creation. In 
 
 To understand how it works, we provided shells and examples:
 
--   You can download [Keywords_replace.docx](https://github.com/johnsonandjohnson/RapTLR/blob/main/inst/extdata/Keywords_replace.docx) to understand how to create placeholders in your word document.  
+-   You can look [Keywords_replace.docx](https://jnj.sharepoint.com/:w:/r/teams/TLRinRPackage/_layouts/15/Doc.aspx?sourcedoc=%7B9D05A9C3-2012-40DA-A616-A978F03EB164%7D&file=Keywords_replace.docx&action=default&mobileredirect=true) to understand how to create placeholders in your word document.  
 -   You can look and run the examples provided by the function `textReplace()` that will replace the placeholders in the Keywords_replace.docx document.  
--   We provided a detailed TLR draft with step 1, 2 and 3. You can download [TLR_Shell.docx](https://github.com/johnsonandjohnson/RapTLR/blob/main/inst/extdata/TLR_Shell.docx).  
+-   We provided a detailed TLR draft with step 1, 2 and 3. You can look [TLR_Shell.docx](https://jnj.sharepoint.com/:w:/r/teams/TLRinRPackage/_layouts/15/Doc.aspx?sourcedoc=%7BD38DD296-7949-4108-81CC-B1BE9C7FD8A0%7D&file=TLR_Shell.docx&action=default&mobileredirect=true).  
 -   We provided a complete workflow in R how to use the RapTLR package, run `RapTLR::import_demo()` and it will create a new R script called `demo_TLR.R` in your current working environement.
 
 **CRITICAL RULES for placeholders:**

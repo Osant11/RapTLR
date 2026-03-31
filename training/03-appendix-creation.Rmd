@@ -36,7 +36,7 @@ The most simple case, two arguments are needed:
 
 Automatically, the function will create a subfolder called `bookmarked` at the same directory of `path_TLFs` and will create bookmarked .DOCX outputs for each .DOCX outputs. under \``path_TLFs`\`.
 
-In the Package, we provided dummy .DOCX outputs and a TLR shell for practicing. You can find them [here](https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata).
+In the Package, we provided dummy .DOCX outputs and a TLR shell for practicing. You can find them [here](https://jnj.sharepoint.com/teams/TLRinRPackage/Shared%20Documents/Forms/AllItems.aspx?id=%2Fteams%2FTLRinRPackage%2FShared%20Documents%2FGeneral%2FPackage%20Material&viewid=8237c82f%2D411b%2D479b%2D9ce0%2D6d46e9d85662&csf=1&CID=3e740844%2Db277%2D4c4e%2Da316%2Da9c32d904883&FolderCTID=0x01200033BBBD2357830A4B87F02E31F18B1C71&startedResponseCatch=true).
 
 When you download the package, you can get their location using R in that way:
 
@@ -116,7 +116,7 @@ It is also possible to create a structured appendix by importing a CSV or Excel 
 
 **Be careful**, it has to be a two columns table, the first with the sub-sections and the other with the output IDs (without the .DOCX extension).
 
-In the package we provided two dummy tables (`TLF_list.csv` and `TLF_list.xlsx`) that the user can download and look ([here](https://github.com/johnsonandjohnson/RapTLR/tree/main/inst/extdata))
+In the package we provided two same dummy tables (`TLF_list.csv` and `TLF_list.xlsx`) that the user can look ([here](https://jnj.sharepoint.com/teams/TLRinRPackage/Shared%20Documents/Forms/AllItems.aspx?id=%2Fteams%2FTLRinRPackage%2FShared%20Documents%2FGeneral%2FPackage%20Material&viewid=8237c82f%2D411b%2D479b%2D9ce0%2D6d46e9d85662&csf=1&CID=3e740844%2Db277%2D4c4e%2Da316%2Da9c32d904883&FolderCTID=0x01200033BBBD2357830A4B87F02E31F18B1C71))
 
 ```{r eval=FALSE}
 # Using a CSV file

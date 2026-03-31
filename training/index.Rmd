@@ -37,8 +37,11 @@ Traditional TLR creation involves:
 RapTLR is hosted on RSPM (RStudio Package Manager), which streamlines downloading internal R packages to JnJ R servers (SPACE / Biostatshiny).
 
 ```{r eval=FALSE}
-# To install RapTLR on Jnj R server
+# To install RapTLR on Biostatshiny or Home in SPACE
 install.packages("RapTLR")
+
+# To install RapTLR on a RE in SPACE 
+install.packages("RapTLR", repos = "https://rstudiopm.jnj.com/JNJ/latest/")
 ```
 
 ## Getting Started with Examples

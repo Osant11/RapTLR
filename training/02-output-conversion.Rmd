@@ -109,7 +109,7 @@ After R has downloaded all the required packages, you should be able to proceed 
 
 ### How to convert outputs in SPACE
 
-In SPACE under `OUPUTS & ANALYSIS` from `re_raptlr` there are five .RTF dummy outputs available (`tsidem03, tefmad01a, tsfae10, tsfae10_c, lsfae03`) for conversion using 3C Helper.
+In SPACE under `OUPUTS & ANALYSIS` from `re_raptlr` there are four .RTF dummy outputs available (`tsidem03, tefmad01a, tsfae10, lsfae03`) for conversion using 3C Helper.
 
 3C Helper uses RaiDrive to access the outputs, and in the following steps, Z:\ refers to the RaiDrive drive mapping.
 
@@ -134,11 +134,17 @@ knitr::include_graphics("picts/space_3c_suc.png")
 
 ### Summary video (no sound)
 
+The following recording shows in details how to convert .RTF to .DOCX outputs in SPACE using 3C Helper.
 
+<video width="640" height="480" controls>
+
+<source src="videos/space_3chelper.mp4" type="video/mp4">
+
+</video>
 
 ### Notes 
 
-- Be aware that the destination of the outputs should always be under `OUTPUTS & ANALYIS` but they could be under `PREPROP` or `PROD`
+- Be aware that the destination of the outputs should always be under `OUTPUTS & ANALYIS` but they could be in `PREPROP` or `PROD`
 - Do not forget to `Assign myself` at every level 
 - Be careful to use the correct path between SPACE and RaiDrive
 - It's possible that the Reporting Effort has not been set up for R before, you will get an error message saying: `Error: Did you setup your Programs PDEV?`. Contact the study lead programmer. 

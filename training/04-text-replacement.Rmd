@@ -14,7 +14,7 @@ Traditional approach: - Run analysis in R - Manually copy numbers into Word - Da
 
 ### Required Parameters
 
-**doc_object**: Can be either a string or officer object. If string, a path where the .docx is saved. If officer object, should be the .docx loaded by officer::read_docx().
+**doc_object**: Can be either a string or officer object. If string, a path where the .DOCX is saved. If officer object, should be the .DOCX loaded by officer::read_docx().
 
 **keyword**: Placeholders in the document to be replaced.
 
@@ -22,13 +22,13 @@ Traditional approach: - Run analysis in R - Manually copy numbers into Word - Da
 
 ### Optional Parameters
 
-**return_to_file**: Path and name to save the modified document. If NULL, it is saving a new .docx in the current working directory called `TLR_updated.docx`.
+**return_to_file**: Path and name to save the modified document. If NULL, it is saving a new .DOCX in the current working directory called `TLR_updated.docx`.
 
 ## Basic Usage
 
-We provided a dummy .docx documents with placeholders that can be used for practicing. It can be downloaded [here](https://github.com/johnsonandjohnson/RapTLR/blob/main/inst/extdata/Keywords_replace.docx).
+We provided a dummy .DOCX document with placeholders that can be used for practicing. It can be looked [here](https://jnj.sharepoint.com/:w:/r/teams/TLRinRPackage/_layouts/15/Doc.aspx?sourcedoc=%7B9D05A9C3-2012-40DA-A616-A978F03EB164%7D&file=Keywords_replace.docx&action=default&mobileredirect=true).
 
-The following code can be used to access it after installing the package.
+The following code can be used to access the document after installing the package.
 
 ```{r eval=FALSE}
 imported_docx <- system.file( "extdata", "Keywords_replace.docx", package = "RapTLR" )
@@ -65,7 +65,7 @@ new_doc <- textReplace(
 
 ```
 
-Notice that the original .docx document is called only the first time and the updated document is saved in R as `new_doc` and is automatically saved as `TLR_updated.docx` in the current working directory.\
+Notice that the original .DOCX document is called only the first time and the updated document is saved in R as `new_doc` and is automatically saved as `TLR_updated.docx` in the current working directory.\
 For the two others placeholders, the update is made directly on `new_doc` and save again as `new_doc` and as `TLR_updated.docx`.
 
 ## Chaining Multiple Replacements

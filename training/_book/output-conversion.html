@@ -23,7 +23,7 @@
 <meta name="author" content="RapTLR Development Team" />
 
 
-<meta name="date" content="2026-03-30" />
+<meta name="date" content="2026-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -172,8 +172,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.5.1" data-path="output-conversion.html"><a href="output-conversion.html#accessing-the-report-effort-and-connect-to-r"><i class="fa fa-check"></i><b>3.5.1</b> Accessing the Report Effort and Connect to R</a></li>
 <li class="chapter" data-level="3.5.2" data-path="output-conversion.html"><a href="output-conversion.html#how-to-convert-outputs-in-space"><i class="fa fa-check"></i><b>3.5.2</b> How to convert outputs in SPACE</a></li>
+<li class="chapter" data-level="3.5.3" data-path="output-conversion.html"><a href="output-conversion.html#summary-video-no-sound-1"><i class="fa fa-check"></i><b>3.5.3</b> Summary video (no sound)</a></li>
+<li class="chapter" data-level="3.5.4" data-path="output-conversion.html"><a href="output-conversion.html#notes"><i class="fa fa-check"></i><b>3.5.4</b> Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="output-conversion.html"><a href="output-conversion.html#quality-checks-before-processing"><i class="fa fa-check"></i><b>3.6</b> Quality Checks Before Processing</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="appendix-creation.html"><a href="appendix-creation.html"><i class="fa fa-check"></i><b>4</b> Appendix Creation</a>
 <ul>
@@ -389,31 +390,39 @@ If needed you can read the user guide in Confluence on <a href="https://confluen
 </div>
 <div id="how-to-convert-outputs-in-space" class="section level3 hasAnchor" number="3.5.2">
 <h3><span class="header-section-number">3.5.2</span> How to convert outputs in SPACE<a href="output-conversion.html#how-to-convert-outputs-in-space" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In SPACE under <code>OUPUTS &amp; ANALYSIS</code> from <code>re_raptlr</code> there are five .RTF dummy outputs available (<code>tsidem03, tefmad01a, tsfae10, tsfae10_c, lsfae03</code>) for conversion using 3C Helper.</p>
+<p>In SPACE under <code>OUPUTS &amp; ANALYSIS</code> from <code>re_raptlr</code> there are four .RTF dummy outputs available (<code>tsidem03, tefmad01a, tsfae10, lsfae03</code>) for conversion using 3C Helper.</p>
 <p>3C Helper uses RaiDrive to access the outputs, and in the following steps, Z: refers to the RaiDrive drive mapping.</p>
 <ol style="list-style-type: decimal">
 <li>Open 3C Helper</li>
 <li>Select <strong>Convert</strong> in the sidebar</li>
 <li>Type: <strong>RTF -&gt; DOCX</strong></li>
 <li>Folder/File(s): <strong>Folder</strong></li>
-<li>Input Folder: Select folder <strong>rtf</strong> in <code>Z:\adr\PDEV\astos1\pharma\test_compound\r_training_stats\dbr_intro_to_r\re_raptlr\qc\TLR_R_training\output</code> - <strong>Be sure to use your JnJ Credential</strong></li>
-<li>Output Folder: Create folder <strong>docx</strong> and select in <code>Z:\adr\PDEV\astos1\pharma\test_compound\r_training_stats\dbr_intro_to_r\re_raptlr\qc\TLR_R_training\output</code> - <strong>Be sure to use your JnJ Credential</strong></li>
+<li>Input Folder: Select folder <strong>rtf</strong> in <code>Z:\adr\PREPROD\pharma\test_compound\r_training_stats\dbr_intro_to_r\re_raptlr\output</code> - <strong>Be sure to use your JnJ Credential</strong></li>
+<li>Output Folder: Create folder <strong>docx</strong> and select in <code>Z:\adr\PDEV\astos1\pharma\test_compound\r_training_stats\dbr_intro_to_r\re_raptlr\qc\docx</code> - <strong>Be sure to use your JnJ Credential</strong></li>
 <li>Click <strong>Convert</strong></li>
 </ol>
-<p><img src="picts/space_3c.png" alt="" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p><img src="picts/space_3c.png" alt="" width="80%" style="display: block; margin: auto;" /></p>
 <p>The new .DOCX outputs should be available your R session as well.</p>
-<p><img src="picts/space_3c_suc.png" alt="" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p><img src="picts/space_3c_suc.png" alt="" width="80%" style="display: block; margin: auto;" /></p>
 </div>
+<div id="summary-video-no-sound-1" class="section level3 hasAnchor" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Summary video (no sound)<a href="output-conversion.html#summary-video-no-sound-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following recording shows in details how to convert .RTF to .DOCX outputs in SPACE using 3C Helper.</p>
+<video width="640" height="480" controls>
+<source src="videos/space_3chelper.mp4" type="video/mp4">
+</video>
 </div>
-<div id="quality-checks-before-processing" class="section level2 hasAnchor" number="3.6">
-<h2><span class="header-section-number">3.6</span> Quality Checks Before Processing<a href="output-conversion.html#quality-checks-before-processing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Before using <code>run_apdx()</code>, verify:</p>
-<ol style="list-style-type: decimal">
-<li><strong>All files are .RTF</strong></li>
-<li><strong>Files open correctly</strong></li>
-<li><strong>Consistent naming</strong></li>
-</ol>
+<div id="notes" class="section level3 hasAnchor" number="3.5.4">
+<h3><span class="header-section-number">3.5.4</span> Notes<a href="output-conversion.html#notes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Be aware that the destination of the outputs should always be under <code>OUTPUTS &amp; ANALYIS</code> but they could be in <code>PREPROP</code> or <code>PROD</code></li>
+<li>Do not forget to <code>Assign myself</code> at every level</li>
+<li>Be careful to use the correct path between SPACE and RaiDrive</li>
+<li>It’s possible that the Reporting Effort has not been set up for R before, you will get an error message saying: <code>Error: Did you setup your Programs PDEV?</code>. Contact the study lead programmer.</li>
+<li>If you need more guidance about R in SPACE, you can access the <a href="https://confluence.jnj.com/spaces/VALR/pages/275491188/R+in+SPACE">Confluence</a> page</li>
+</ul>
 
+</div>
 </div>
 </div>
             </section>
