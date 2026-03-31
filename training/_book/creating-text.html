@@ -23,7 +23,7 @@
 <meta name="author" content="RapTLR Development Team" />
 
 
-<meta name="date" content="2026-03-27" />
+<meta name="date" content="2026-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -165,13 +165,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="output-conversion.html"><a href="output-conversion.html#converting-your-rtf-outputs-into-docx"><i class="fa fa-check"></i><b>3.4</b> Converting your RTF outputs into DOCX</a>
 <ul>
 <li class="chapter" data-level="3.4.1" data-path="output-conversion.html"><a href="output-conversion.html#example-from-the-tlr-package"><i class="fa fa-check"></i><b>3.4.1</b> Example from the TLR package</a></li>
-<li class="chapter" data-level="3.4.2" data-path="output-conversion.html"><a href="output-conversion.html#summary-video-no-sound"><i class="fa fa-check"></i><b>3.4.2</b> Summary video (no sound)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="output-conversion.html"><a href="output-conversion.html#how-to-use-3c-helper"><i class="fa fa-check"></i><b>3.4.2</b> How to use 3C Helper:</a></li>
+<li class="chapter" data-level="3.4.3" data-path="output-conversion.html"><a href="output-conversion.html#summary-video-no-sound"><i class="fa fa-check"></i><b>3.4.3</b> Summary video (no sound)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="output-conversion.html"><a href="output-conversion.html#working-with-space"><i class="fa fa-check"></i><b>3.5</b> Working with SPACE</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="output-conversion.html"><a href="output-conversion.html#accessing-the-report-effort"><i class="fa fa-check"></i><b>3.5.1</b> Accessing the Report Effort</a></li>
+<li class="chapter" data-level="3.5.1" data-path="output-conversion.html"><a href="output-conversion.html#accessing-the-report-effort-and-connect-to-r"><i class="fa fa-check"></i><b>3.5.1</b> Accessing the Report Effort and Connect to R</a></li>
+<li class="chapter" data-level="3.5.2" data-path="output-conversion.html"><a href="output-conversion.html#how-to-convert-outputs-in-space"><i class="fa fa-check"></i><b>3.5.2</b> How to convert outputs in SPACE</a></li>
+<li class="chapter" data-level="3.5.3" data-path="output-conversion.html"><a href="output-conversion.html#summary-video-no-sound-1"><i class="fa fa-check"></i><b>3.5.3</b> Summary video (no sound)</a></li>
+<li class="chapter" data-level="3.5.4" data-path="output-conversion.html"><a href="output-conversion.html#notes"><i class="fa fa-check"></i><b>3.5.4</b> Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="output-conversion.html"><a href="output-conversion.html#quality-checks-before-processing"><i class="fa fa-check"></i><b>3.6</b> Quality Checks Before Processing</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="appendix-creation.html"><a href="appendix-creation.html"><i class="fa fa-check"></i><b>4</b> Appendix Creation</a>
 <ul>
@@ -305,10 +308,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong><code>fct_mst_aes()</code></strong> — identify and describe the most common treatment-emergent adverse events</li>
 </ul>
 <p>The outputs are plain character strings, so they slot directly into <code>textReplace()</code> to populate placeholders in your Word shell document. All examples in this chapter use the two built-in datasets:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="creating-text.html#cb18-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
-<span id="cb18-2"><a href="creating-text.html#cb18-2" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="creating-text.html#cb18-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tlr_adsl&quot;</span>)   <span class="co"># Subject-level analysis dataset (ADSL) — 254 subjects</span></span>
-<span id="cb18-4"><a href="creating-text.html#cb18-4" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tlr_adae&quot;</span>)   <span class="co"># Adverse events analysis dataset (ADAE)</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="creating-text.html#cb19-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb19-2"><a href="creating-text.html#cb19-2" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="creating-text.html#cb19-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tlr_adsl&quot;</span>)   <span class="co"># Subject-level analysis dataset (ADSL) — 254 subjects</span></span>
+<span id="cb19-4"><a href="creating-text.html#cb19-4" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tlr_adae&quot;</span>)   <span class="co"># Adverse events analysis dataset (ADAE)</span></span></code></pre></div>
 <hr />
 <div id="fct_smpl_rest" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> <code>fct_smpl_rest()</code><a href="creating-text.html#fct_smpl_rest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -376,76 +379,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="examples" class="section level3 hasAnchor" number="6.1.3">
 <h3><span class="header-section-number">6.1.3</span> Examples<a href="creating-text.html#examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Example 1 — Total number of subjects</strong></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="creating-text.html#cb19-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(<span class="at">arg_dataset =</span> tlr_adsl)</span>
-<span id="cb19-2"><a href="creating-text.html#cb19-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;254&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="creating-text.html#cb20-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(<span class="at">arg_dataset =</span> tlr_adsl)</span>
+<span id="cb20-2"><a href="creating-text.html#cb20-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;254&quot;</span></span></code></pre></div>
 <p><strong>Example 2 — Count within a population flag</strong></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="creating-text.html#cb20-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
-<span id="cb20-2"><a href="creating-text.html#cb20-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb20-3"><a href="creating-text.html#cb20-3" tabindex="-1"></a>  <span class="at">arg_fl_rest =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
-<span id="cb20-4"><a href="creating-text.html#cb20-4" tabindex="-1"></a>)</span>
-<span id="cb20-5"><a href="creating-text.html#cb20-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;254&quot;</span></span></code></pre></div>
-<p><strong>Example 3 — Embed the count in a sentence</strong></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="creating-text.html#cb21-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
-<span id="cb21-2"><a href="creating-text.html#cb21-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb21-3"><a href="creating-text.html#cb21-3" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;This study enrolled &quot;</span>,</span>
-<span id="cb21-4"><a href="creating-text.html#cb21-4" tabindex="-1"></a>  <span class="at">arg_text_end  =</span> <span class="st">&quot; participants in the safety population.&quot;</span>,</span>
-<span id="cb21-5"><a href="creating-text.html#cb21-5" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
-<span id="cb21-6"><a href="creating-text.html#cb21-6" tabindex="-1"></a>)</span>
-<span id="cb21-7"><a href="creating-text.html#cb21-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;This study enrolled 254 participants in the safety population.&quot;</span></span></code></pre></div>
+<span id="cb21-2"><a href="creating-text.html#cb21-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb21-3"><a href="creating-text.html#cb21-3" tabindex="-1"></a>  <span class="at">arg_fl_rest =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb21-4"><a href="creating-text.html#cb21-4" tabindex="-1"></a>)</span>
+<span id="cb21-5"><a href="creating-text.html#cb21-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;254&quot;</span></span></code></pre></div>
+<p><strong>Example 3 — Embed the count in a sentence</strong></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="creating-text.html#cb22-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb22-2"><a href="creating-text.html#cb22-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb22-3"><a href="creating-text.html#cb22-3" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;This study enrolled &quot;</span>,</span>
+<span id="cb22-4"><a href="creating-text.html#cb22-4" tabindex="-1"></a>  <span class="at">arg_text_end  =</span> <span class="st">&quot; participants in the safety population.&quot;</span>,</span>
+<span id="cb22-5"><a href="creating-text.html#cb22-5" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb22-6"><a href="creating-text.html#cb22-6" tabindex="-1"></a>)</span>
+<span id="cb22-7"><a href="creating-text.html#cb22-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;This study enrolled 254 participants in the safety population.&quot;</span></span></code></pre></div>
 <p><strong>Example 4 — Subgroup count within a population</strong></p>
 <p>The denominator is the safety population (254); the numerator is subjects assigned to Xanomeline High Dose (84).</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="creating-text.html#cb22-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
-<span id="cb22-2"><a href="creating-text.html#cb22-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
-<span id="cb22-3"><a href="creating-text.html#cb22-3" tabindex="-1"></a>  <span class="at">arg_fl_rest  =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb22-4"><a href="creating-text.html#cb22-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> ARM <span class="sc">==</span> <span class="st">&quot;Xanomeline High Dose&quot;</span></span>
-<span id="cb22-5"><a href="creating-text.html#cb22-5" tabindex="-1"></a>)</span>
-<span id="cb22-6"><a href="creating-text.html#cb22-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;84&quot;</span></span></code></pre></div>
-<p><strong>Example 5 — Return as a percentage</strong></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="creating-text.html#cb23-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
 <span id="cb23-2"><a href="creating-text.html#cb23-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
 <span id="cb23-3"><a href="creating-text.html#cb23-3" tabindex="-1"></a>  <span class="at">arg_fl_rest  =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb23-4"><a href="creating-text.html#cb23-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> ARM <span class="sc">==</span> <span class="st">&quot;Xanomeline High Dose&quot;</span>,</span>
-<span id="cb23-5"><a href="creating-text.html#cb23-5" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span></span>
-<span id="cb23-6"><a href="creating-text.html#cb23-6" tabindex="-1"></a>)</span>
-<span id="cb23-7"><a href="creating-text.html#cb23-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;33.1%&quot;</span></span></code></pre></div>
-<p><strong>Example 6 — Return count and percentage together</strong></p>
+<span id="cb23-4"><a href="creating-text.html#cb23-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> ARM <span class="sc">==</span> <span class="st">&quot;Xanomeline High Dose&quot;</span></span>
+<span id="cb23-5"><a href="creating-text.html#cb23-5" tabindex="-1"></a>)</span>
+<span id="cb23-6"><a href="creating-text.html#cb23-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;84&quot;</span></span></code></pre></div>
+<p><strong>Example 5 — Return as a percentage</strong></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="creating-text.html#cb24-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
 <span id="cb24-2"><a href="creating-text.html#cb24-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
 <span id="cb24-3"><a href="creating-text.html#cb24-3" tabindex="-1"></a>  <span class="at">arg_fl_rest  =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
 <span id="cb24-4"><a href="creating-text.html#cb24-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> ARM <span class="sc">==</span> <span class="st">&quot;Xanomeline High Dose&quot;</span>,</span>
-<span id="cb24-5"><a href="creating-text.html#cb24-5" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb24-5"><a href="creating-text.html#cb24-5" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span></span>
 <span id="cb24-6"><a href="creating-text.html#cb24-6" tabindex="-1"></a>)</span>
-<span id="cb24-7"><a href="creating-text.html#cb24-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;84 (33.1%)&quot;</span></span></code></pre></div>
+<span id="cb24-7"><a href="creating-text.html#cb24-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;33.1%&quot;</span></span></code></pre></div>
+<p><strong>Example 6 — Return count and percentage together</strong></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="creating-text.html#cb25-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb25-2"><a href="creating-text.html#cb25-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
+<span id="cb25-3"><a href="creating-text.html#cb25-3" tabindex="-1"></a>  <span class="at">arg_fl_rest  =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb25-4"><a href="creating-text.html#cb25-4" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> ARM <span class="sc">==</span> <span class="st">&quot;Xanomeline High Dose&quot;</span>,</span>
+<span id="cb25-5"><a href="creating-text.html#cb25-5" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb25-6"><a href="creating-text.html#cb25-6" tabindex="-1"></a>)</span>
+<span id="cb25-7"><a href="creating-text.html#cb25-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;84 (33.1%)&quot;</span></span></code></pre></div>
 <p><strong>Example 7 — Compound conditions and descriptive framing</strong></p>
 <p>Filter arguments accept any logical expression, including compound conditions with <code>&amp;</code>.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="creating-text.html#cb25-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
-<span id="cb25-2"><a href="creating-text.html#cb25-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb25-3"><a href="creating-text.html#cb25-3" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The study population included &quot;</span>,</span>
-<span id="cb25-4"><a href="creating-text.html#cb25-4" tabindex="-1"></a>  <span class="at">arg_text_end  =</span> <span class="st">&quot; female participants.&quot;</span>,</span>
-<span id="cb25-5"><a href="creating-text.html#cb25-5" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> SEX <span class="sc">==</span> <span class="st">&quot;F&quot;</span></span>
-<span id="cb25-6"><a href="creating-text.html#cb25-6" tabindex="-1"></a>)</span>
-<span id="cb25-7"><a href="creating-text.html#cb25-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The study population included 143 female participants.&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="creating-text.html#cb26-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb26-2"><a href="creating-text.html#cb26-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb26-3"><a href="creating-text.html#cb26-3" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The study population included &quot;</span>,</span>
+<span id="cb26-4"><a href="creating-text.html#cb26-4" tabindex="-1"></a>  <span class="at">arg_text_end  =</span> <span class="st">&quot; female participants.&quot;</span>,</span>
+<span id="cb26-5"><a href="creating-text.html#cb26-5" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> SEX <span class="sc">==</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb26-6"><a href="creating-text.html#cb26-6" tabindex="-1"></a>)</span>
+<span id="cb26-7"><a href="creating-text.html#cb26-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The study population included 143 female participants.&quot;</span></span></code></pre></div>
 <p><strong>Example 8 — Study completers at multiple time points</strong></p>
 <p>Chain calls with <code>paste()</code> to build a multi-sentence summary.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="creating-text.html#cb26-1" tabindex="-1"></a><span class="fu">paste</span>(</span>
-<span id="cb26-2"><a href="creating-text.html#cb26-2" tabindex="-1"></a>  <span class="fu">fct_smpl_rest</span>(</span>
-<span id="cb26-3"><a href="creating-text.html#cb26-3" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb26-4"><a href="creating-text.html#cb26-4" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;At week 8, the number of completers were: &quot;</span>,</span>
-<span id="cb26-5"><a href="creating-text.html#cb26-5" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> COMP8FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
-<span id="cb26-6"><a href="creating-text.html#cb26-6" tabindex="-1"></a>  ),</span>
-<span id="cb26-7"><a href="creating-text.html#cb26-7" tabindex="-1"></a>  <span class="fu">fct_smpl_rest</span>(</span>
-<span id="cb26-8"><a href="creating-text.html#cb26-8" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb26-9"><a href="creating-text.html#cb26-9" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;At week 16, the number of completers were: &quot;</span>,</span>
-<span id="cb26-10"><a href="creating-text.html#cb26-10" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> COMP16FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
-<span id="cb26-11"><a href="creating-text.html#cb26-11" tabindex="-1"></a>  ),</span>
-<span id="cb26-12"><a href="creating-text.html#cb26-12" tabindex="-1"></a>  <span class="fu">fct_smpl_rest</span>(</span>
-<span id="cb26-13"><a href="creating-text.html#cb26-13" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb26-14"><a href="creating-text.html#cb26-14" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;At week 24, the number of completers were: &quot;</span>,</span>
-<span id="cb26-15"><a href="creating-text.html#cb26-15" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> COMP24FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
-<span id="cb26-16"><a href="creating-text.html#cb26-16" tabindex="-1"></a>  ),</span>
-<span id="cb26-17"><a href="creating-text.html#cb26-17" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot; &quot;</span></span>
-<span id="cb26-18"><a href="creating-text.html#cb26-18" tabindex="-1"></a>)</span>
-<span id="cb26-19"><a href="creating-text.html#cb26-19" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;At week 8, the number of completers were: 190 At week 16, the number of completers were: 147 At week 24, the number of completers were: 118&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="creating-text.html#cb27-1" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb27-2"><a href="creating-text.html#cb27-2" tabindex="-1"></a>  <span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb27-3"><a href="creating-text.html#cb27-3" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb27-4"><a href="creating-text.html#cb27-4" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;At week 8, the number of completers were: &quot;</span>,</span>
+<span id="cb27-5"><a href="creating-text.html#cb27-5" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> COMP8FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb27-6"><a href="creating-text.html#cb27-6" tabindex="-1"></a>  ),</span>
+<span id="cb27-7"><a href="creating-text.html#cb27-7" tabindex="-1"></a>  <span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb27-8"><a href="creating-text.html#cb27-8" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb27-9"><a href="creating-text.html#cb27-9" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;At week 16, the number of completers were: &quot;</span>,</span>
+<span id="cb27-10"><a href="creating-text.html#cb27-10" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> COMP16FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb27-11"><a href="creating-text.html#cb27-11" tabindex="-1"></a>  ),</span>
+<span id="cb27-12"><a href="creating-text.html#cb27-12" tabindex="-1"></a>  <span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb27-13"><a href="creating-text.html#cb27-13" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb27-14"><a href="creating-text.html#cb27-14" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;At week 24, the number of completers were: &quot;</span>,</span>
+<span id="cb27-15"><a href="creating-text.html#cb27-15" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> COMP24FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb27-16"><a href="creating-text.html#cb27-16" tabindex="-1"></a>  ),</span>
+<span id="cb27-17"><a href="creating-text.html#cb27-17" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot; &quot;</span></span>
+<span id="cb27-18"><a href="creating-text.html#cb27-18" tabindex="-1"></a>)</span>
+<span id="cb27-19"><a href="creating-text.html#cb27-19" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;At week 8, the number of completers were: 190 At week 16, the number of completers were: 147 At week 24, the number of completers were: 118&quot;</span></span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -533,89 +536,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="examples-1" class="section level3 hasAnchor" number="6.2.3">
 <h3><span class="header-section-number">6.2.3</span> Examples<a href="creating-text.html#examples-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Example 1 — Counts only</strong></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="creating-text.html#cb27-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb27-2"><a href="creating-text.html#cb27-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
-<span id="cb27-3"><a href="creating-text.html#cb27-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb27-4"><a href="creating-text.html#cb27-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;nbr&quot;</span></span>
-<span id="cb27-5"><a href="creating-text.html#cb27-5" tabindex="-1"></a>)</span>
-<span id="cb27-6"><a href="creating-text.html#cb27-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;AMERICAN INDIAN OR ALASKA NATIVE (n=1), BLACK OR AFRICAN AMERICAN (n=23) and WHITE (n=230)&quot;</span></span></code></pre></div>
-<p><strong>Example 2 — Percentages only (default)</strong></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="creating-text.html#cb28-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
 <span id="cb28-2"><a href="creating-text.html#cb28-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
 <span id="cb28-3"><a href="creating-text.html#cb28-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb28-4"><a href="creating-text.html#cb28-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span></span>
+<span id="cb28-4"><a href="creating-text.html#cb28-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;nbr&quot;</span></span>
 <span id="cb28-5"><a href="creating-text.html#cb28-5" tabindex="-1"></a>)</span>
-<span id="cb28-6"><a href="creating-text.html#cb28-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;AMERICAN INDIAN OR ALASKA NATIVE (0.4%), BLACK OR AFRICAN AMERICAN (9.1%) and WHITE (90.6%)&quot;</span></span></code></pre></div>
-<p><strong>Example 3 — Counts and percentages combined</strong></p>
+<span id="cb28-6"><a href="creating-text.html#cb28-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;AMERICAN INDIAN OR ALASKA NATIVE (n=1), BLACK OR AFRICAN AMERICAN (n=23) and WHITE (n=230)&quot;</span></span></code></pre></div>
+<p><strong>Example 2 — Percentages only (default)</strong></p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="creating-text.html#cb29-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
 <span id="cb29-2"><a href="creating-text.html#cb29-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
 <span id="cb29-3"><a href="creating-text.html#cb29-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb29-4"><a href="creating-text.html#cb29-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb29-4"><a href="creating-text.html#cb29-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span></span>
 <span id="cb29-5"><a href="creating-text.html#cb29-5" tabindex="-1"></a>)</span>
-<span id="cb29-6"><a href="creating-text.html#cb29-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;AMERICAN INDIAN OR ALASKA NATIVE (n=1; 0.4%), BLACK OR AFRICAN AMERICAN (n=23; 9.1%) and WHITE (n=230; 90.6%)&quot;</span></span></code></pre></div>
-<p><strong>Example 4 — Add a descriptive prefix</strong></p>
+<span id="cb29-6"><a href="creating-text.html#cb29-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;AMERICAN INDIAN OR ALASKA NATIVE (0.4%), BLACK OR AFRICAN AMERICAN (9.1%) and WHITE (90.6%)&quot;</span></span></code></pre></div>
+<p><strong>Example 3 — Counts and percentages combined</strong></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="creating-text.html#cb30-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb30-2"><a href="creating-text.html#cb30-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The study population comprised&quot;</span>,</span>
-<span id="cb30-3"><a href="creating-text.html#cb30-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb30-4"><a href="creating-text.html#cb30-4" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> RACE,</span>
-<span id="cb30-5"><a href="creating-text.html#cb30-5" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;pct&quot;</span></span>
-<span id="cb30-6"><a href="creating-text.html#cb30-6" tabindex="-1"></a>)</span>
-<span id="cb30-7"><a href="creating-text.html#cb30-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The study population comprised AMERICAN INDIAN OR ALASKA NATIVE (0.4%), BLACK OR AFRICAN AMERICAN (9.1%) and WHITE (90.6%)&quot;</span></span></code></pre></div>
-<p><strong>Example 5 — Convert labels to sentence case</strong></p>
-<p>Raw dataset values are often uppercase. <code>arg_cvt_stg</code> applies any string-transformation function to the labels.</p>
+<span id="cb30-2"><a href="creating-text.html#cb30-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
+<span id="cb30-3"><a href="creating-text.html#cb30-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb30-4"><a href="creating-text.html#cb30-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb30-5"><a href="creating-text.html#cb30-5" tabindex="-1"></a>)</span>
+<span id="cb30-6"><a href="creating-text.html#cb30-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;AMERICAN INDIAN OR ALASKA NATIVE (n=1; 0.4%), BLACK OR AFRICAN AMERICAN (n=23; 9.1%) and WHITE (n=230; 90.6%)&quot;</span></span></code></pre></div>
+<p><strong>Example 4 — Add a descriptive prefix</strong></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="creating-text.html#cb31-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
 <span id="cb31-2"><a href="creating-text.html#cb31-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The study population comprised&quot;</span>,</span>
 <span id="cb31-3"><a href="creating-text.html#cb31-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
 <span id="cb31-4"><a href="creating-text.html#cb31-4" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> RACE,</span>
-<span id="cb31-5"><a href="creating-text.html#cb31-5" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;pct&quot;</span>,</span>
-<span id="cb31-6"><a href="creating-text.html#cb31-6" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_sentence</span>
-<span id="cb31-7"><a href="creating-text.html#cb31-7" tabindex="-1"></a>)</span>
-<span id="cb31-8"><a href="creating-text.html#cb31-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The study population comprised American indian or alaska native (0.4%), Black or african american (9.1%) and White (90.6%)&quot;</span></span></code></pre></div>
-<p><strong>Example 6 — Sort by frequency, most common and capitalised per words</strong></p>
+<span id="cb31-5"><a href="creating-text.html#cb31-5" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;pct&quot;</span></span>
+<span id="cb31-6"><a href="creating-text.html#cb31-6" tabindex="-1"></a>)</span>
+<span id="cb31-7"><a href="creating-text.html#cb31-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The study population comprised AMERICAN INDIAN OR ALASKA NATIVE (0.4%), BLACK OR AFRICAN AMERICAN (9.1%) and WHITE (90.6%)&quot;</span></span></code></pre></div>
+<p><strong>Example 5 — Convert labels to sentence case</strong></p>
+<p>Raw dataset values are often uppercase. <code>arg_cvt_stg</code> applies any string-transformation function to the labels.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="creating-text.html#cb32-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb32-2"><a href="creating-text.html#cb32-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
-<span id="cb32-3"><a href="creating-text.html#cb32-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
-<span id="cb32-4"><a href="creating-text.html#cb32-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span>,</span>
-<span id="cb32-5"><a href="creating-text.html#cb32-5" tabindex="-1"></a>  <span class="at">arg_order    =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb32-6"><a href="creating-text.html#cb32-6" tabindex="-1"></a>  <span class="at">arg_cvt_stg  =</span> stringr<span class="sc">::</span>str_to_title</span>
+<span id="cb32-2"><a href="creating-text.html#cb32-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The study population comprised&quot;</span>,</span>
+<span id="cb32-3"><a href="creating-text.html#cb32-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb32-4"><a href="creating-text.html#cb32-4" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> RACE,</span>
+<span id="cb32-5"><a href="creating-text.html#cb32-5" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;pct&quot;</span>,</span>
+<span id="cb32-6"><a href="creating-text.html#cb32-6" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_sentence</span>
 <span id="cb32-7"><a href="creating-text.html#cb32-7" tabindex="-1"></a>)</span>
-<span id="cb32-8"><a href="creating-text.html#cb32-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;White (90.6%), Black Or African American (9.1%) and American Indian Or Alaska Native (0.4%)&quot;</span></span></code></pre></div>
-<p><strong>Example 7 — Limit to top 2 categories and capitalized words</strong></p>
-<p>Combine <code>arg_order = TRUE</code> with <code>arg_nbr_obs</code> to report only the most frequent categories.</p>
+<span id="cb32-8"><a href="creating-text.html#cb32-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The study population comprised American indian or alaska native (0.4%), Black or african american (9.1%) and White (90.6%)&quot;</span></span></code></pre></div>
+<p><strong>Example 6 — Sort by frequency, most common and capitalised per words</strong></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="creating-text.html#cb33-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
 <span id="cb33-2"><a href="creating-text.html#cb33-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
 <span id="cb33-3"><a href="creating-text.html#cb33-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
 <span id="cb33-4"><a href="creating-text.html#cb33-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span>,</span>
 <span id="cb33-5"><a href="creating-text.html#cb33-5" tabindex="-1"></a>  <span class="at">arg_order    =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb33-6"><a href="creating-text.html#cb33-6" tabindex="-1"></a>  <span class="at">arg_nbr_obs  =</span> <span class="dv">2</span>,</span>
-<span id="cb33-7"><a href="creating-text.html#cb33-7" tabindex="-1"></a>  <span class="at">arg_cvt_stg  =</span> stringr<span class="sc">::</span>str_to_title</span>
-<span id="cb33-8"><a href="creating-text.html#cb33-8" tabindex="-1"></a>)</span>
-<span id="cb33-9"><a href="creating-text.html#cb33-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;White (90.6%) and Black Or African American (9.1%)&quot;</span></span></code></pre></div>
+<span id="cb33-6"><a href="creating-text.html#cb33-6" tabindex="-1"></a>  <span class="at">arg_cvt_stg  =</span> stringr<span class="sc">::</span>str_to_title</span>
+<span id="cb33-7"><a href="creating-text.html#cb33-7" tabindex="-1"></a>)</span>
+<span id="cb33-8"><a href="creating-text.html#cb33-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;White (90.6%), Black Or African American (9.1%) and American Indian Or Alaska Native (0.4%)&quot;</span></span></code></pre></div>
+<p><strong>Example 7 — Limit to top 2 categories and capitalized words</strong></p>
+<p>Combine <code>arg_order = TRUE</code> with <code>arg_nbr_obs</code> to report only the most frequent categories.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="creating-text.html#cb34-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb34-2"><a href="creating-text.html#cb34-2" tabindex="-1"></a>  <span class="at">arg_dataset  =</span> tlr_adsl,</span>
+<span id="cb34-3"><a href="creating-text.html#cb34-3" tabindex="-1"></a>  <span class="at">arg_var_rest =</span> RACE,</span>
+<span id="cb34-4"><a href="creating-text.html#cb34-4" tabindex="-1"></a>  <span class="at">arg_lbl      =</span> <span class="st">&quot;pct&quot;</span>,</span>
+<span id="cb34-5"><a href="creating-text.html#cb34-5" tabindex="-1"></a>  <span class="at">arg_order    =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb34-6"><a href="creating-text.html#cb34-6" tabindex="-1"></a>  <span class="at">arg_nbr_obs  =</span> <span class="dv">2</span>,</span>
+<span id="cb34-7"><a href="creating-text.html#cb34-7" tabindex="-1"></a>  <span class="at">arg_cvt_stg  =</span> stringr<span class="sc">::</span>str_to_title</span>
+<span id="cb34-8"><a href="creating-text.html#cb34-8" tabindex="-1"></a>)</span>
+<span id="cb34-9"><a href="creating-text.html#cb34-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;White (90.6%) and Black Or African American (9.1%)&quot;</span></span></code></pre></div>
 <p><strong>Example 8 — Filter to a specific population first and first word capitalized</strong></p>
 <p>Percentages are computed within the filtered population. Here the safety flag makes no difference since all subjects have <code>SAFFL == "Y"</code>, but the pattern is useful when subsets differ.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="creating-text.html#cb34-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb34-2"><a href="creating-text.html#cb34-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;Among the safety population, most were&quot;</span>,</span>
-<span id="cb34-3"><a href="creating-text.html#cb34-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb34-4"><a href="creating-text.html#cb34-4" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb34-5"><a href="creating-text.html#cb34-5" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> RACE,</span>
-<span id="cb34-6"><a href="creating-text.html#cb34-6" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;pct&quot;</span>,</span>
-<span id="cb34-7"><a href="creating-text.html#cb34-7" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb34-8"><a href="creating-text.html#cb34-8" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">3</span>,</span>
-<span id="cb34-9"><a href="creating-text.html#cb34-9" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_sentence</span>
-<span id="cb34-10"><a href="creating-text.html#cb34-10" tabindex="-1"></a>)</span>
-<span id="cb34-11"><a href="creating-text.html#cb34-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Among the safety population, most were White (90.6%), Black or african american (9.1%) and American indian or alaska native (0.4%)&quot;</span></span></code></pre></div>
-<p><strong>Example 9 — Discontinuation reasons (complete example)</strong></p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-text.html#cb35-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
-<span id="cb35-2"><a href="creating-text.html#cb35-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most common reasons for treatment discontinuation were:&quot;</span>,</span>
+<span id="cb35-2"><a href="creating-text.html#cb35-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;Among the safety population, most were&quot;</span>,</span>
 <span id="cb35-3"><a href="creating-text.html#cb35-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb35-4"><a href="creating-text.html#cb35-4" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> DISCONFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb35-5"><a href="creating-text.html#cb35-5" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
-<span id="cb35-6"><a href="creating-text.html#cb35-6" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb35-7"><a href="creating-text.html#cb35-7" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">3</span>,</span>
-<span id="cb35-8"><a href="creating-text.html#cb35-8" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_lower,</span>
-<span id="cb35-9"><a href="creating-text.html#cb35-9" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb35-4"><a href="creating-text.html#cb35-4" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb35-5"><a href="creating-text.html#cb35-5" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> RACE,</span>
+<span id="cb35-6"><a href="creating-text.html#cb35-6" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;pct&quot;</span>,</span>
+<span id="cb35-7"><a href="creating-text.html#cb35-7" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb35-8"><a href="creating-text.html#cb35-8" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">3</span>,</span>
+<span id="cb35-9"><a href="creating-text.html#cb35-9" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_sentence</span>
 <span id="cb35-10"><a href="creating-text.html#cb35-10" tabindex="-1"></a>)</span>
-<span id="cb35-11"><a href="creating-text.html#cb35-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common reasons for treatment discontinuation were: adverse event (n=92; 63.9%), withdrew consent (n=27; 18.8%) and sponsor decision (n=7; 4.9%)&quot;</span></span></code></pre></div>
+<span id="cb35-11"><a href="creating-text.html#cb35-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Among the safety population, most were White (90.6%), Black or african american (9.1%) and American indian or alaska native (0.4%)&quot;</span></span></code></pre></div>
+<p><strong>Example 9 — Discontinuation reasons (complete example)</strong></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="creating-text.html#cb36-1" tabindex="-1"></a><span class="fu">fct_var_text</span>(</span>
+<span id="cb36-2"><a href="creating-text.html#cb36-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most common reasons for treatment discontinuation were:&quot;</span>,</span>
+<span id="cb36-3"><a href="creating-text.html#cb36-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb36-4"><a href="creating-text.html#cb36-4" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> DISCONFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb36-5"><a href="creating-text.html#cb36-5" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
+<span id="cb36-6"><a href="creating-text.html#cb36-6" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb36-7"><a href="creating-text.html#cb36-7" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">3</span>,</span>
+<span id="cb36-8"><a href="creating-text.html#cb36-8" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_lower,</span>
+<span id="cb36-9"><a href="creating-text.html#cb36-9" tabindex="-1"></a>  <span class="at">arg_lbl       =</span> <span class="st">&quot;nbr-pct&quot;</span></span>
+<span id="cb36-10"><a href="creating-text.html#cb36-10" tabindex="-1"></a>)</span>
+<span id="cb36-11"><a href="creating-text.html#cb36-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common reasons for treatment discontinuation were: adverse event (n=92; 63.9%), withdrew consent (n=27; 18.8%) and sponsor decision (n=7; 4.9%)&quot;</span></span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -718,97 +721,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">6.3.3</span> Examples<a href="creating-text.html#examples-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Example 1 — Basic grouped summary</strong></p>
 <p>Summarise discontinuation reasons across all treatment arms in <code>TRT01P</code>, ordered by overall frequency.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-text.html#cb37-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
-<span id="cb37-2"><a href="creating-text.html#cb37-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb37-3"><a href="creating-text.html#cb37-3" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
-<span id="cb37-4"><a href="creating-text.html#cb37-4" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P</span>
-<span id="cb37-5"><a href="creating-text.html#cb37-5" tabindex="-1"></a>)</span>
-<span id="cb37-6"><a href="creating-text.html#cb37-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% Completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 36.2% Adverse Event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 10.6% Withdrew Consent (33.3% on Placebo, 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose), 2.8% Sponsor Decision (28.6% on Placebo, 42.9% on Xanomeline High Dose and 28.6% on Xanomeline Low Dose), 1.6% Lack of Efficacy (75% on Placebo and 25% on Xanomeline High Dose), 1.2% Death (66.7% on Placebo and 33.3% on Xanomeline Low Dose), 1.2% I/E Not Met (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Physician Decision (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Protocol Violation (33.3% on Placebo, 33.3% on Xanomeline High Dose and 33.3% on Xanomeline Low Dose) and 0.8% Lost to Follow-up (50% on Placebo and 50% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
-<p><strong>Example 2 — Add a descriptive prefix</strong></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="creating-text.html#cb38-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
-<span id="cb38-2"><a href="creating-text.html#cb38-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most common reasons for discontinuation were:&quot;</span>,</span>
-<span id="cb38-3"><a href="creating-text.html#cb38-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb38-4"><a href="creating-text.html#cb38-4" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
-<span id="cb38-5"><a href="creating-text.html#cb38-5" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P</span>
-<span id="cb38-6"><a href="creating-text.html#cb38-6" tabindex="-1"></a>)</span>
-<span id="cb38-7"><a href="creating-text.html#cb38-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common reasons for discontinuation were: 43.3% Completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 36.2% Adverse Event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 10.6% Withdrew Consent (33.3% on Placebo, 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose), 2.8% Sponsor Decision (28.6% on Placebo, 42.9% on Xanomeline High Dose and 28.6% on Xanomeline Low Dose), 1.6% Lack of Efficacy (75% on Placebo and 25% on Xanomeline High Dose), 1.2% Death (66.7% on Placebo and 33.3% on Xanomeline Low Dose), 1.2% I/E Not Met (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Physician Decision (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Protocol Violation (33.3% on Placebo, 33.3% on Xanomeline High Dose and 33.3% on Xanomeline Low Dose) and 0.8% Lost to Follow-up (50% on Placebo and 50% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<span id="cb38-2"><a href="creating-text.html#cb38-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb38-3"><a href="creating-text.html#cb38-3" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
+<span id="cb38-4"><a href="creating-text.html#cb38-4" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P</span>
+<span id="cb38-5"><a href="creating-text.html#cb38-5" tabindex="-1"></a>)</span>
+<span id="cb38-6"><a href="creating-text.html#cb38-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% Completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 36.2% Adverse Event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 10.6% Withdrew Consent (33.3% on Placebo, 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose), 2.8% Sponsor Decision (28.6% on Placebo, 42.9% on Xanomeline High Dose and 28.6% on Xanomeline Low Dose), 1.6% Lack of Efficacy (75% on Placebo and 25% on Xanomeline High Dose), 1.2% Death (66.7% on Placebo and 33.3% on Xanomeline Low Dose), 1.2% I/E Not Met (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Physician Decision (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Protocol Violation (33.3% on Placebo, 33.3% on Xanomeline High Dose and 33.3% on Xanomeline Low Dose) and 0.8% Lost to Follow-up (50% on Placebo and 50% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<p><strong>Example 2 — Add a descriptive prefix</strong></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="creating-text.html#cb39-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb39-2"><a href="creating-text.html#cb39-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most common reasons for discontinuation were:&quot;</span>,</span>
+<span id="cb39-3"><a href="creating-text.html#cb39-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb39-4"><a href="creating-text.html#cb39-4" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
+<span id="cb39-5"><a href="creating-text.html#cb39-5" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P</span>
+<span id="cb39-6"><a href="creating-text.html#cb39-6" tabindex="-1"></a>)</span>
+<span id="cb39-7"><a href="creating-text.html#cb39-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common reasons for discontinuation were: 43.3% Completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 36.2% Adverse Event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 10.6% Withdrew Consent (33.3% on Placebo, 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose), 2.8% Sponsor Decision (28.6% on Placebo, 42.9% on Xanomeline High Dose and 28.6% on Xanomeline Low Dose), 1.6% Lack of Efficacy (75% on Placebo and 25% on Xanomeline High Dose), 1.2% Death (66.7% on Placebo and 33.3% on Xanomeline Low Dose), 1.2% I/E Not Met (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Physician Decision (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Protocol Violation (33.3% on Placebo, 33.3% on Xanomeline High Dose and 33.3% on Xanomeline Low Dose) and 0.8% Lost to Follow-up (50% on Placebo and 50% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
 <p><strong>Example 3 — Preserve original variable order</strong></p>
 <p>Set <code>arg_order = FALSE</code> when the variable has an inherent ordering (e.g., severity grades) that should be respected rather than re-sorted by frequency.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="creating-text.html#cb39-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
-<span id="cb39-2"><a href="creating-text.html#cb39-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb39-3"><a href="creating-text.html#cb39-3" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
-<span id="cb39-4"><a href="creating-text.html#cb39-4" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P,</span>
-<span id="cb39-5"><a href="creating-text.html#cb39-5" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">FALSE</span></span>
-<span id="cb39-6"><a href="creating-text.html#cb39-6" tabindex="-1"></a>)</span>
-<span id="cb39-7"><a href="creating-text.html#cb39-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;36.2% Adverse Event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 43.3% Completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 1.2% Death (66.7% on Placebo and 33.3% on Xanomeline Low Dose), 1.2% I/E Not Met (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.6% Lack of Efficacy (75% on Placebo and 25% on Xanomeline High Dose), 0.8% Lost to Follow-up (50% on Placebo and 50% on Xanomeline Low Dose), 1.2% Physician Decision (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Protocol Violation (33.3% on Placebo, 33.3% on Xanomeline High Dose and 33.3% on Xanomeline Low Dose), 2.8% Sponsor Decision (28.6% on Placebo, 42.9% on Xanomeline High Dose and 28.6% on Xanomeline Low Dose), 10.6% Withdrew Consent (33.3% on Placebo and 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="creating-text.html#cb40-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb40-2"><a href="creating-text.html#cb40-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb40-3"><a href="creating-text.html#cb40-3" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
+<span id="cb40-4"><a href="creating-text.html#cb40-4" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P,</span>
+<span id="cb40-5"><a href="creating-text.html#cb40-5" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">FALSE</span></span>
+<span id="cb40-6"><a href="creating-text.html#cb40-6" tabindex="-1"></a>)</span>
+<span id="cb40-7"><a href="creating-text.html#cb40-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;36.2% Adverse Event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 43.3% Completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 1.2% Death (66.7% on Placebo and 33.3% on Xanomeline Low Dose), 1.2% I/E Not Met (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.6% Lack of Efficacy (75% on Placebo and 25% on Xanomeline High Dose), 0.8% Lost to Follow-up (50% on Placebo and 50% on Xanomeline Low Dose), 1.2% Physician Decision (33.3% on Placebo and 66.7% on Xanomeline High Dose), 1.2% Protocol Violation (33.3% on Placebo, 33.3% on Xanomeline High Dose and 33.3% on Xanomeline Low Dose), 2.8% Sponsor Decision (28.6% on Placebo, 42.9% on Xanomeline High Dose and 28.6% on Xanomeline Low Dose), 10.6% Withdrew Consent (33.3% on Placebo and 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
 <p><strong>Example 4 — Restrict to specific treatment groups</strong></p>
 <p>Pass a character vector to <code>arg_group_vals</code> to exclude one or more groups from the output. Groups not listed are ignored in both the overall count and the per-group breakdown.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="creating-text.html#cb40-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
-<span id="cb40-2"><a href="creating-text.html#cb40-2" tabindex="-1"></a>  <span class="at">arg_dataset    =</span> tlr_adsl,</span>
-<span id="cb40-3"><a href="creating-text.html#cb40-3" tabindex="-1"></a>  <span class="at">arg_var_rest   =</span> DCREASCD,</span>
-<span id="cb40-4"><a href="creating-text.html#cb40-4" tabindex="-1"></a>  <span class="at">arg_group_var  =</span> TRT01P,</span>
-<span id="cb40-5"><a href="creating-text.html#cb40-5" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>)</span>
-<span id="cb40-6"><a href="creating-text.html#cb40-6" tabindex="-1"></a>)</span>
-<span id="cb40-7"><a href="creating-text.html#cb40-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;50% Adverse Event (47.6% on Xanomeline High Dose and 52.4% on Xanomeline Low Dose), 31% Completed (51.9% on Xanomeline High Dose and 48.1% on Xanomeline Low Dose), 10.7% Withdrew Consent (44.4% on Xanomeline High Dose and 55.6% on Xanomeline Low Dose), 3% Sponsor Decision (60% on Xanomeline High Dose and 40% on Xanomeline Low Dose), 1.2% I/E Not Met (100% on Xanomeline High Dose), 1.2% Physician Decision (100% on Xanomeline High Dose), 1.2% Protocol Violation (50% on Xanomeline High Dose and 50% on Xanomeline Low Dose), 0.6% Death (100% on Xanomeline Low Dose), 0.6% Lack of Efficacy (100% on Xanomeline High Dose) and 0.6% Lost to Follow-up (100% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
-<p><strong>Example 5 — Shorten group labels in the output</strong></p>
-<p>Long treatment names can make the sentence hard to read. <code>arg_group_lbl</code> lets you assign shorter display labels; the vector must correspond positionally to <code>arg_group_vals</code>.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="creating-text.html#cb41-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
 <span id="cb41-2"><a href="creating-text.html#cb41-2" tabindex="-1"></a>  <span class="at">arg_dataset    =</span> tlr_adsl,</span>
 <span id="cb41-3"><a href="creating-text.html#cb41-3" tabindex="-1"></a>  <span class="at">arg_var_rest   =</span> DCREASCD,</span>
 <span id="cb41-4"><a href="creating-text.html#cb41-4" tabindex="-1"></a>  <span class="at">arg_group_var  =</span> TRT01P,</span>
-<span id="cb41-5"><a href="creating-text.html#cb41-5" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
-<span id="cb41-6"><a href="creating-text.html#cb41-6" tabindex="-1"></a>  <span class="at">arg_group_lbl  =</span> <span class="fu">c</span>(<span class="st">&quot;XAN-H&quot;</span>, <span class="st">&quot;XAN-L&quot;</span>, <span class="st">&quot;PBO&quot;</span>)</span>
-<span id="cb41-7"><a href="creating-text.html#cb41-7" tabindex="-1"></a>)</span>
-<span id="cb41-8"><a href="creating-text.html#cb41-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% Completed (24.5% on XAN-H, 22.7% on XAN-L and 52.7% on PBO), 36.2% Adverse Event (43.5% on XAN-H, 47.8% on XAN-L and 8.7% on PBO), 10.6% Withdrew Consent (29.6% on XAN-H, 37% on XAN-L and 33.3% on PBO), 2.8% Sponsor Decision (42.9% on XAN-H, 28.6% on XAN-L and 28.6% on PBO), 1.6% Lack of Efficacy (25% on XAN-H and 75% on PBO), 1.2% Death (33.3% on XAN-L and 66.7% on PBO), 1.2% I/E Not Met (66.7% on XAN-H and 33.3% on PBO), 1.2% Physician Decision (66.7% on XAN-H and 33.3% on PBO), 1.2% Protocol Violation (33.3% on XAN-H, 33.3% on XAN-L and 33.3% on PBO) and 0.8% Lost to Follow-up (50% on XAN-L and 50% on PBO)&quot;</span></span></code></pre></div>
-<p><strong>Example 6 — Limit to the top N categories</strong></p>
-<p>Show only the three most frequently occurring discontinuation reasons.</p>
+<span id="cb41-5"><a href="creating-text.html#cb41-5" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>)</span>
+<span id="cb41-6"><a href="creating-text.html#cb41-6" tabindex="-1"></a>)</span>
+<span id="cb41-7"><a href="creating-text.html#cb41-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;50% Adverse Event (47.6% on Xanomeline High Dose and 52.4% on Xanomeline Low Dose), 31% Completed (51.9% on Xanomeline High Dose and 48.1% on Xanomeline Low Dose), 10.7% Withdrew Consent (44.4% on Xanomeline High Dose and 55.6% on Xanomeline Low Dose), 3% Sponsor Decision (60% on Xanomeline High Dose and 40% on Xanomeline Low Dose), 1.2% I/E Not Met (100% on Xanomeline High Dose), 1.2% Physician Decision (100% on Xanomeline High Dose), 1.2% Protocol Violation (50% on Xanomeline High Dose and 50% on Xanomeline Low Dose), 0.6% Death (100% on Xanomeline Low Dose), 0.6% Lack of Efficacy (100% on Xanomeline High Dose) and 0.6% Lost to Follow-up (100% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<p><strong>Example 5 — Shorten group labels in the output</strong></p>
+<p>Long treatment names can make the sentence hard to read. <code>arg_group_lbl</code> lets you assign shorter display labels; the vector must correspond positionally to <code>arg_group_vals</code>.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="creating-text.html#cb42-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
 <span id="cb42-2"><a href="creating-text.html#cb42-2" tabindex="-1"></a>  <span class="at">arg_dataset    =</span> tlr_adsl,</span>
 <span id="cb42-3"><a href="creating-text.html#cb42-3" tabindex="-1"></a>  <span class="at">arg_var_rest   =</span> DCREASCD,</span>
 <span id="cb42-4"><a href="creating-text.html#cb42-4" tabindex="-1"></a>  <span class="at">arg_group_var  =</span> TRT01P,</span>
 <span id="cb42-5"><a href="creating-text.html#cb42-5" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
-<span id="cb42-6"><a href="creating-text.html#cb42-6" tabindex="-1"></a>  <span class="at">arg_group_lbl  =</span> <span class="fu">c</span>(<span class="st">&quot;XAN-H&quot;</span>, <span class="st">&quot;XAN-L&quot;</span>, <span class="st">&quot;PBO&quot;</span>),</span>
-<span id="cb42-7"><a href="creating-text.html#cb42-7" tabindex="-1"></a>  <span class="at">arg_order      =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb42-8"><a href="creating-text.html#cb42-8" tabindex="-1"></a>  <span class="at">arg_nbr_obs    =</span> <span class="dv">3</span></span>
-<span id="cb42-9"><a href="creating-text.html#cb42-9" tabindex="-1"></a>)</span>
-<span id="cb42-10"><a href="creating-text.html#cb42-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% Completed (24.5% on XAN-H, 22.7% on XAN-L and 52.7% on PBO), 36.2% Adverse Event (43.5% on XAN-H, 47.8% on XAN-L and 8.7% on PBO), 10.6% Withdrew Consent (29.6% on XAN-H and 37% on XAN-L and 33.3% on PBO)&quot;</span></span></code></pre></div>
+<span id="cb42-6"><a href="creating-text.html#cb42-6" tabindex="-1"></a>  <span class="at">arg_group_lbl  =</span> <span class="fu">c</span>(<span class="st">&quot;XAN-H&quot;</span>, <span class="st">&quot;XAN-L&quot;</span>, <span class="st">&quot;PBO&quot;</span>)</span>
+<span id="cb42-7"><a href="creating-text.html#cb42-7" tabindex="-1"></a>)</span>
+<span id="cb42-8"><a href="creating-text.html#cb42-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% Completed (24.5% on XAN-H, 22.7% on XAN-L and 52.7% on PBO), 36.2% Adverse Event (43.5% on XAN-H, 47.8% on XAN-L and 8.7% on PBO), 10.6% Withdrew Consent (29.6% on XAN-H, 37% on XAN-L and 33.3% on PBO), 2.8% Sponsor Decision (42.9% on XAN-H, 28.6% on XAN-L and 28.6% on PBO), 1.6% Lack of Efficacy (25% on XAN-H and 75% on PBO), 1.2% Death (33.3% on XAN-L and 66.7% on PBO), 1.2% I/E Not Met (66.7% on XAN-H and 33.3% on PBO), 1.2% Physician Decision (66.7% on XAN-H and 33.3% on PBO), 1.2% Protocol Violation (33.3% on XAN-H, 33.3% on XAN-L and 33.3% on PBO) and 0.8% Lost to Follow-up (50% on XAN-L and 50% on PBO)&quot;</span></span></code></pre></div>
+<p><strong>Example 6 — Limit to the top N categories</strong></p>
+<p>Show only the three most frequently occurring discontinuation reasons.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="creating-text.html#cb43-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb43-2"><a href="creating-text.html#cb43-2" tabindex="-1"></a>  <span class="at">arg_dataset    =</span> tlr_adsl,</span>
+<span id="cb43-3"><a href="creating-text.html#cb43-3" tabindex="-1"></a>  <span class="at">arg_var_rest   =</span> DCREASCD,</span>
+<span id="cb43-4"><a href="creating-text.html#cb43-4" tabindex="-1"></a>  <span class="at">arg_group_var  =</span> TRT01P,</span>
+<span id="cb43-5"><a href="creating-text.html#cb43-5" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb43-6"><a href="creating-text.html#cb43-6" tabindex="-1"></a>  <span class="at">arg_group_lbl  =</span> <span class="fu">c</span>(<span class="st">&quot;XAN-H&quot;</span>, <span class="st">&quot;XAN-L&quot;</span>, <span class="st">&quot;PBO&quot;</span>),</span>
+<span id="cb43-7"><a href="creating-text.html#cb43-7" tabindex="-1"></a>  <span class="at">arg_order      =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb43-8"><a href="creating-text.html#cb43-8" tabindex="-1"></a>  <span class="at">arg_nbr_obs    =</span> <span class="dv">3</span></span>
+<span id="cb43-9"><a href="creating-text.html#cb43-9" tabindex="-1"></a>)</span>
+<span id="cb43-10"><a href="creating-text.html#cb43-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% Completed (24.5% on XAN-H, 22.7% on XAN-L and 52.7% on PBO), 36.2% Adverse Event (43.5% on XAN-H, 47.8% on XAN-L and 8.7% on PBO), 10.6% Withdrew Consent (29.6% on XAN-H and 37% on XAN-L and 33.3% on PBO)&quot;</span></span></code></pre></div>
 <p><strong>Example 7 — Apply a label transformation</strong></p>
 <p>Convert category labels to lowercase so the output reads naturally within a sentence.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="creating-text.html#cb43-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
-<span id="cb43-2"><a href="creating-text.html#cb43-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb43-3"><a href="creating-text.html#cb43-3" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
-<span id="cb43-4"><a href="creating-text.html#cb43-4" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P,</span>
-<span id="cb43-5"><a href="creating-text.html#cb43-5" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> tolower,</span>
-<span id="cb43-6"><a href="creating-text.html#cb43-6" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">3</span></span>
-<span id="cb43-7"><a href="creating-text.html#cb43-7" tabindex="-1"></a>)</span>
-<span id="cb43-8"><a href="creating-text.html#cb43-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 36.2% adverse event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 10.6% withdrew consent (33.3% on Placebo and 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="creating-text.html#cb44-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb44-2"><a href="creating-text.html#cb44-2" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb44-3"><a href="creating-text.html#cb44-3" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> DCREASCD,</span>
+<span id="cb44-4"><a href="creating-text.html#cb44-4" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRT01P,</span>
+<span id="cb44-5"><a href="creating-text.html#cb44-5" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> tolower,</span>
+<span id="cb44-6"><a href="creating-text.html#cb44-6" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">3</span></span>
+<span id="cb44-7"><a href="creating-text.html#cb44-7" tabindex="-1"></a>)</span>
+<span id="cb44-8"><a href="creating-text.html#cb44-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;43.3% completed (52.7% on Placebo, 24.5% on Xanomeline High Dose and 22.7% on Xanomeline Low Dose), 36.2% adverse event (8.7% on Placebo, 43.5% on Xanomeline High Dose and 47.8% on Xanomeline Low Dose), 10.6% withdrew consent (33.3% on Placebo and 29.6% on Xanomeline High Dose and 37% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
 <p><strong>Example 8 — Filter to a specific population first</strong></p>
 <p>Use <code>arg_fl_rest</code> to restrict the analysis before calculating frequencies. Percentages are computed within the filtered population.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="creating-text.html#cb44-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
-<span id="cb44-2"><a href="creating-text.html#cb44-2" tabindex="-1"></a>  <span class="at">arg_text_desc  =</span> <span class="st">&quot;Among safety population subjects,&quot;</span>,</span>
-<span id="cb44-3"><a href="creating-text.html#cb44-3" tabindex="-1"></a>  <span class="at">arg_dataset    =</span> tlr_adsl,</span>
-<span id="cb44-4"><a href="creating-text.html#cb44-4" tabindex="-1"></a>  <span class="at">arg_fl_rest    =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb44-5"><a href="creating-text.html#cb44-5" tabindex="-1"></a>  <span class="at">arg_var_rest   =</span> DCREASCD,</span>
-<span id="cb44-6"><a href="creating-text.html#cb44-6" tabindex="-1"></a>  <span class="at">arg_group_var  =</span> TRT01P,</span>
-<span id="cb44-7"><a href="creating-text.html#cb44-7" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
-<span id="cb44-8"><a href="creating-text.html#cb44-8" tabindex="-1"></a>  <span class="at">arg_group_lbl  =</span> <span class="fu">c</span>(<span class="st">&quot;XAN-H&quot;</span>, <span class="st">&quot;XAN-L&quot;</span>, <span class="st">&quot;PBO&quot;</span>),</span>
-<span id="cb44-9"><a href="creating-text.html#cb44-9" tabindex="-1"></a>  <span class="at">arg_order      =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb44-10"><a href="creating-text.html#cb44-10" tabindex="-1"></a>  <span class="at">arg_nbr_obs    =</span> <span class="dv">5</span></span>
-<span id="cb44-11"><a href="creating-text.html#cb44-11" tabindex="-1"></a>)</span>
-<span id="cb44-12"><a href="creating-text.html#cb44-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Among safety population subjects, 43.3% Completed (24.5% on XAN-H, 22.7% on XAN-L and 52.7% on PBO), 36.2% Adverse Event (43.5% on XAN-H, 47.8% on XAN-L and 8.7% on PBO), 10.6% Withdrew Consent (29.6% on XAN-H, 37% on XAN-L and 33.3% on PBO), 2.8% Sponsor Decision (42.9% on XAN-H, 28.6% on XAN-L and 28.6% on PBO) and 1.6% Lack of Efficacy (25% on XAN-H and 75% on PBO)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="creating-text.html#cb45-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb45-2"><a href="creating-text.html#cb45-2" tabindex="-1"></a>  <span class="at">arg_text_desc  =</span> <span class="st">&quot;Among safety population subjects,&quot;</span>,</span>
+<span id="cb45-3"><a href="creating-text.html#cb45-3" tabindex="-1"></a>  <span class="at">arg_dataset    =</span> tlr_adsl,</span>
+<span id="cb45-4"><a href="creating-text.html#cb45-4" tabindex="-1"></a>  <span class="at">arg_fl_rest    =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb45-5"><a href="creating-text.html#cb45-5" tabindex="-1"></a>  <span class="at">arg_var_rest   =</span> DCREASCD,</span>
+<span id="cb45-6"><a href="creating-text.html#cb45-6" tabindex="-1"></a>  <span class="at">arg_group_var  =</span> TRT01P,</span>
+<span id="cb45-7"><a href="creating-text.html#cb45-7" tabindex="-1"></a>  <span class="at">arg_group_vals =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb45-8"><a href="creating-text.html#cb45-8" tabindex="-1"></a>  <span class="at">arg_group_lbl  =</span> <span class="fu">c</span>(<span class="st">&quot;XAN-H&quot;</span>, <span class="st">&quot;XAN-L&quot;</span>, <span class="st">&quot;PBO&quot;</span>),</span>
+<span id="cb45-9"><a href="creating-text.html#cb45-9" tabindex="-1"></a>  <span class="at">arg_order      =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb45-10"><a href="creating-text.html#cb45-10" tabindex="-1"></a>  <span class="at">arg_nbr_obs    =</span> <span class="dv">5</span></span>
+<span id="cb45-11"><a href="creating-text.html#cb45-11" tabindex="-1"></a>)</span>
+<span id="cb45-12"><a href="creating-text.html#cb45-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Among safety population subjects, 43.3% Completed (24.5% on XAN-H, 22.7% on XAN-L and 52.7% on PBO), 36.2% Adverse Event (43.5% on XAN-H, 47.8% on XAN-L and 8.7% on PBO), 10.6% Withdrew Consent (29.6% on XAN-H, 37% on XAN-L and 33.3% on PBO), 2.8% Sponsor Decision (42.9% on XAN-H, 28.6% on XAN-L and 28.6% on PBO) and 1.6% Lack of Efficacy (25% on XAN-H and 75% on PBO)&quot;</span></span></code></pre></div>
 <p><strong>Example 9 — Adverse events by treatment group (complete example)</strong></p>
 <p>Use <code>tlr_adae</code> with <code>TRTA</code> as the grouping variable to summarise adverse events, filtered to severe events only and limited to the five most frequent preferred terms.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="creating-text.html#cb45-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
-<span id="cb45-2"><a href="creating-text.html#cb45-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most frequently reported severe adverse events were:&quot;</span>,</span>
-<span id="cb45-3"><a href="creating-text.html#cb45-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adae,</span>
-<span id="cb45-4"><a href="creating-text.html#cb45-4" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> AESEV <span class="sc">==</span> <span class="st">&quot;SEVERE&quot;</span>,</span>
-<span id="cb45-5"><a href="creating-text.html#cb45-5" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> AEDECOD,</span>
-<span id="cb45-6"><a href="creating-text.html#cb45-6" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRTA,</span>
-<span id="cb45-7"><a href="creating-text.html#cb45-7" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb45-8"><a href="creating-text.html#cb45-8" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">5</span>,</span>
-<span id="cb45-9"><a href="creating-text.html#cb45-9" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_sentence</span>
-<span id="cb45-10"><a href="creating-text.html#cb45-10" tabindex="-1"></a>)</span>
-<span id="cb45-11"><a href="creating-text.html#cb45-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most frequently reported severe adverse events were: 9.3% Syncope (75% on Xanomeline Low Dose and 25% on Xanomeline High Dose), 7% Application site erythema (100% on Xanomeline Low Dose), 7% Application site irritation (100% on Xanomeline Low Dose), 7% Hip fracture (66.7% on Placebo and 33.3% on Xanomeline High Dose) and 4.7% Blister (100% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="creating-text.html#cb46-1" tabindex="-1"></a><span class="fu">fct_var_text_group</span>(</span>
+<span id="cb46-2"><a href="creating-text.html#cb46-2" tabindex="-1"></a>  <span class="at">arg_text_desc =</span> <span class="st">&quot;The most frequently reported severe adverse events were:&quot;</span>,</span>
+<span id="cb46-3"><a href="creating-text.html#cb46-3" tabindex="-1"></a>  <span class="at">arg_dataset   =</span> tlr_adae,</span>
+<span id="cb46-4"><a href="creating-text.html#cb46-4" tabindex="-1"></a>  <span class="at">arg_fl_rest   =</span> AESEV <span class="sc">==</span> <span class="st">&quot;SEVERE&quot;</span>,</span>
+<span id="cb46-5"><a href="creating-text.html#cb46-5" tabindex="-1"></a>  <span class="at">arg_var_rest  =</span> AEDECOD,</span>
+<span id="cb46-6"><a href="creating-text.html#cb46-6" tabindex="-1"></a>  <span class="at">arg_group_var =</span> TRTA,</span>
+<span id="cb46-7"><a href="creating-text.html#cb46-7" tabindex="-1"></a>  <span class="at">arg_order     =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb46-8"><a href="creating-text.html#cb46-8" tabindex="-1"></a>  <span class="at">arg_nbr_obs   =</span> <span class="dv">5</span>,</span>
+<span id="cb46-9"><a href="creating-text.html#cb46-9" tabindex="-1"></a>  <span class="at">arg_cvt_stg   =</span> stringr<span class="sc">::</span>str_to_sentence</span>
+<span id="cb46-10"><a href="creating-text.html#cb46-10" tabindex="-1"></a>)</span>
+<span id="cb46-11"><a href="creating-text.html#cb46-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most frequently reported severe adverse events were: 9.3% Syncope (75% on Xanomeline Low Dose and 25% on Xanomeline High Dose), 7% Application site erythema (100% on Xanomeline Low Dose), 7% Application site irritation (100% on Xanomeline Low Dose), 7% Hip fracture (66.7% on Placebo and 33.3% on Xanomeline High Dose) and 4.7% Blister (100% on Xanomeline Low Dose)&quot;</span></span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -897,90 +900,90 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">6.4.3</span> Examples<a href="creating-text.html#examples-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Example 1 — Overall mean age with standard deviation</strong></p>
 <p>Without <code>arg_trt_inc</code>, only the total across all arms is reported.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="creating-text.html#cb46-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
-<span id="cb46-2"><a href="creating-text.html#cb46-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb46-3"><a href="creating-text.html#cb46-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> ARM,</span>
-<span id="cb46-4"><a href="creating-text.html#cb46-4" tabindex="-1"></a>  <span class="at">arg_var_num =</span> AGE,</span>
-<span id="cb46-5"><a href="creating-text.html#cb46-5" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
-<span id="cb46-6"><a href="creating-text.html#cb46-6" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
-<span id="cb46-7"><a href="creating-text.html#cb46-7" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
-<span id="cb46-8"><a href="creating-text.html#cb46-8" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
-<span id="cb46-9"><a href="creating-text.html#cb46-9" tabindex="-1"></a>)</span>
-<span id="cb46-10"><a href="creating-text.html#cb46-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall mean was 75.1 years (SD 8.2)&quot;</span></span></code></pre></div>
-<p><strong>Example 2 — Overall median age with range</strong></p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="creating-text.html#cb47-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
 <span id="cb47-2"><a href="creating-text.html#cb47-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
 <span id="cb47-3"><a href="creating-text.html#cb47-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> ARM,</span>
 <span id="cb47-4"><a href="creating-text.html#cb47-4" tabindex="-1"></a>  <span class="at">arg_var_num =</span> AGE,</span>
-<span id="cb47-5"><a href="creating-text.html#cb47-5" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;median&quot;</span>,</span>
-<span id="cb47-6"><a href="creating-text.html#cb47-6" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;range&quot;</span>,</span>
+<span id="cb47-5"><a href="creating-text.html#cb47-5" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb47-6"><a href="creating-text.html#cb47-6" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
 <span id="cb47-7"><a href="creating-text.html#cb47-7" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
 <span id="cb47-8"><a href="creating-text.html#cb47-8" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
 <span id="cb47-9"><a href="creating-text.html#cb47-9" tabindex="-1"></a>)</span>
-<span id="cb47-10"><a href="creating-text.html#cb47-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall median was 77 years (range: 51, 89)&quot;</span></span></code></pre></div>
-<p><strong>Example 3 — Mean age broken down by treatment arm</strong></p>
-<p>Pass the arm names to <code>arg_trt_inc</code> to append per-arm statistics after the overall total.</p>
+<span id="cb47-10"><a href="creating-text.html#cb47-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall mean was 75.1 years (SD 8.2)&quot;</span></span></code></pre></div>
+<p><strong>Example 2 — Overall median age with range</strong></p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="creating-text.html#cb48-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
 <span id="cb48-2"><a href="creating-text.html#cb48-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
 <span id="cb48-3"><a href="creating-text.html#cb48-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> ARM,</span>
-<span id="cb48-4"><a href="creating-text.html#cb48-4" tabindex="-1"></a>  <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Xanomeline High Dose&quot;</span>),</span>
-<span id="cb48-5"><a href="creating-text.html#cb48-5" tabindex="-1"></a>  <span class="at">arg_var_num =</span> AGE,</span>
-<span id="cb48-6"><a href="creating-text.html#cb48-6" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
-<span id="cb48-7"><a href="creating-text.html#cb48-7" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
-<span id="cb48-8"><a href="creating-text.html#cb48-8" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
-<span id="cb48-9"><a href="creating-text.html#cb48-9" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
-<span id="cb48-10"><a href="creating-text.html#cb48-10" tabindex="-1"></a>)</span>
-<span id="cb48-11"><a href="creating-text.html#cb48-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall mean was 75.1 years (SD 8.2), for Placebo the mean was 75.2 years (SD 8.6), for Xanomeline Low Dose the mean was 75.7 years (SD 8.3), and for Xanomeline High Dose the mean was 74.4 years (SD 7.9)&quot;</span></span></code></pre></div>
-<p><strong>Example 4 — Median baseline weight with range by arm</strong></p>
+<span id="cb48-4"><a href="creating-text.html#cb48-4" tabindex="-1"></a>  <span class="at">arg_var_num =</span> AGE,</span>
+<span id="cb48-5"><a href="creating-text.html#cb48-5" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;median&quot;</span>,</span>
+<span id="cb48-6"><a href="creating-text.html#cb48-6" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;range&quot;</span>,</span>
+<span id="cb48-7"><a href="creating-text.html#cb48-7" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
+<span id="cb48-8"><a href="creating-text.html#cb48-8" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb48-9"><a href="creating-text.html#cb48-9" tabindex="-1"></a>)</span>
+<span id="cb48-10"><a href="creating-text.html#cb48-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall median was 77 years (range: 51, 89)&quot;</span></span></code></pre></div>
+<p><strong>Example 3 — Mean age broken down by treatment arm</strong></p>
+<p>Pass the arm names to <code>arg_trt_inc</code> to append per-arm statistics after the overall total.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="creating-text.html#cb49-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
 <span id="cb49-2"><a href="creating-text.html#cb49-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
 <span id="cb49-3"><a href="creating-text.html#cb49-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> ARM,</span>
 <span id="cb49-4"><a href="creating-text.html#cb49-4" tabindex="-1"></a>  <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Xanomeline High Dose&quot;</span>),</span>
-<span id="cb49-5"><a href="creating-text.html#cb49-5" tabindex="-1"></a>  <span class="at">arg_var_num =</span> WEIGHTBL,</span>
-<span id="cb49-6"><a href="creating-text.html#cb49-6" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;median&quot;</span>,</span>
-<span id="cb49-7"><a href="creating-text.html#cb49-7" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;range&quot;</span>,</span>
-<span id="cb49-8"><a href="creating-text.html#cb49-8" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;kg&quot;</span>,</span>
-<span id="cb49-9"><a href="creating-text.html#cb49-9" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;baseline weight&quot;</span></span>
+<span id="cb49-5"><a href="creating-text.html#cb49-5" tabindex="-1"></a>  <span class="at">arg_var_num =</span> AGE,</span>
+<span id="cb49-6"><a href="creating-text.html#cb49-6" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb49-7"><a href="creating-text.html#cb49-7" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
+<span id="cb49-8"><a href="creating-text.html#cb49-8" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
+<span id="cb49-9"><a href="creating-text.html#cb49-9" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
 <span id="cb49-10"><a href="creating-text.html#cb49-10" tabindex="-1"></a>)</span>
-<span id="cb49-11"><a href="creating-text.html#cb49-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For baseline weight the overall median was 66.7 kg (range: 34, 108), for Placebo the median was 60.5 kg (range: 34, 86.2), for Xanomeline Low Dose the median was 64.9 kg (range: 45.4, 106.1), and for Xanomeline High Dose the median was 69.2 kg (range: 41.7, 108)&quot;</span></span></code></pre></div>
-<p><strong>Example 5 — Mean baseline BMI using <code>TRT01A</code> as the grouping variable</strong></p>
-<p>Any treatment variable present in the dataset can serve as <code>arg_grp</code>.</p>
+<span id="cb49-11"><a href="creating-text.html#cb49-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall mean was 75.1 years (SD 8.2), for Placebo the mean was 75.2 years (SD 8.6), for Xanomeline Low Dose the mean was 75.7 years (SD 8.3), and for Xanomeline High Dose the mean was 74.4 years (SD 7.9)&quot;</span></span></code></pre></div>
+<p><strong>Example 4 — Median baseline weight with range by arm</strong></p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="creating-text.html#cb50-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
 <span id="cb50-2"><a href="creating-text.html#cb50-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb50-3"><a href="creating-text.html#cb50-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> TRT01A,</span>
-<span id="cb50-4"><a href="creating-text.html#cb50-4" tabindex="-1"></a>  <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
-<span id="cb50-5"><a href="creating-text.html#cb50-5" tabindex="-1"></a>  <span class="at">arg_var_num =</span> BMIBL,</span>
-<span id="cb50-6"><a href="creating-text.html#cb50-6" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
-<span id="cb50-7"><a href="creating-text.html#cb50-7" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
-<span id="cb50-8"><a href="creating-text.html#cb50-8" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;kg/m²&quot;</span>,</span>
-<span id="cb50-9"><a href="creating-text.html#cb50-9" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;baseline BMI&quot;</span>,</span>
-<span id="cb50-10"><a href="creating-text.html#cb50-10" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_lower</span>
-<span id="cb50-11"><a href="creating-text.html#cb50-11" tabindex="-1"></a>)</span>
-<span id="cb50-12"><a href="creating-text.html#cb50-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;for baseline BMI the overall mean was 24.7 kg/m² (SD 4.1), for Xanomeline High Dose the mean was 25.3 kg/m² (SD 4.2), for Xanomeline Low Dose the mean was 25.1 kg/m² (SD 4.3), and for Placebo the mean was 23.6 kg/m² (SD 3.7)&quot;</span></span></code></pre></div>
+<span id="cb50-3"><a href="creating-text.html#cb50-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> ARM,</span>
+<span id="cb50-4"><a href="creating-text.html#cb50-4" tabindex="-1"></a>  <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Xanomeline High Dose&quot;</span>),</span>
+<span id="cb50-5"><a href="creating-text.html#cb50-5" tabindex="-1"></a>  <span class="at">arg_var_num =</span> WEIGHTBL,</span>
+<span id="cb50-6"><a href="creating-text.html#cb50-6" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;median&quot;</span>,</span>
+<span id="cb50-7"><a href="creating-text.html#cb50-7" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;range&quot;</span>,</span>
+<span id="cb50-8"><a href="creating-text.html#cb50-8" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;kg&quot;</span>,</span>
+<span id="cb50-9"><a href="creating-text.html#cb50-9" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;baseline weight&quot;</span></span>
+<span id="cb50-10"><a href="creating-text.html#cb50-10" tabindex="-1"></a>)</span>
+<span id="cb50-11"><a href="creating-text.html#cb50-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For baseline weight the overall median was 66.7 kg (range: 34, 108), for Placebo the median was 60.5 kg (range: 34, 86.2), for Xanomeline Low Dose the median was 64.9 kg (range: 45.4, 106.1), and for Xanomeline High Dose the median was 69.2 kg (range: 41.7, 108)&quot;</span></span></code></pre></div>
+<p><strong>Example 5 — Mean baseline BMI using <code>TRT01A</code> as the grouping variable</strong></p>
+<p>Any treatment variable present in the dataset can serve as <code>arg_grp</code>.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="creating-text.html#cb51-1" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
+<span id="cb51-2"><a href="creating-text.html#cb51-2" tabindex="-1"></a>  <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb51-3"><a href="creating-text.html#cb51-3" tabindex="-1"></a>  <span class="at">arg_grp     =</span> TRT01A,</span>
+<span id="cb51-4"><a href="creating-text.html#cb51-4" tabindex="-1"></a>  <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb51-5"><a href="creating-text.html#cb51-5" tabindex="-1"></a>  <span class="at">arg_var_num =</span> BMIBL,</span>
+<span id="cb51-6"><a href="creating-text.html#cb51-6" tabindex="-1"></a>  <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb51-7"><a href="creating-text.html#cb51-7" tabindex="-1"></a>  <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
+<span id="cb51-8"><a href="creating-text.html#cb51-8" tabindex="-1"></a>  <span class="at">arg_unit    =</span> <span class="st">&quot;kg/m²&quot;</span>,</span>
+<span id="cb51-9"><a href="creating-text.html#cb51-9" tabindex="-1"></a>  <span class="at">arg_label   =</span> <span class="st">&quot;baseline BMI&quot;</span>,</span>
+<span id="cb51-10"><a href="creating-text.html#cb51-10" tabindex="-1"></a>  <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_lower</span>
+<span id="cb51-11"><a href="creating-text.html#cb51-11" tabindex="-1"></a>)</span>
+<span id="cb51-12"><a href="creating-text.html#cb51-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;for baseline BMI the overall mean was 24.7 kg/m² (SD 4.1), for Xanomeline High Dose the mean was 25.3 kg/m² (SD 4.2), for Xanomeline Low Dose the mean was 25.1 kg/m² (SD 4.3), and for Placebo the mean was 23.6 kg/m² (SD 3.7)&quot;</span></span></code></pre></div>
 <p><strong>Example 6 — Combine two baseline variables into one sentence</strong></p>
 <p>The <code>%c&amp;%</code> operator (from <code>cust_opr.R</code>) joins strings with ” and “, making it easy to chain multiple <code>fct_bsl_stats()</code> calls.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="creating-text.html#cb51-1" tabindex="-1"></a></span>
-<span id="cb51-2"><a href="creating-text.html#cb51-2" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
-<span id="cb51-3"><a href="creating-text.html#cb51-3" tabindex="-1"></a>    <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb51-4"><a href="creating-text.html#cb51-4" tabindex="-1"></a>    <span class="at">arg_grp     =</span> ARM,</span>
-<span id="cb51-5"><a href="creating-text.html#cb51-5" tabindex="-1"></a>    <span class="at">arg_var_num =</span> AGE,</span>
-<span id="cb51-6"><a href="creating-text.html#cb51-6" tabindex="-1"></a>    <span class="at">arg_var1    =</span> <span class="st">&quot;median&quot;</span>,</span>
-<span id="cb51-7"><a href="creating-text.html#cb51-7" tabindex="-1"></a>    <span class="at">arg_var2    =</span> <span class="st">&quot;range&quot;</span>,</span>
-<span id="cb51-8"><a href="creating-text.html#cb51-8" tabindex="-1"></a>    <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
-<span id="cb51-9"><a href="creating-text.html#cb51-9" tabindex="-1"></a>    <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
-<span id="cb51-10"><a href="creating-text.html#cb51-10" tabindex="-1"></a>) <span class="sc">%c&amp;%</span></span>
-<span id="cb51-11"><a href="creating-text.html#cb51-11" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
-<span id="cb51-12"><a href="creating-text.html#cb51-12" tabindex="-1"></a>    <span class="at">arg_dataset =</span> tlr_adsl,</span>
-<span id="cb51-13"><a href="creating-text.html#cb51-13" tabindex="-1"></a>    <span class="at">arg_grp     =</span> ARM,</span>
-<span id="cb51-14"><a href="creating-text.html#cb51-14" tabindex="-1"></a>    <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
-<span id="cb51-15"><a href="creating-text.html#cb51-15" tabindex="-1"></a>    <span class="at">arg_var_num =</span> BMIBL,</span>
-<span id="cb51-16"><a href="creating-text.html#cb51-16" tabindex="-1"></a>    <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
-<span id="cb51-17"><a href="creating-text.html#cb51-17" tabindex="-1"></a>    <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
-<span id="cb51-18"><a href="creating-text.html#cb51-18" tabindex="-1"></a>    <span class="at">arg_unit    =</span> <span class="st">&quot;kg/m²&quot;</span>,</span>
-<span id="cb51-19"><a href="creating-text.html#cb51-19" tabindex="-1"></a>    <span class="at">arg_label   =</span> <span class="st">&quot;baseline BMI&quot;</span>,</span>
-<span id="cb51-20"><a href="creating-text.html#cb51-20" tabindex="-1"></a>    <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_lower</span>
-<span id="cb51-21"><a href="creating-text.html#cb51-21" tabindex="-1"></a>)</span>
-<span id="cb51-22"><a href="creating-text.html#cb51-22" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall median was 77 years (range: 51, 89) and for baseline BMI the overall mean was 24.7 kg/m² (SD 4.1), for Xanomeline High Dose the mean was 25.3 kg/m² (SD 4.2), for Xanomeline Low Dose the mean was 25.1 kg/m² (SD 4.3), and for Placebo the mean was 23.6 kg/m² (SD 3.7)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="creating-text.html#cb52-1" tabindex="-1"></a></span>
+<span id="cb52-2"><a href="creating-text.html#cb52-2" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
+<span id="cb52-3"><a href="creating-text.html#cb52-3" tabindex="-1"></a>    <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb52-4"><a href="creating-text.html#cb52-4" tabindex="-1"></a>    <span class="at">arg_grp     =</span> ARM,</span>
+<span id="cb52-5"><a href="creating-text.html#cb52-5" tabindex="-1"></a>    <span class="at">arg_var_num =</span> AGE,</span>
+<span id="cb52-6"><a href="creating-text.html#cb52-6" tabindex="-1"></a>    <span class="at">arg_var1    =</span> <span class="st">&quot;median&quot;</span>,</span>
+<span id="cb52-7"><a href="creating-text.html#cb52-7" tabindex="-1"></a>    <span class="at">arg_var2    =</span> <span class="st">&quot;range&quot;</span>,</span>
+<span id="cb52-8"><a href="creating-text.html#cb52-8" tabindex="-1"></a>    <span class="at">arg_unit    =</span> <span class="st">&quot;years&quot;</span>,</span>
+<span id="cb52-9"><a href="creating-text.html#cb52-9" tabindex="-1"></a>    <span class="at">arg_label   =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb52-10"><a href="creating-text.html#cb52-10" tabindex="-1"></a>) <span class="sc">%c&amp;%</span></span>
+<span id="cb52-11"><a href="creating-text.html#cb52-11" tabindex="-1"></a><span class="fu">fct_bsl_stats</span>(</span>
+<span id="cb52-12"><a href="creating-text.html#cb52-12" tabindex="-1"></a>    <span class="at">arg_dataset =</span> tlr_adsl,</span>
+<span id="cb52-13"><a href="creating-text.html#cb52-13" tabindex="-1"></a>    <span class="at">arg_grp     =</span> ARM,</span>
+<span id="cb52-14"><a href="creating-text.html#cb52-14" tabindex="-1"></a>    <span class="at">arg_trt_inc =</span> <span class="fu">c</span>(<span class="st">&quot;Xanomeline High Dose&quot;</span>, <span class="st">&quot;Xanomeline Low Dose&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb52-15"><a href="creating-text.html#cb52-15" tabindex="-1"></a>    <span class="at">arg_var_num =</span> BMIBL,</span>
+<span id="cb52-16"><a href="creating-text.html#cb52-16" tabindex="-1"></a>    <span class="at">arg_var1    =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb52-17"><a href="creating-text.html#cb52-17" tabindex="-1"></a>    <span class="at">arg_var2    =</span> <span class="st">&quot;sd&quot;</span>,</span>
+<span id="cb52-18"><a href="creating-text.html#cb52-18" tabindex="-1"></a>    <span class="at">arg_unit    =</span> <span class="st">&quot;kg/m²&quot;</span>,</span>
+<span id="cb52-19"><a href="creating-text.html#cb52-19" tabindex="-1"></a>    <span class="at">arg_label   =</span> <span class="st">&quot;baseline BMI&quot;</span>,</span>
+<span id="cb52-20"><a href="creating-text.html#cb52-20" tabindex="-1"></a>    <span class="at">arg_cvt_stg =</span> stringr<span class="sc">::</span>str_to_lower</span>
+<span id="cb52-21"><a href="creating-text.html#cb52-21" tabindex="-1"></a>)</span>
+<span id="cb52-22"><a href="creating-text.html#cb52-22" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;For age the overall median was 77 years (range: 51, 89) and for baseline BMI the overall mean was 24.7 kg/m² (SD 4.1), for Xanomeline High Dose the mean was 25.3 kg/m² (SD 4.2), for Xanomeline Low Dose the mean was 25.1 kg/m² (SD 4.3), and for Placebo the mean was 23.6 kg/m² (SD 3.7)&quot;</span></span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -1070,74 +1073,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="examples-4" class="section level3 hasAnchor" number="6.5.3">
 <h3><span class="header-section-number">6.5.3</span> Examples<a href="creating-text.html#examples-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Example 1 — Most common AEs (≥15%) by preferred term in the Xanomeline High Dose arm</strong></p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="creating-text.html#cb52-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
-<span id="cb52-2"><a href="creating-text.html#cb52-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
-<span id="cb52-3"><a href="creating-text.html#cb52-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
-<span id="cb52-4"><a href="creating-text.html#cb52-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> ARM,</span>
-<span id="cb52-5"><a href="creating-text.html#cb52-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEDECOD,</span>
-<span id="cb52-6"><a href="creating-text.html#cb52-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span></span>
-<span id="cb52-7"><a href="creating-text.html#cb52-7" tabindex="-1"></a>)</span>
-<span id="cb52-8"><a href="creating-text.html#cb52-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: pruritus (31% Xanomeline high dose; 27.4% Xanomeline low dose; 9.3% Placebo), application site pruritus (26.2% Xanomeline high dose; 26.2% Xanomeline low dose; 7% Placebo), application site erythema (17.9% Xanomeline high dose; 14.3% Xanomeline low dose; 3.5% Placebo), and erythema (16.7% Xanomeline high dose; 17.9% Xanomeline low dose; 10.5% Placebo)&quot;</span></span></code></pre></div>
-<p><strong>Example 2 — Lower frequency threshold to include more events</strong></p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="creating-text.html#cb53-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
 <span id="cb53-2"><a href="creating-text.html#cb53-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
 <span id="cb53-3"><a href="creating-text.html#cb53-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
 <span id="cb53-4"><a href="creating-text.html#cb53-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> ARM,</span>
 <span id="cb53-5"><a href="creating-text.html#cb53-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEDECOD,</span>
-<span id="cb53-6"><a href="creating-text.html#cb53-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
-<span id="cb53-7"><a href="creating-text.html#cb53-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">10</span></span>
-<span id="cb53-8"><a href="creating-text.html#cb53-8" tabindex="-1"></a>)</span>
-<span id="cb53-9"><a href="creating-text.html#cb53-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥10% on Xanomeline High Dose were: pruritus (31% Xanomeline high dose; 27.4% Xanomeline low dose; 9.3% Placebo), application site pruritus (26.2% Xanomeline high dose; 26.2% Xanomeline low dose; 7% Placebo), application site erythema (17.9% Xanomeline high dose; 14.3% Xanomeline low dose; 3.5% Placebo), erythema (16.7% Xanomeline high dose; 17.9% Xanomeline low dose; 10.5% Placebo), dizziness (14.3% Xanomeline high dose; 9.5% Xanomeline low dose; 2.3% Placebo), rash (13.1% Xanomeline high dose; 15.5% Xanomeline low dose; 5.8% Placebo), and application site irritation (10.7% Xanomeline high dose; 10.7% Xanomeline low dose; 3.5% Placebo)&quot;</span></span></code></pre></div>
-<p><strong>Example 3 — Higher threshold with two decimal places</strong></p>
+<span id="cb53-6"><a href="creating-text.html#cb53-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span></span>
+<span id="cb53-7"><a href="creating-text.html#cb53-7" tabindex="-1"></a>)</span>
+<span id="cb53-8"><a href="creating-text.html#cb53-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: pruritus (31% Xanomeline high dose; 27.4% Xanomeline low dose; 9.3% Placebo), application site pruritus (26.2% Xanomeline high dose; 26.2% Xanomeline low dose; 7% Placebo), application site erythema (17.9% Xanomeline high dose; 14.3% Xanomeline low dose; 3.5% Placebo), and erythema (16.7% Xanomeline high dose; 17.9% Xanomeline low dose; 10.5% Placebo)&quot;</span></span></code></pre></div>
+<p><strong>Example 2 — Lower frequency threshold to include more events</strong></p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="creating-text.html#cb54-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
 <span id="cb54-2"><a href="creating-text.html#cb54-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
 <span id="cb54-3"><a href="creating-text.html#cb54-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
 <span id="cb54-4"><a href="creating-text.html#cb54-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> ARM,</span>
 <span id="cb54-5"><a href="creating-text.html#cb54-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEDECOD,</span>
 <span id="cb54-6"><a href="creating-text.html#cb54-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
-<span id="cb54-7"><a href="creating-text.html#cb54-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">20</span>,</span>
-<span id="cb54-8"><a href="creating-text.html#cb54-8" tabindex="-1"></a>  <span class="at">arg_rounding  =</span> <span class="dv">2</span></span>
-<span id="cb54-9"><a href="creating-text.html#cb54-9" tabindex="-1"></a>)</span>
-<span id="cb54-10"><a href="creating-text.html#cb54-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥20% on Xanomeline High Dose were: pruritus (30.95% Xanomeline high dose; 27.38% Xanomeline low dose; 9.3% Placebo), and application site pruritus (26.19% Xanomeline high dose; 26.19% Xanomeline low dose; 6.98% Placebo)&quot;</span></span></code></pre></div>
-<p><strong>Example 4 — Summarise by system organ class (SOC)</strong></p>
-<p>Replace <code>AEDECOD</code> with <code>AEBODSYS</code> for a higher-level safety overview. This is the call used in the standard RapTLR demo.</p>
+<span id="cb54-7"><a href="creating-text.html#cb54-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">10</span></span>
+<span id="cb54-8"><a href="creating-text.html#cb54-8" tabindex="-1"></a>)</span>
+<span id="cb54-9"><a href="creating-text.html#cb54-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥10% on Xanomeline High Dose were: pruritus (31% Xanomeline high dose; 27.4% Xanomeline low dose; 9.3% Placebo), application site pruritus (26.2% Xanomeline high dose; 26.2% Xanomeline low dose; 7% Placebo), application site erythema (17.9% Xanomeline high dose; 14.3% Xanomeline low dose; 3.5% Placebo), erythema (16.7% Xanomeline high dose; 17.9% Xanomeline low dose; 10.5% Placebo), dizziness (14.3% Xanomeline high dose; 9.5% Xanomeline low dose; 2.3% Placebo), rash (13.1% Xanomeline high dose; 15.5% Xanomeline low dose; 5.8% Placebo), and application site irritation (10.7% Xanomeline high dose; 10.7% Xanomeline low dose; 3.5% Placebo)&quot;</span></span></code></pre></div>
+<p><strong>Example 3 — Higher threshold with two decimal places</strong></p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="creating-text.html#cb55-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
 <span id="cb55-2"><a href="creating-text.html#cb55-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
 <span id="cb55-3"><a href="creating-text.html#cb55-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
 <span id="cb55-4"><a href="creating-text.html#cb55-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> ARM,</span>
-<span id="cb55-5"><a href="creating-text.html#cb55-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEBODSYS,</span>
+<span id="cb55-5"><a href="creating-text.html#cb55-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEDECOD,</span>
 <span id="cb55-6"><a href="creating-text.html#cb55-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
-<span id="cb55-7"><a href="creating-text.html#cb55-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">15</span></span>
-<span id="cb55-8"><a href="creating-text.html#cb55-8" tabindex="-1"></a>)</span>
-<span id="cb55-9"><a href="creating-text.html#cb55-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: skin and subcutaneous tissue disorders (50% Xanomeline low dose; 50% Xanomeline high dose; 24.4% Placebo), general disorders and administration site conditions (56% Xanomeline low dose; 47.6% Xanomeline high dose; 24.4% Placebo), nervous system disorders (23.8% Xanomeline low dose; 32.1% Xanomeline high dose; 14% Placebo), gastrointestinal disorders (17.9% Xanomeline low dose; 25% Xanomeline high dose; 19.8% Placebo), cardiac disorders (15.5% Xanomeline low dose; 21.4% Xanomeline high dose; 15.1% Placebo), and infections and infestations (11.9% Xanomeline low dose; 15.5% Xanomeline high dose; 18.6% Placebo)&quot;</span></span></code></pre></div>
-<p><strong>Example 5 — Use <code>TRT01A</code> as the grouping variable</strong></p>
+<span id="cb55-7"><a href="creating-text.html#cb55-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">20</span>,</span>
+<span id="cb55-8"><a href="creating-text.html#cb55-8" tabindex="-1"></a>  <span class="at">arg_rounding  =</span> <span class="dv">2</span></span>
+<span id="cb55-9"><a href="creating-text.html#cb55-9" tabindex="-1"></a>)</span>
+<span id="cb55-10"><a href="creating-text.html#cb55-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥20% on Xanomeline High Dose were: pruritus (30.95% Xanomeline high dose; 27.38% Xanomeline low dose; 9.3% Placebo), and application site pruritus (26.19% Xanomeline high dose; 26.19% Xanomeline low dose; 6.98% Placebo)&quot;</span></span></code></pre></div>
+<p><strong>Example 4 — Summarise by system organ class (SOC)</strong></p>
+<p>Replace <code>AEDECOD</code> with <code>AEBODSYS</code> for a higher-level safety overview. This is the call used in the standard RapTLR demo.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="creating-text.html#cb56-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
 <span id="cb56-2"><a href="creating-text.html#cb56-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
 <span id="cb56-3"><a href="creating-text.html#cb56-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
-<span id="cb56-4"><a href="creating-text.html#cb56-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> TRT01A,</span>
-<span id="cb56-5"><a href="creating-text.html#cb56-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEDECOD,</span>
+<span id="cb56-4"><a href="creating-text.html#cb56-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> ARM,</span>
+<span id="cb56-5"><a href="creating-text.html#cb56-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEBODSYS,</span>
 <span id="cb56-6"><a href="creating-text.html#cb56-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
-<span id="cb56-7"><a href="creating-text.html#cb56-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">15</span>,</span>
-<span id="cb56-8"><a href="creating-text.html#cb56-8" tabindex="-1"></a>  <span class="at">arg_rounding  =</span> <span class="dv">2</span></span>
-<span id="cb56-9"><a href="creating-text.html#cb56-9" tabindex="-1"></a>)</span>
-<span id="cb56-10"><a href="creating-text.html#cb56-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: pruritus (30.95% Xanomeline high dose; 27.38% Xanomeline low dose; 9.3% Placebo), application site pruritus (26.19% Xanomeline high dose; 26.19% Xanomeline low dose; 6.98% Placebo), application site erythema (17.86% Xanomeline high dose; 14.29% Xanomeline low dose; 3.49% Placebo), and erythema (16.67% Xanomeline high dose; 17.86% Xanomeline low dose; 10.47% Placebo)&quot;</span></span></code></pre></div>
+<span id="cb56-7"><a href="creating-text.html#cb56-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">15</span></span>
+<span id="cb56-8"><a href="creating-text.html#cb56-8" tabindex="-1"></a>)</span>
+<span id="cb56-9"><a href="creating-text.html#cb56-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: skin and subcutaneous tissue disorders (50% Xanomeline low dose; 50% Xanomeline high dose; 24.4% Placebo), general disorders and administration site conditions (56% Xanomeline low dose; 47.6% Xanomeline high dose; 24.4% Placebo), nervous system disorders (23.8% Xanomeline low dose; 32.1% Xanomeline high dose; 14% Placebo), gastrointestinal disorders (17.9% Xanomeline low dose; 25% Xanomeline high dose; 19.8% Placebo), cardiac disorders (15.5% Xanomeline low dose; 21.4% Xanomeline high dose; 15.1% Placebo), and infections and infestations (11.9% Xanomeline low dose; 15.5% Xanomeline high dose; 18.6% Placebo)&quot;</span></span></code></pre></div>
+<p><strong>Example 5 — Use <code>TRT01A</code> as the grouping variable</strong></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="creating-text.html#cb57-1" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
+<span id="cb57-2"><a href="creating-text.html#cb57-2" tabindex="-1"></a>  <span class="at">arg_data      =</span> tlr_adae,</span>
+<span id="cb57-3"><a href="creating-text.html#cb57-3" tabindex="-1"></a>  <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
+<span id="cb57-4"><a href="creating-text.html#cb57-4" tabindex="-1"></a>  <span class="at">arg_grp       =</span> TRT01A,</span>
+<span id="cb57-5"><a href="creating-text.html#cb57-5" tabindex="-1"></a>  <span class="at">arg_var       =</span> AEDECOD,</span>
+<span id="cb57-6"><a href="creating-text.html#cb57-6" tabindex="-1"></a>  <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
+<span id="cb57-7"><a href="creating-text.html#cb57-7" tabindex="-1"></a>  <span class="at">arg_frq       =</span> <span class="dv">15</span>,</span>
+<span id="cb57-8"><a href="creating-text.html#cb57-8" tabindex="-1"></a>  <span class="at">arg_rounding  =</span> <span class="dv">2</span></span>
+<span id="cb57-9"><a href="creating-text.html#cb57-9" tabindex="-1"></a>)</span>
+<span id="cb57-10"><a href="creating-text.html#cb57-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: pruritus (30.95% Xanomeline high dose; 27.38% Xanomeline low dose; 9.3% Placebo), application site pruritus (26.19% Xanomeline high dose; 26.19% Xanomeline low dose; 6.98% Placebo), application site erythema (17.86% Xanomeline high dose; 14.29% Xanomeline low dose; 3.49% Placebo), and erythema (16.67% Xanomeline high dose; 17.86% Xanomeline low dose; 10.47% Placebo)&quot;</span></span></code></pre></div>
 <p><strong>Example 6 — Complete safety paragraph</strong></p>
 <p>Combine <code>fct_mst_aes()</code> with <code>fct_smpl_rest()</code> using the <code>%c%</code> operator (space-join) to build a full safety narrative sentence.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="creating-text.html#cb57-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
-<span id="cb57-2"><a href="creating-text.html#cb57-2" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
-<span id="cb57-3"><a href="creating-text.html#cb57-3" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;A total of &quot;</span>,</span>
-<span id="cb57-4"><a href="creating-text.html#cb57-4" tabindex="-1"></a>    <span class="at">arg_text_end  =</span> <span class="st">&quot; subjects were included in the safety population.&quot;</span>,</span>
-<span id="cb57-5"><a href="creating-text.html#cb57-5" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
-<span id="cb57-6"><a href="creating-text.html#cb57-6" tabindex="-1"></a>) <span class="sc">%c%</span></span>
-<span id="cb57-7"><a href="creating-text.html#cb57-7" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
-<span id="cb57-8"><a href="creating-text.html#cb57-8" tabindex="-1"></a>    <span class="at">arg_data      =</span> tlr_adae,</span>
-<span id="cb57-9"><a href="creating-text.html#cb57-9" tabindex="-1"></a>    <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
-<span id="cb57-10"><a href="creating-text.html#cb57-10" tabindex="-1"></a>    <span class="at">arg_grp       =</span> ARM,</span>
-<span id="cb57-11"><a href="creating-text.html#cb57-11" tabindex="-1"></a>    <span class="at">arg_var       =</span> AEBODSYS,</span>
-<span id="cb57-12"><a href="creating-text.html#cb57-12" tabindex="-1"></a>    <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
-<span id="cb57-13"><a href="creating-text.html#cb57-13" tabindex="-1"></a>    <span class="at">arg_frq       =</span> <span class="dv">15</span></span>
-<span id="cb57-14"><a href="creating-text.html#cb57-14" tabindex="-1"></a>)</span>
-<span id="cb57-15"><a href="creating-text.html#cb57-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;A total of 254 subjects were included in the safety population. The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: skin and subcutaneous tissue disorders (50% Xanomeline low dose; 50% Xanomeline high dose; 24.4% Placebo), general disorders and administration site conditions (56% Xanomeline low dose; 47.6% Xanomeline high dose; 24.4% Placebo), nervous system disorders (23.8% Xanomeline low dose; 32.1% Xanomeline high dose; 14% Placebo), gastrointestinal disorders (17.9% Xanomeline low dose; 25% Xanomeline high dose; 19.8% Placebo), cardiac disorders (15.5% Xanomeline low dose; 21.4% Xanomeline high dose; 15.1% Placebo), and infections and infestations (11.9% Xanomeline low dose; 15.5% Xanomeline high dose; 18.6% Placebo)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="creating-text.html#cb58-1" tabindex="-1"></a><span class="fu">fct_smpl_rest</span>(</span>
+<span id="cb58-2"><a href="creating-text.html#cb58-2" tabindex="-1"></a>    <span class="at">arg_dataset   =</span> tlr_adsl,</span>
+<span id="cb58-3"><a href="creating-text.html#cb58-3" tabindex="-1"></a>    <span class="at">arg_text_desc =</span> <span class="st">&quot;A total of &quot;</span>,</span>
+<span id="cb58-4"><a href="creating-text.html#cb58-4" tabindex="-1"></a>    <span class="at">arg_text_end  =</span> <span class="st">&quot; subjects were included in the safety population.&quot;</span>,</span>
+<span id="cb58-5"><a href="creating-text.html#cb58-5" tabindex="-1"></a>    <span class="at">arg_fl_rest   =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb58-6"><a href="creating-text.html#cb58-6" tabindex="-1"></a>) <span class="sc">%c%</span></span>
+<span id="cb58-7"><a href="creating-text.html#cb58-7" tabindex="-1"></a><span class="fu">fct_mst_aes</span>(</span>
+<span id="cb58-8"><a href="creating-text.html#cb58-8" tabindex="-1"></a>    <span class="at">arg_data      =</span> tlr_adae,</span>
+<span id="cb58-9"><a href="creating-text.html#cb58-9" tabindex="-1"></a>    <span class="at">arg_data_adsl =</span> tlr_adsl,</span>
+<span id="cb58-10"><a href="creating-text.html#cb58-10" tabindex="-1"></a>    <span class="at">arg_grp       =</span> ARM,</span>
+<span id="cb58-11"><a href="creating-text.html#cb58-11" tabindex="-1"></a>    <span class="at">arg_var       =</span> AEBODSYS,</span>
+<span id="cb58-12"><a href="creating-text.html#cb58-12" tabindex="-1"></a>    <span class="at">arg_trt_flt   =</span> <span class="st">`</span><span class="at">Xanomeline High Dose</span><span class="st">`</span>,</span>
+<span id="cb58-13"><a href="creating-text.html#cb58-13" tabindex="-1"></a>    <span class="at">arg_frq       =</span> <span class="dv">15</span></span>
+<span id="cb58-14"><a href="creating-text.html#cb58-14" tabindex="-1"></a>)</span>
+<span id="cb58-15"><a href="creating-text.html#cb58-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;A total of 254 subjects were included in the safety population. The most common TEAEs with frequency ≥15% on Xanomeline High Dose were: skin and subcutaneous tissue disorders (50% Xanomeline low dose; 50% Xanomeline high dose; 24.4% Placebo), general disorders and administration site conditions (56% Xanomeline low dose; 47.6% Xanomeline high dose; 24.4% Placebo), nervous system disorders (23.8% Xanomeline low dose; 32.1% Xanomeline high dose; 14% Placebo), gastrointestinal disorders (17.9% Xanomeline low dose; 25% Xanomeline high dose; 19.8% Placebo), cardiac disorders (15.5% Xanomeline low dose; 21.4% Xanomeline high dose; 15.1% Placebo), and infections and infestations (11.9% Xanomeline low dose; 15.5% Xanomeline high dose; 18.6% Placebo)&quot;</span></span></code></pre></div>
 
 </div>
 </div>

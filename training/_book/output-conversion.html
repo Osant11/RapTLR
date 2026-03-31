@@ -319,8 +319,8 @@ If needed you can read the user guide in Confluence on <a href="https://confluen
 <p>In the R package we provided dummy rtf outputs that you can use to practice with 3C Helper. They are also accessible <a href="https://jnj.sharepoint.com/teams/TLRinRPackage/Shared%20Documents/Forms/AllItems.aspx?id=%2Fteams%2FTLRinRPackage%2FShared%20Documents%2FGeneral%2FPackage%20Material%2FDummy%20%2ERTF%20Outputs&amp;viewid=8237c82f%2D411b%2D479b%2D9ce0%2D6d46e9d85662&amp;csf=1&amp;CID=3e740844%2Db277%2D4c4e%2Da316%2Da9c32d904883&amp;FolderCTID=0x01200033BBBD2357830A4B87F02E31F18B1C71">here</a>.</p>
 <p>You can use the function <code>import_RTFs()</code> to copy and create a clone folder of dummy rtf outputs in your working directory. See below.<br />
 </p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="output-conversion.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
-<span id="cb1-2"><a href="output-conversion.html#cb1-2" tabindex="-1"></a><span class="fu">import_RTFs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="output-conversion.html#cb5-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb5-2"><a href="output-conversion.html#cb5-2" tabindex="-1"></a><span class="fu">import_RTFs</span>()</span></code></pre></div>
 <p>If succeeded in your console you should receive this message: <code>[INFO] rtf_outputs folder has been successfully imported and copied under: ...</code><br />
 </p>
 </div>
@@ -381,10 +381,10 @@ If needed you can read the user guide in Confluence on <a href="https://confluen
 <ol start="8" style="list-style-type: decimal">
 <li>In case you don’t see <code>Go to QC Programs PDEV Project</code>, you need to install the following R packages:</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="output-conversion.html#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ellipsis&quot;</span>)</span>
-<span id="cb2-2"><a href="output-conversion.html#cb2-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;generics&quot;</span>)</span>
-<span id="cb2-3"><a href="output-conversion.html#cb2-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;data.table&quot;</span>)</span>
-<span id="cb2-4"><a href="output-conversion.html#cb2-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;jjutils&quot;</span>, <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">&quot;https://rstudiopm.jnj.com/JNJ/__linux__/centos8/latest&quot;</span>, <span class="st">&quot;https://rstudiopm.jnj.com/CRAN/__linux__/centos8/latest&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="output-conversion.html#cb6-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ellipsis&quot;</span>)</span>
+<span id="cb6-2"><a href="output-conversion.html#cb6-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;generics&quot;</span>)</span>
+<span id="cb6-3"><a href="output-conversion.html#cb6-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;data.table&quot;</span>)</span>
+<span id="cb6-4"><a href="output-conversion.html#cb6-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;jjutils&quot;</span>, <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">&quot;https://rstudiopm.jnj.com/JNJ/__linux__/centos8/latest&quot;</span>, <span class="st">&quot;https://rstudiopm.jnj.com/CRAN/__linux__/centos8/latest&quot;</span>))</span></code></pre></div>
 <p><img src="picts/down_qc_pdev_1.png" alt="" width="80%" height="80%" style="display: block; margin: auto;" /></p>
 <p>After R has downloaded all the required packages, you should be able to proceed to step 7.</p>
 </div>

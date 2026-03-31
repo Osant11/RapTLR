@@ -18,10 +18,13 @@ what-is-3c-helper
 how-to-download-3c-helper
 converting-your-rtf-outputs-into-docx
 example-from-the-tlr-package
+how-to-use-3c-helper
 summary-video-no-sound
 working-with-space
-accessing-the-report-effort
-quality-checks-before-processing
+accessing-the-report-effort-and-connect-to-r
+how-to-convert-outputs-in-space
+summary-video-no-sound-1
+notes
 appendix-creation
 the-run_apdx-function
 function-parameters
@@ -87,8 +90,3 @@ study-disposition
 demographics-and-baseline-characteristics
 safety
 replacing-placeholders-and-saving
-how-to-use-3c-helper
-accessing-the-report-effort-and-connect-to-r
-how-to-convert-outputs-in-space
-summary-video-no-sound-1
-notes
