@@ -202,7 +202,8 @@ pop_text <- sprintf(
 n_site <- length(unique(tlr_adsl$SITEID))
 
 site_text <- sprintf( 
-  "In total there were %d sites recruited"
+  "In total there were %d sites recruited", 
+  n_site
 )
 
 

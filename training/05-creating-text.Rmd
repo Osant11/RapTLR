@@ -417,13 +417,13 @@ fct_var_text_group(
 )
 ```
 
-**Example 8 — Filter to a specific population first**
+**Example 8 — Filter to a specific population and selected treatments**
 
 Use `arg_fl_rest` to restrict the analysis before calculating frequencies. Percentages are computed within the filtered population.
 
 ```{r}
 fct_var_text_group(
-  arg_text_desc  = "Among safety population subjects,",
+  arg_text_desc  = "Reason for treatment discontinuation among safety population subjects:",
   arg_dataset    = tlr_adsl,
   arg_fl_rest    = SAFFL == "Y",
   arg_var_rest   = DCREASCD,
@@ -514,7 +514,7 @@ Pass the arm names to `arg_trt_inc` to append per-arm statistics after the overa
 fct_bsl_stats(
   arg_dataset = tlr_adsl,
   arg_grp     = ARM,
-  arg_trt_inc = c("Placebo", "Xanomeline Low Dose", "Xanomeline High Dose"),
+  arg_trt_inc = c("Xanomeline Low Dose", "Xanomeline High Dose"),
   arg_var_num = AGE,
   arg_var1    = "mean",
   arg_var2    = "sd",
@@ -546,7 +546,7 @@ Any treatment variable present in the dataset can serve as `arg_grp`.
 fct_bsl_stats(
   arg_dataset = tlr_adsl,
   arg_grp     = TRT01A,
-  arg_trt_inc = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+  arg_trt_inc = c("Xanomeline High Dose", "Xanomeline Low Dose"),
   arg_var_num = BMIBL,
   arg_var1    = "mean",
   arg_var2    = "sd",
@@ -590,7 +590,7 @@ fct_bsl_stats(
 
 ### Purpose
 
-`fct_mst_aes()` identifies the most common treatment-emergent adverse events (TEAEs) in a specified treatment group and returns a formatted sentence listing each event with its frequency across all groups.
+`fct_mst_aes()` identifies the most common adverse events in a specified treatment group and returns a formatted sentence listing each event with its frequency across all groups.
 
 The function works by:
 
