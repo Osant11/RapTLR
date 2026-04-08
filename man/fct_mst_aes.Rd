@@ -9,6 +9,7 @@ fct_mst_aes(
   arg_data_adsl,
   arg_grp,
   arg_var,
+  arg_fl_rest = NULL,
   arg_trt_flt = NULL,
   arg_frq = 15,
   arg_freq_num = TRUE,
@@ -26,6 +27,9 @@ Must include USUBJID and the grouping variable specified in arg_grp.}
 
 \item{arg_var}{A variable (unquoted) containing the adverse event terms to analyze
 (e.g., AEDECOD for preferred terms, AEBODSYS for system organ class).}
+
+\item{arg_fl_rest}{Unquoted expression. Optional filter condition to subset the AE
+dataset before analysis. Default is NULL (no filtering).}
 
 \item{arg_trt_flt}{A treatment group variable (unquoted, can use backticks for names
 with spaces) to use for filtering. Only events with frequency >= arg_frq in this
@@ -58,6 +62,7 @@ fct_mst_aes(
   arg_data_adsl = tlr_adsl,
   arg_grp = ARM,
   arg_var = AEDECOD,
+  arg_fl_rest = TRTEMFL == "Y",
   arg_trt_flt = `Xanomeline High Dose`
 )
 
@@ -67,6 +72,7 @@ fct_mst_aes(
   arg_data_adsl = tlr_adsl,
   arg_grp = TRT01A,
   arg_var = AEDECOD,
+  arg_fl_rest = TRTEMFL == "Y",
   arg_trt_flt = `Xanomeline High Dose`,
   arg_frq = 10,
   arg_rounding = 2
@@ -78,6 +84,7 @@ fct_mst_aes(
   arg_data_adsl = tlr_adsl,
   arg_grp = ARM,
   arg_var = AEBODSYS,
+  arg_fl_rest = TRTEMFL == "Y",
   arg_trt_flt = `Xanomeline High Dose`,
   arg_frq = 20
 )

@@ -35,6 +35,7 @@
 #'   arg_data_adsl = tlr_adsl,
 #'   arg_grp = ARM,
 #'   arg_var = AEDECOD,
+#'   arg_fl_rest = TRTEMFL == "Y",
 #'   arg_trt_flt = `Xanomeline High Dose`
 #' )
 #'
@@ -44,6 +45,7 @@
 #'   arg_data_adsl = tlr_adsl,
 #'   arg_grp = TRT01A,
 #'   arg_var = AEDECOD,
+#'   arg_fl_rest = TRTEMFL == "Y",
 #'   arg_trt_flt = `Xanomeline High Dose`,
 #'   arg_frq = 10,
 #'   arg_rounding = 2
@@ -55,6 +57,7 @@
 #'   arg_data_adsl = tlr_adsl,
 #'   arg_grp = ARM,
 #'   arg_var = AEBODSYS,
+#'   arg_fl_rest = TRTEMFL == "Y",
 #'   arg_trt_flt = `Xanomeline High Dose`,
 #'   arg_frq = 20
 #' )
