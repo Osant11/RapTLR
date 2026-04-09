@@ -608,6 +608,7 @@ The function works by:
 | `arg_data_adsl` | data frame | — | Subject-level dataset (e.g., `tlr_adsl`); must include `USUBJID` and the grouping variable |
 | `arg_grp` | unquoted name | — | Treatment group variable (e.g., `ARM`, `TRT01A`) |
 | `arg_var` | unquoted name | — | AE variable to analyse (`AEDECOD` for preferred term, `AEBODSYS` for SOC) |
+| `arg_fl_rest` | unquoted name | — | R expression to subset data |
 | `arg_trt_flt` | unquoted name | — | Treatment arm used as the frequency threshold reference (use backticks if the name contains spaces) |
 | `arg_frq` | numeric | `15` | Minimum frequency (%) in `arg_trt_flt` for an event to be included |
 | `arg_freq_num` | logical | `TRUE` | If `TRUE`, frequencies are returned as numbers |
@@ -623,6 +624,7 @@ fct_mst_aes(
   arg_data_adsl = tlr_adsl,
   arg_grp       = ARM,
   arg_var       = AEDECOD,
+  arg_fl_rest = TRTEMFL == "Y",
   arg_trt_flt   = `Xanomeline High Dose`
 )
 ```
@@ -635,6 +637,7 @@ fct_mst_aes(
   arg_data_adsl = tlr_adsl,
   arg_grp       = ARM,
   arg_var       = AEDECOD,
+  arg_fl_rest = TRTEMFL == "Y",
   arg_trt_flt   = `Xanomeline High Dose`,
   arg_frq       = 10
 )
@@ -648,6 +651,7 @@ fct_mst_aes(
   arg_data_adsl = tlr_adsl,
   arg_grp       = ARM,
   arg_var       = AEDECOD,
+  arg_fl_rest = TRTEMFL == "Y",
   arg_trt_flt   = `Xanomeline High Dose`,
   arg_frq       = 20,
   arg_rounding  = 2
@@ -664,26 +668,14 @@ fct_mst_aes(
   arg_data_adsl = tlr_adsl,
   arg_grp       = ARM,
   arg_var       = AEBODSYS,
+  arg_fl_rest = TRTEMFL == "Y",
   arg_trt_flt   = `Xanomeline High Dose`,
   arg_frq       = 15
 )
 ```
 
-**Example 5 — Use `TRT01A` as the grouping variable**
 
-```{r}
-fct_mst_aes(
-  arg_data      = tlr_adae,
-  arg_data_adsl = tlr_adsl,
-  arg_grp       = TRT01A,
-  arg_var       = AEDECOD,
-  arg_trt_flt   = `Xanomeline High Dose`,
-  arg_frq       = 15,
-  arg_rounding  = 2
-)
-```
-
-**Example 6 — Complete safety paragraph**
+**Example 5 — Complete safety paragraph**
 
 Combine `fct_mst_aes()` with `fct_smpl_rest()` using the `%c%` operator (space-join) to build a full safety narrative sentence.
 
@@ -699,6 +691,7 @@ fct_mst_aes(
     arg_data_adsl = tlr_adsl,
     arg_grp       = ARM,
     arg_var       = AEBODSYS,
+    arg_fl_rest = TRTEMFL == "Y",
     arg_trt_flt   = `Xanomeline High Dose`,
     arg_frq       = 15
 )
