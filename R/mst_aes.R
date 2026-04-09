@@ -12,6 +12,8 @@
 #' @param arg_grp A grouping variable (unquoted) for treatment groups (e.g., ARM, TRT01A).
 #' @param arg_var A variable (unquoted) containing the adverse event terms to analyze
 #'   (e.g., AEDECOD for preferred terms, AEBODSYS for system organ class).
+#' @param arg_fl_rest Unquoted expression. Optional filter condition to subset the AE
+#'   dataset before analysis. Default is NULL (no filtering).
 #' @param arg_trt_flt A treatment group variable (unquoted, can use backticks for names
 #'   with spaces) to use for filtering. Only events with frequency >= arg_frq in this
 #'   treatment group will be included. Default is NULL.
@@ -33,6 +35,7 @@
 #'   arg_data_adsl = tlr_adsl,
 #'   arg_grp = ARM,
 #'   arg_var = AEDECOD,
+#'   arg_fl_rest = TRTEMFL == "Y",
 #'   arg_trt_flt = `Xanomeline High Dose`
 #' )
 #'
@@ -42,6 +45,7 @@
 #'   arg_data_adsl = tlr_adsl,
 #'   arg_grp = TRT01A,
 #'   arg_var = AEDECOD,
+#'   arg_fl_rest = TRTEMFL == "Y",
 #'   arg_trt_flt = `Xanomeline High Dose`,
 #'   arg_frq = 10,
 #'   arg_rounding = 2
@@ -53,6 +57,7 @@
 #'   arg_data_adsl = tlr_adsl,
 #'   arg_grp = ARM,
 #'   arg_var = AEBODSYS,
+#'   arg_fl_rest = TRTEMFL == "Y",
 #'   arg_trt_flt = `Xanomeline High Dose`,
 #'   arg_frq = 20
 #' )
@@ -60,15 +65,18 @@
 #' @export
 
 
-fct_mst_aes <- function( arg_data, arg_data_adsl, arg_grp, arg_var, arg_trt_flt = NULL, arg_frq = 15, arg_freq_num = TRUE, arg_rounding = 1 ) {
+fct_mst_aes <- function( arg_data, arg_data_adsl, arg_grp, arg_var, arg_fl_rest = NULL, arg_trt_flt = NULL, arg_frq = 15, arg_freq_num = TRUE, arg_rounding = 1 ) {
 
-  data_grp <- arg_data_adsl %>% 
+  cond_fl <- rlang::enquo( arg_fl_rest )
+
+  data_grp <- arg_data_adsl %>%
     dplyr::select( USUBJID, {{ arg_grp }} )
 
   int_col <- dplyr::intersect( colnames( data_grp ), colnames( arg_data ) )
-  
-  arg_data %>% 
-    dplyr::left_join( data_grp, by = int_col ) %>% 
+
+  arg_data %>%
+    dplyr::filter( if( !rlang::quo_is_null( cond_fl ) ) !!cond_fl else TRUE ) %>%
+    dplyr::left_join( data_grp, by = int_col ) %>%
     dplyr::group_by( {{ arg_grp }}, {{ arg_var }} ) %>% 
     dplyr::summarise( count = dplyr::n_distinct( USUBJID ), .groups = "drop" ) %>% 
     dplyr::left_join( fct_grp_tbl( arg_data = arg_data_adsl, arg_grp = {{ arg_grp }} ), by = dplyr::join_by( {{ arg_grp }} ) ) %>%
