@@ -12,7 +12,7 @@ RapTLR provides a set of text-generation functions that produce ready-to-insert 
 
 The outputs are plain character strings, so they slot directly into `textReplace()` to populate placeholders in your Word shell document. All examples in this chapter use the two built-in datasets:
 
-```{r }
+```{r}
 library(RapTLR)
 
 data("tlr_adsl")   # Subject-level analysis dataset (ADSL) — 254 subjects

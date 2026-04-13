@@ -23,7 +23,7 @@
 <meta name="author" content="RapTLR Development Team" />
 
 
-<meta name="date" content="2026-03-31" />
+<meta name="date" content="2026-04-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -276,8 +276,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="putting-together.html"><a href="putting-together.html#general-information"><i class="fa fa-check"></i><b>8.2</b> General Information</a></li>
 <li class="chapter" data-level="8.3" data-path="putting-together.html"><a href="putting-together.html#study-disposition"><i class="fa fa-check"></i><b>8.3</b> Study Disposition</a></li>
 <li class="chapter" data-level="8.4" data-path="putting-together.html"><a href="putting-together.html#demographics-and-baseline-characteristics"><i class="fa fa-check"></i><b>8.4</b> Demographics and Baseline Characteristics</a></li>
-<li class="chapter" data-level="8.5" data-path="putting-together.html"><a href="putting-together.html#safety"><i class="fa fa-check"></i><b>8.5</b> Safety</a></li>
-<li class="chapter" data-level="8.6" data-path="putting-together.html"><a href="putting-together.html#replacing-placeholders-and-saving"><i class="fa fa-check"></i><b>8.6</b> Replacing Placeholders and Saving</a></li>
+<li class="chapter" data-level="8.5" data-path="putting-together.html"><a href="putting-together.html#efficacy"><i class="fa fa-check"></i><b>8.5</b> Efficacy</a></li>
+<li class="chapter" data-level="8.6" data-path="putting-together.html"><a href="putting-together.html#safety"><i class="fa fa-check"></i><b>8.6</b> Safety</a></li>
+<li class="chapter" data-level="8.7" data-path="putting-together.html"><a href="putting-together.html#inserting-an-inline-table"><i class="fa fa-check"></i><b>8.7</b> Inserting an inline table</a></li>
+<li class="chapter" data-level="8.8" data-path="putting-together.html"><a href="putting-together.html#replacing-placeholders-and-saving"><i class="fa fa-check"></i><b>8.8</b> Replacing Placeholders and Saving</a></li>
 </ul></li>
 </ul>
 
@@ -324,33 +326,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.4</span> Basic Usage<a href="text-replacement.html#basic-usage-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We provided a dummy .DOCX document with placeholders that can be used for practicing. It can be looked <a href="https://jnj.sharepoint.com/:w:/r/teams/TLRinRPackage/_layouts/15/Doc.aspx?sourcedoc=%7B9D05A9C3-2012-40DA-A616-A978F03EB164%7D&amp;file=Keywords_replace.docx&amp;action=default&amp;mobileredirect=true">here</a>.</p>
 <p>The following code can be used to access the document after installing the package.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="text-replacement.html#cb12-1" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="text-replacement.html#cb1-1" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span></code></pre></div>
 <p>Within this document there are three placeholders, <code>TTsubjectTT</code>, <code>TTsiteTT</code>, <code>TTconclusionTT</code> and each of these placeholders can be replaced with R values using the <code>textReplace()</code> function:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="text-replacement.html#cb13-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
-<span id="cb13-2"><a href="text-replacement.html#cb13-2" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="text-replacement.html#cb13-3" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
-<span id="cb13-4"><a href="text-replacement.html#cb13-4" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="text-replacement.html#cb13-5" tabindex="-1"></a>TTsubjectTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 250 randomized subjects.&quot;</span></span>
-<span id="cb13-6"><a href="text-replacement.html#cb13-6" tabindex="-1"></a>TTsiteTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 15 different sites.&quot;</span></span>
-<span id="cb13-7"><a href="text-replacement.html#cb13-7" tabindex="-1"></a>TTconclusionTT <span class="ot">&lt;-</span> <span class="st">&quot;The study succeeded.&quot;</span></span>
-<span id="cb13-8"><a href="text-replacement.html#cb13-8" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="text-replacement.html#cb13-9" tabindex="-1"></a>new_doc <span class="ot">&lt;-</span> <span class="fu">textReplace</span>(</span>
-<span id="cb13-10"><a href="text-replacement.html#cb13-10" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
-<span id="cb13-11"><a href="text-replacement.html#cb13-11" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsubjectTT&quot;</span>,</span>
-<span id="cb13-12"><a href="text-replacement.html#cb13-12" tabindex="-1"></a>  <span class="at">replacement =</span> TTsubjectTT</span>
-<span id="cb13-13"><a href="text-replacement.html#cb13-13" tabindex="-1"></a>)</span>
-<span id="cb13-14"><a href="text-replacement.html#cb13-14" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="text-replacement.html#cb13-15" tabindex="-1"></a>new_doc <span class="ot">&lt;-</span> <span class="fu">textReplace</span>(</span>
-<span id="cb13-16"><a href="text-replacement.html#cb13-16" tabindex="-1"></a>  <span class="at">doc_object =</span> new_doc,</span>
-<span id="cb13-17"><a href="text-replacement.html#cb13-17" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsiteTT&quot;</span>,</span>
-<span id="cb13-18"><a href="text-replacement.html#cb13-18" tabindex="-1"></a>  <span class="at">replacement =</span> TTsiteTT</span>
-<span id="cb13-19"><a href="text-replacement.html#cb13-19" tabindex="-1"></a>)</span>
-<span id="cb13-20"><a href="text-replacement.html#cb13-20" tabindex="-1"></a></span>
-<span id="cb13-21"><a href="text-replacement.html#cb13-21" tabindex="-1"></a>new_doc <span class="ot">&lt;-</span> <span class="fu">textReplace</span>(</span>
-<span id="cb13-22"><a href="text-replacement.html#cb13-22" tabindex="-1"></a>  <span class="at">doc_object =</span> new_doc,</span>
-<span id="cb13-23"><a href="text-replacement.html#cb13-23" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTconclusionTT&quot;</span>,</span>
-<span id="cb13-24"><a href="text-replacement.html#cb13-24" tabindex="-1"></a>  <span class="at">replacement =</span> TTconclusionTT</span>
-<span id="cb13-25"><a href="text-replacement.html#cb13-25" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="text-replacement.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb2-2"><a href="text-replacement.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="text-replacement.html#cb2-3" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
+<span id="cb2-4"><a href="text-replacement.html#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="text-replacement.html#cb2-5" tabindex="-1"></a>TTsubjectTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 250 randomized subjects.&quot;</span></span>
+<span id="cb2-6"><a href="text-replacement.html#cb2-6" tabindex="-1"></a>TTsiteTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 15 different sites.&quot;</span></span>
+<span id="cb2-7"><a href="text-replacement.html#cb2-7" tabindex="-1"></a>TTconclusionTT <span class="ot">&lt;-</span> <span class="st">&quot;The study succeeded.&quot;</span></span>
+<span id="cb2-8"><a href="text-replacement.html#cb2-8" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="text-replacement.html#cb2-9" tabindex="-1"></a>new_doc <span class="ot">&lt;-</span> <span class="fu">textReplace</span>(</span>
+<span id="cb2-10"><a href="text-replacement.html#cb2-10" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
+<span id="cb2-11"><a href="text-replacement.html#cb2-11" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsubjectTT&quot;</span>,</span>
+<span id="cb2-12"><a href="text-replacement.html#cb2-12" tabindex="-1"></a>  <span class="at">replacement =</span> TTsubjectTT</span>
+<span id="cb2-13"><a href="text-replacement.html#cb2-13" tabindex="-1"></a>)</span>
+<span id="cb2-14"><a href="text-replacement.html#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="text-replacement.html#cb2-15" tabindex="-1"></a>new_doc <span class="ot">&lt;-</span> <span class="fu">textReplace</span>(</span>
+<span id="cb2-16"><a href="text-replacement.html#cb2-16" tabindex="-1"></a>  <span class="at">doc_object =</span> new_doc,</span>
+<span id="cb2-17"><a href="text-replacement.html#cb2-17" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsiteTT&quot;</span>,</span>
+<span id="cb2-18"><a href="text-replacement.html#cb2-18" tabindex="-1"></a>  <span class="at">replacement =</span> TTsiteTT</span>
+<span id="cb2-19"><a href="text-replacement.html#cb2-19" tabindex="-1"></a>)</span>
+<span id="cb2-20"><a href="text-replacement.html#cb2-20" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="text-replacement.html#cb2-21" tabindex="-1"></a>new_doc <span class="ot">&lt;-</span> <span class="fu">textReplace</span>(</span>
+<span id="cb2-22"><a href="text-replacement.html#cb2-22" tabindex="-1"></a>  <span class="at">doc_object =</span> new_doc,</span>
+<span id="cb2-23"><a href="text-replacement.html#cb2-23" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTconclusionTT&quot;</span>,</span>
+<span id="cb2-24"><a href="text-replacement.html#cb2-24" tabindex="-1"></a>  <span class="at">replacement =</span> TTconclusionTT</span>
+<span id="cb2-25"><a href="text-replacement.html#cb2-25" tabindex="-1"></a>)</span></code></pre></div>
 <p>Notice that the original .DOCX document is called only the first time and the updated document is saved in R as <code>new_doc</code> and is automatically saved as <code>TLR_updated.docx</code> in the current working directory.<br />
 For the two others placeholders, the update is made directly on <code>new_doc</code> and save again as <code>new_doc</code> and as <code>TLR_updated.docx</code>.</p>
 </div>
@@ -359,54 +361,54 @@ For the two others placeholders, the update is made directly on <code>new_doc</c
 <p>Instead of calling the object multiple times, it is also possible to create a chain or pipe.</p>
 <div id="method-1-base-r-pipe" class="section level3 hasAnchor" number="5.5.1">
 <h3><span class="header-section-number">5.5.1</span> Method 1: Base R Pipe<a href="text-replacement.html#method-1-base-r-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="text-replacement.html#cb14-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
-<span id="cb14-2"><a href="text-replacement.html#cb14-2" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="text-replacement.html#cb14-3" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
-<span id="cb14-4"><a href="text-replacement.html#cb14-4" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="text-replacement.html#cb14-5" tabindex="-1"></a>TTsubjectTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 250 randomized subjects.&quot;</span></span>
-<span id="cb14-6"><a href="text-replacement.html#cb14-6" tabindex="-1"></a>TTsiteTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 15 different sites.&quot;</span></span>
-<span id="cb14-7"><a href="text-replacement.html#cb14-7" tabindex="-1"></a>TTconclusionTT <span class="ot">&lt;-</span> <span class="st">&quot;The study succeeded.&quot;</span></span>
-<span id="cb14-8"><a href="text-replacement.html#cb14-8" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="text-replacement.html#cb14-9" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb14-10"><a href="text-replacement.html#cb14-10" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
-<span id="cb14-11"><a href="text-replacement.html#cb14-11" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsubjectTT&quot;</span>,</span>
-<span id="cb14-12"><a href="text-replacement.html#cb14-12" tabindex="-1"></a>  <span class="at">replacement =</span> TTsubjectTT</span>
-<span id="cb14-13"><a href="text-replacement.html#cb14-13" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb14-14"><a href="text-replacement.html#cb14-14" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb14-15"><a href="text-replacement.html#cb14-15" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsiteTT&quot;</span>,</span>
-<span id="cb14-16"><a href="text-replacement.html#cb14-16" tabindex="-1"></a>  <span class="at">replacement =</span> TTsiteTT</span>
-<span id="cb14-17"><a href="text-replacement.html#cb14-17" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb14-18"><a href="text-replacement.html#cb14-18" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb14-19"><a href="text-replacement.html#cb14-19" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTconclusionTT&quot;</span>,</span>
-<span id="cb14-20"><a href="text-replacement.html#cb14-20" tabindex="-1"></a>  <span class="at">replacement =</span> TTconclusionTT,</span>
-<span id="cb14-21"><a href="text-replacement.html#cb14-21" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_final.docx&quot;</span></span>
-<span id="cb14-22"><a href="text-replacement.html#cb14-22" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="text-replacement.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb3-2"><a href="text-replacement.html#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="text-replacement.html#cb3-3" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
+<span id="cb3-4"><a href="text-replacement.html#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="text-replacement.html#cb3-5" tabindex="-1"></a>TTsubjectTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 250 randomized subjects.&quot;</span></span>
+<span id="cb3-6"><a href="text-replacement.html#cb3-6" tabindex="-1"></a>TTsiteTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 15 different sites.&quot;</span></span>
+<span id="cb3-7"><a href="text-replacement.html#cb3-7" tabindex="-1"></a>TTconclusionTT <span class="ot">&lt;-</span> <span class="st">&quot;The study succeeded.&quot;</span></span>
+<span id="cb3-8"><a href="text-replacement.html#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="text-replacement.html#cb3-9" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb3-10"><a href="text-replacement.html#cb3-10" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
+<span id="cb3-11"><a href="text-replacement.html#cb3-11" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsubjectTT&quot;</span>,</span>
+<span id="cb3-12"><a href="text-replacement.html#cb3-12" tabindex="-1"></a>  <span class="at">replacement =</span> TTsubjectTT</span>
+<span id="cb3-13"><a href="text-replacement.html#cb3-13" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-14"><a href="text-replacement.html#cb3-14" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb3-15"><a href="text-replacement.html#cb3-15" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsiteTT&quot;</span>,</span>
+<span id="cb3-16"><a href="text-replacement.html#cb3-16" tabindex="-1"></a>  <span class="at">replacement =</span> TTsiteTT</span>
+<span id="cb3-17"><a href="text-replacement.html#cb3-17" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-18"><a href="text-replacement.html#cb3-18" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb3-19"><a href="text-replacement.html#cb3-19" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTconclusionTT&quot;</span>,</span>
+<span id="cb3-20"><a href="text-replacement.html#cb3-20" tabindex="-1"></a>  <span class="at">replacement =</span> TTconclusionTT,</span>
+<span id="cb3-21"><a href="text-replacement.html#cb3-21" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_final.docx&quot;</span></span>
+<span id="cb3-22"><a href="text-replacement.html#cb3-22" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="method-2-magrittr-pipe" class="section level3 hasAnchor" number="5.5.2">
 <h3><span class="header-section-number">5.5.2</span> Method 2: magrittr Pipe<a href="text-replacement.html#method-2-magrittr-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="text-replacement.html#cb15-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
-<span id="cb15-2"><a href="text-replacement.html#cb15-2" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb15-3"><a href="text-replacement.html#cb15-3" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="text-replacement.html#cb15-4" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
-<span id="cb15-5"><a href="text-replacement.html#cb15-5" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="text-replacement.html#cb15-6" tabindex="-1"></a>TTsubjectTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 250 randomized subjects.&quot;</span></span>
-<span id="cb15-7"><a href="text-replacement.html#cb15-7" tabindex="-1"></a>TTsiteTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 15 different sites.&quot;</span></span>
-<span id="cb15-8"><a href="text-replacement.html#cb15-8" tabindex="-1"></a>TTconclusionTT <span class="ot">&lt;-</span> <span class="st">&quot;The study succeeded.&quot;</span></span>
-<span id="cb15-9"><a href="text-replacement.html#cb15-9" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="text-replacement.html#cb15-10" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb15-11"><a href="text-replacement.html#cb15-11" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
-<span id="cb15-12"><a href="text-replacement.html#cb15-12" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsubjectTT&quot;</span>,</span>
-<span id="cb15-13"><a href="text-replacement.html#cb15-13" tabindex="-1"></a>  <span class="at">replacement =</span> TTsubjectTT</span>
-<span id="cb15-14"><a href="text-replacement.html#cb15-14" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-15"><a href="text-replacement.html#cb15-15" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb15-16"><a href="text-replacement.html#cb15-16" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsiteTT&quot;</span>,</span>
-<span id="cb15-17"><a href="text-replacement.html#cb15-17" tabindex="-1"></a>  <span class="at">replacement =</span> TTsiteTT</span>
-<span id="cb15-18"><a href="text-replacement.html#cb15-18" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-19"><a href="text-replacement.html#cb15-19" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb15-20"><a href="text-replacement.html#cb15-20" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTconclusionTT&quot;</span>,</span>
-<span id="cb15-21"><a href="text-replacement.html#cb15-21" tabindex="-1"></a>  <span class="at">replacement =</span> TTconclusionTT,</span>
-<span id="cb15-22"><a href="text-replacement.html#cb15-22" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_final.docx&quot;</span></span>
-<span id="cb15-23"><a href="text-replacement.html#cb15-23" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="text-replacement.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb4-2"><a href="text-replacement.html#cb4-2" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb4-3"><a href="text-replacement.html#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="text-replacement.html#cb4-4" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
+<span id="cb4-5"><a href="text-replacement.html#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="text-replacement.html#cb4-6" tabindex="-1"></a>TTsubjectTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 250 randomized subjects.&quot;</span></span>
+<span id="cb4-7"><a href="text-replacement.html#cb4-7" tabindex="-1"></a>TTsiteTT <span class="ot">&lt;-</span> <span class="st">&quot;There were 15 different sites.&quot;</span></span>
+<span id="cb4-8"><a href="text-replacement.html#cb4-8" tabindex="-1"></a>TTconclusionTT <span class="ot">&lt;-</span> <span class="st">&quot;The study succeeded.&quot;</span></span>
+<span id="cb4-9"><a href="text-replacement.html#cb4-9" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="text-replacement.html#cb4-10" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb4-11"><a href="text-replacement.html#cb4-11" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
+<span id="cb4-12"><a href="text-replacement.html#cb4-12" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsubjectTT&quot;</span>,</span>
+<span id="cb4-13"><a href="text-replacement.html#cb4-13" tabindex="-1"></a>  <span class="at">replacement =</span> TTsubjectTT</span>
+<span id="cb4-14"><a href="text-replacement.html#cb4-14" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-15"><a href="text-replacement.html#cb4-15" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb4-16"><a href="text-replacement.html#cb4-16" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsiteTT&quot;</span>,</span>
+<span id="cb4-17"><a href="text-replacement.html#cb4-17" tabindex="-1"></a>  <span class="at">replacement =</span> TTsiteTT</span>
+<span id="cb4-18"><a href="text-replacement.html#cb4-18" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-19"><a href="text-replacement.html#cb4-19" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb4-20"><a href="text-replacement.html#cb4-20" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTconclusionTT&quot;</span>,</span>
+<span id="cb4-21"><a href="text-replacement.html#cb4-21" tabindex="-1"></a>  <span class="at">replacement =</span> TTconclusionTT,</span>
+<span id="cb4-22"><a href="text-replacement.html#cb4-22" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_final.docx&quot;</span></span>
+<span id="cb4-23"><a href="text-replacement.html#cb4-23" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 <div id="practical-examples" class="section level2 hasAnchor" number="5.6">
@@ -415,102 +417,103 @@ For the two others placeholders, the update is made directly on <code>new_doc</c
 In the below examples we are using only <code>tlr_adsl</code> but we will use <code>tlr_adae</code> in the next chapter.</p>
 <div id="example-1-population-counts" class="section level3 hasAnchor" number="5.6.1">
 <h3><span class="header-section-number">5.6.1</span> Example 1: Population Counts<a href="text-replacement.html#example-1-population-counts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="text-replacement.html#cb16-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR) </span>
-<span id="cb16-2"><a href="text-replacement.html#cb16-2" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="text-replacement.html#cb16-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tlr_adsl&quot;</span>)</span>
-<span id="cb16-4"><a href="text-replacement.html#cb16-4" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="text-replacement.html#cb16-5" tabindex="-1"></a>n_enrolled <span class="ot">&lt;-</span> <span class="fu">nrow</span>(tlr_adsl)</span>
-<span id="cb16-6"><a href="text-replacement.html#cb16-6" tabindex="-1"></a>n_safety <span class="ot">&lt;-</span> <span class="fu">sum</span>(tlr_adsl<span class="sc">$</span>SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>)</span>
-<span id="cb16-7"><a href="text-replacement.html#cb16-7" tabindex="-1"></a>n_efficacy <span class="ot">&lt;-</span> <span class="fu">sum</span>(tlr_adsl<span class="sc">$</span>EFFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>)</span>
-<span id="cb16-8"><a href="text-replacement.html#cb16-8" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="text-replacement.html#cb16-9" tabindex="-1"></a>pop_text <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb16-10"><a href="text-replacement.html#cb16-10" tabindex="-1"></a>  <span class="st">&quot;A total of %d participants were enrolled. The safety population included %d participants and the efficacy population included %d participants.&quot;</span>,</span>
-<span id="cb16-11"><a href="text-replacement.html#cb16-11" tabindex="-1"></a>  n_enrolled, n_safety, n_efficacy</span>
-<span id="cb16-12"><a href="text-replacement.html#cb16-12" tabindex="-1"></a>)</span>
-<span id="cb16-13"><a href="text-replacement.html#cb16-13" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="text-replacement.html#cb16-14" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
-<span id="cb16-15"><a href="text-replacement.html#cb16-15" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="text-replacement.html#cb16-16" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb16-17"><a href="text-replacement.html#cb16-17" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
-<span id="cb16-18"><a href="text-replacement.html#cb16-18" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsubjectTT&quot;</span>,</span>
-<span id="cb16-19"><a href="text-replacement.html#cb16-19" tabindex="-1"></a>  <span class="at">replacement =</span> TTsubjectTT, </span>
-<span id="cb16-20"><a href="text-replacement.html#cb16-20" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_updated.docx&quot;</span></span>
-<span id="cb16-21"><a href="text-replacement.html#cb16-21" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="text-replacement.html#cb5-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR) </span>
+<span id="cb5-2"><a href="text-replacement.html#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="text-replacement.html#cb5-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tlr_adsl&quot;</span>)</span>
+<span id="cb5-4"><a href="text-replacement.html#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="text-replacement.html#cb5-5" tabindex="-1"></a>n_enrolled <span class="ot">&lt;-</span> <span class="fu">nrow</span>(tlr_adsl)</span>
+<span id="cb5-6"><a href="text-replacement.html#cb5-6" tabindex="-1"></a>n_safety <span class="ot">&lt;-</span> <span class="fu">sum</span>(tlr_adsl<span class="sc">$</span>SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>)</span>
+<span id="cb5-7"><a href="text-replacement.html#cb5-7" tabindex="-1"></a>n_efficacy <span class="ot">&lt;-</span> <span class="fu">sum</span>(tlr_adsl<span class="sc">$</span>EFFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>)</span>
+<span id="cb5-8"><a href="text-replacement.html#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="text-replacement.html#cb5-9" tabindex="-1"></a>pop_text <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
+<span id="cb5-10"><a href="text-replacement.html#cb5-10" tabindex="-1"></a>  <span class="st">&quot;A total of %d participants were enrolled. The safety population included %d participants and the efficacy population included %d participants.&quot;</span>,</span>
+<span id="cb5-11"><a href="text-replacement.html#cb5-11" tabindex="-1"></a>  n_enrolled, n_safety, n_efficacy</span>
+<span id="cb5-12"><a href="text-replacement.html#cb5-12" tabindex="-1"></a>)</span>
+<span id="cb5-13"><a href="text-replacement.html#cb5-13" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="text-replacement.html#cb5-14" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
+<span id="cb5-15"><a href="text-replacement.html#cb5-15" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="text-replacement.html#cb5-16" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb5-17"><a href="text-replacement.html#cb5-17" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
+<span id="cb5-18"><a href="text-replacement.html#cb5-18" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsubjectTT&quot;</span>,</span>
+<span id="cb5-19"><a href="text-replacement.html#cb5-19" tabindex="-1"></a>  <span class="at">replacement =</span> TTsubjectTT, </span>
+<span id="cb5-20"><a href="text-replacement.html#cb5-20" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_updated.docx&quot;</span></span>
+<span id="cb5-21"><a href="text-replacement.html#cb5-21" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="example-2-efficacy-results" class="section level3 hasAnchor" number="5.6.2">
 <h3><span class="header-section-number">5.6.2</span> Example 2: Efficacy Results<a href="text-replacement.html#example-2-efficacy-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="text-replacement.html#cb17-1" tabindex="-1"></a>response_rate_trt <span class="ot">&lt;-</span> <span class="fl">0.45</span></span>
-<span id="cb17-2"><a href="text-replacement.html#cb17-2" tabindex="-1"></a>response_rate_pbo <span class="ot">&lt;-</span> <span class="fl">0.30</span></span>
-<span id="cb17-3"><a href="text-replacement.html#cb17-3" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="text-replacement.html#cb17-4" tabindex="-1"></a>efficacy_text <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb17-5"><a href="text-replacement.html#cb17-5" tabindex="-1"></a>  <span class="st">&quot;The response rate was %.1f%% in treatment vs %.1f%% in placebo.&quot;</span>,</span>
-<span id="cb17-6"><a href="text-replacement.html#cb17-6" tabindex="-1"></a>  response_rate_trt <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb17-7"><a href="text-replacement.html#cb17-7" tabindex="-1"></a>  response_rate_pbo <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb17-8"><a href="text-replacement.html#cb17-8" tabindex="-1"></a>)</span>
-<span id="cb17-9"><a href="text-replacement.html#cb17-9" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="text-replacement.html#cb17-10" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
-<span id="cb17-11"><a href="text-replacement.html#cb17-11" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="text-replacement.html#cb17-12" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb17-13"><a href="text-replacement.html#cb17-13" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
-<span id="cb17-14"><a href="text-replacement.html#cb17-14" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTconclusionTT&quot;</span>,</span>
-<span id="cb17-15"><a href="text-replacement.html#cb17-15" tabindex="-1"></a>  <span class="at">replacement =</span> efficacy_text, </span>
-<span id="cb17-16"><a href="text-replacement.html#cb17-16" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_updated.docx&quot;</span></span>
-<span id="cb17-17"><a href="text-replacement.html#cb17-17" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="text-replacement.html#cb6-1" tabindex="-1"></a>response_rate_trt <span class="ot">&lt;-</span> <span class="fl">0.45</span></span>
+<span id="cb6-2"><a href="text-replacement.html#cb6-2" tabindex="-1"></a>response_rate_pbo <span class="ot">&lt;-</span> <span class="fl">0.30</span></span>
+<span id="cb6-3"><a href="text-replacement.html#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="text-replacement.html#cb6-4" tabindex="-1"></a>efficacy_text <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
+<span id="cb6-5"><a href="text-replacement.html#cb6-5" tabindex="-1"></a>  <span class="st">&quot;The response rate was %.1f%% in treatment vs %.1f%% in placebo.&quot;</span>,</span>
+<span id="cb6-6"><a href="text-replacement.html#cb6-6" tabindex="-1"></a>  response_rate_trt <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb6-7"><a href="text-replacement.html#cb6-7" tabindex="-1"></a>  response_rate_pbo <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb6-8"><a href="text-replacement.html#cb6-8" tabindex="-1"></a>)</span>
+<span id="cb6-9"><a href="text-replacement.html#cb6-9" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="text-replacement.html#cb6-10" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
+<span id="cb6-11"><a href="text-replacement.html#cb6-11" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="text-replacement.html#cb6-12" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb6-13"><a href="text-replacement.html#cb6-13" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
+<span id="cb6-14"><a href="text-replacement.html#cb6-14" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTconclusionTT&quot;</span>,</span>
+<span id="cb6-15"><a href="text-replacement.html#cb6-15" tabindex="-1"></a>  <span class="at">replacement =</span> efficacy_text, </span>
+<span id="cb6-16"><a href="text-replacement.html#cb6-16" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_updated.docx&quot;</span></span>
+<span id="cb6-17"><a href="text-replacement.html#cb6-17" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 <div id="complete-workflow-example" class="section level2 hasAnchor" number="5.7">
 <h2><span class="header-section-number">5.7</span> Complete Workflow Example<a href="text-replacement.html#complete-workflow-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="text-replacement.html#cb18-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
-<span id="cb18-2"><a href="text-replacement.html#cb18-2" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb18-3"><a href="text-replacement.html#cb18-3" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="text-replacement.html#cb18-4" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tlr_adsl&quot;</span>)</span>
-<span id="cb18-5"><a href="text-replacement.html#cb18-5" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="text-replacement.html#cb18-6" tabindex="-1"></a><span class="co"># Subjects</span></span>
-<span id="cb18-7"><a href="text-replacement.html#cb18-7" tabindex="-1"></a>n_enrolled <span class="ot">&lt;-</span> <span class="fu">nrow</span>(tlr_adsl)</span>
-<span id="cb18-8"><a href="text-replacement.html#cb18-8" tabindex="-1"></a>n_safety <span class="ot">&lt;-</span> <span class="fu">sum</span>(tlr_adsl<span class="sc">$</span>SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>)</span>
-<span id="cb18-9"><a href="text-replacement.html#cb18-9" tabindex="-1"></a>n_efficacy <span class="ot">&lt;-</span> <span class="fu">sum</span>(tlr_adsl<span class="sc">$</span>EFFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>)</span>
-<span id="cb18-10"><a href="text-replacement.html#cb18-10" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="text-replacement.html#cb18-11" tabindex="-1"></a>pop_text <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb18-12"><a href="text-replacement.html#cb18-12" tabindex="-1"></a>  <span class="st">&quot;A total of %d participants were enrolled. The safety population included %d participants and the efficacy population included %d participants.&quot;</span>,</span>
-<span id="cb18-13"><a href="text-replacement.html#cb18-13" tabindex="-1"></a>  n_enrolled, n_safety, n_efficacy</span>
-<span id="cb18-14"><a href="text-replacement.html#cb18-14" tabindex="-1"></a>)</span>
-<span id="cb18-15"><a href="text-replacement.html#cb18-15" tabindex="-1"></a></span>
-<span id="cb18-16"><a href="text-replacement.html#cb18-16" tabindex="-1"></a><span class="co"># Sites</span></span>
-<span id="cb18-17"><a href="text-replacement.html#cb18-17" tabindex="-1"></a>n_site <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(tlr_adsl<span class="sc">$</span>SITEID))</span>
-<span id="cb18-18"><a href="text-replacement.html#cb18-18" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="text-replacement.html#cb18-19" tabindex="-1"></a>site_text <span class="ot">&lt;-</span> <span class="fu">sprintf</span>( </span>
-<span id="cb18-20"><a href="text-replacement.html#cb18-20" tabindex="-1"></a>  <span class="st">&quot;In total there were %d sites recruited&quot;</span></span>
-<span id="cb18-21"><a href="text-replacement.html#cb18-21" tabindex="-1"></a>)</span>
-<span id="cb18-22"><a href="text-replacement.html#cb18-22" tabindex="-1"></a></span>
-<span id="cb18-23"><a href="text-replacement.html#cb18-23" tabindex="-1"></a></span>
-<span id="cb18-24"><a href="text-replacement.html#cb18-24" tabindex="-1"></a><span class="co"># Efficacy</span></span>
-<span id="cb18-25"><a href="text-replacement.html#cb18-25" tabindex="-1"></a>response_rate_trt <span class="ot">&lt;-</span> <span class="fl">0.45</span></span>
-<span id="cb18-26"><a href="text-replacement.html#cb18-26" tabindex="-1"></a>response_rate_pbo <span class="ot">&lt;-</span> <span class="fl">0.30</span></span>
-<span id="cb18-27"><a href="text-replacement.html#cb18-27" tabindex="-1"></a></span>
-<span id="cb18-28"><a href="text-replacement.html#cb18-28" tabindex="-1"></a>efficacy_text <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
-<span id="cb18-29"><a href="text-replacement.html#cb18-29" tabindex="-1"></a>  <span class="st">&quot;The response rate was %.1f%% in treatment vs %.1f%% in placebo.&quot;</span>,</span>
-<span id="cb18-30"><a href="text-replacement.html#cb18-30" tabindex="-1"></a>  response_rate_trt <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb18-31"><a href="text-replacement.html#cb18-31" tabindex="-1"></a>  response_rate_pbo <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb18-32"><a href="text-replacement.html#cb18-32" tabindex="-1"></a>)</span>
-<span id="cb18-33"><a href="text-replacement.html#cb18-33" tabindex="-1"></a></span>
-<span id="cb18-34"><a href="text-replacement.html#cb18-34" tabindex="-1"></a><span class="co"># Docx document</span></span>
-<span id="cb18-35"><a href="text-replacement.html#cb18-35" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
-<span id="cb18-36"><a href="text-replacement.html#cb18-36" tabindex="-1"></a></span>
-<span id="cb18-37"><a href="text-replacement.html#cb18-37" tabindex="-1"></a><span class="co"># Replacing placeholders</span></span>
-<span id="cb18-38"><a href="text-replacement.html#cb18-38" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb18-39"><a href="text-replacement.html#cb18-39" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
-<span id="cb18-40"><a href="text-replacement.html#cb18-40" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsubjectTT&quot;</span>,</span>
-<span id="cb18-41"><a href="text-replacement.html#cb18-41" tabindex="-1"></a>  <span class="at">replacement =</span> pop_text</span>
-<span id="cb18-42"><a href="text-replacement.html#cb18-42" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-43"><a href="text-replacement.html#cb18-43" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb18-44"><a href="text-replacement.html#cb18-44" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsiteTT&quot;</span>, </span>
-<span id="cb18-45"><a href="text-replacement.html#cb18-45" tabindex="-1"></a>  <span class="at">replacement =</span> site_text</span>
-<span id="cb18-46"><a href="text-replacement.html#cb18-46" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-47"><a href="text-replacement.html#cb18-47" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
-<span id="cb18-48"><a href="text-replacement.html#cb18-48" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTconclusionTT&quot;</span>,</span>
-<span id="cb18-49"><a href="text-replacement.html#cb18-49" tabindex="-1"></a>  <span class="at">replacement =</span> efficacy_text, </span>
-<span id="cb18-50"><a href="text-replacement.html#cb18-50" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_updated.docx&quot;</span></span>
-<span id="cb18-51"><a href="text-replacement.html#cb18-51" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="text-replacement.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(RapTLR)</span>
+<span id="cb7-2"><a href="text-replacement.html#cb7-2" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb7-3"><a href="text-replacement.html#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="text-replacement.html#cb7-4" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tlr_adsl&quot;</span>)</span>
+<span id="cb7-5"><a href="text-replacement.html#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="text-replacement.html#cb7-6" tabindex="-1"></a><span class="co"># Subjects</span></span>
+<span id="cb7-7"><a href="text-replacement.html#cb7-7" tabindex="-1"></a>n_enrolled <span class="ot">&lt;-</span> <span class="fu">nrow</span>(tlr_adsl)</span>
+<span id="cb7-8"><a href="text-replacement.html#cb7-8" tabindex="-1"></a>n_safety <span class="ot">&lt;-</span> <span class="fu">sum</span>(tlr_adsl<span class="sc">$</span>SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>)</span>
+<span id="cb7-9"><a href="text-replacement.html#cb7-9" tabindex="-1"></a>n_efficacy <span class="ot">&lt;-</span> <span class="fu">sum</span>(tlr_adsl<span class="sc">$</span>EFFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>)</span>
+<span id="cb7-10"><a href="text-replacement.html#cb7-10" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="text-replacement.html#cb7-11" tabindex="-1"></a>pop_text <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
+<span id="cb7-12"><a href="text-replacement.html#cb7-12" tabindex="-1"></a>  <span class="st">&quot;A total of %d participants were enrolled. The safety population included %d participants and the efficacy population included %d participants.&quot;</span>,</span>
+<span id="cb7-13"><a href="text-replacement.html#cb7-13" tabindex="-1"></a>  n_enrolled, n_safety, n_efficacy</span>
+<span id="cb7-14"><a href="text-replacement.html#cb7-14" tabindex="-1"></a>)</span>
+<span id="cb7-15"><a href="text-replacement.html#cb7-15" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="text-replacement.html#cb7-16" tabindex="-1"></a><span class="co"># Sites</span></span>
+<span id="cb7-17"><a href="text-replacement.html#cb7-17" tabindex="-1"></a>n_site <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(tlr_adsl<span class="sc">$</span>SITEID))</span>
+<span id="cb7-18"><a href="text-replacement.html#cb7-18" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="text-replacement.html#cb7-19" tabindex="-1"></a>site_text <span class="ot">&lt;-</span> <span class="fu">sprintf</span>( </span>
+<span id="cb7-20"><a href="text-replacement.html#cb7-20" tabindex="-1"></a>  <span class="st">&quot;In total there were %d sites recruited&quot;</span>, </span>
+<span id="cb7-21"><a href="text-replacement.html#cb7-21" tabindex="-1"></a>  n_site</span>
+<span id="cb7-22"><a href="text-replacement.html#cb7-22" tabindex="-1"></a>)</span>
+<span id="cb7-23"><a href="text-replacement.html#cb7-23" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="text-replacement.html#cb7-24" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="text-replacement.html#cb7-25" tabindex="-1"></a><span class="co"># Efficacy</span></span>
+<span id="cb7-26"><a href="text-replacement.html#cb7-26" tabindex="-1"></a>response_rate_trt <span class="ot">&lt;-</span> <span class="fl">0.45</span></span>
+<span id="cb7-27"><a href="text-replacement.html#cb7-27" tabindex="-1"></a>response_rate_pbo <span class="ot">&lt;-</span> <span class="fl">0.30</span></span>
+<span id="cb7-28"><a href="text-replacement.html#cb7-28" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="text-replacement.html#cb7-29" tabindex="-1"></a>efficacy_text <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(</span>
+<span id="cb7-30"><a href="text-replacement.html#cb7-30" tabindex="-1"></a>  <span class="st">&quot;The response rate was %.1f%% in treatment vs %.1f%% in placebo.&quot;</span>,</span>
+<span id="cb7-31"><a href="text-replacement.html#cb7-31" tabindex="-1"></a>  response_rate_trt <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb7-32"><a href="text-replacement.html#cb7-32" tabindex="-1"></a>  response_rate_pbo <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb7-33"><a href="text-replacement.html#cb7-33" tabindex="-1"></a>)</span>
+<span id="cb7-34"><a href="text-replacement.html#cb7-34" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="text-replacement.html#cb7-35" tabindex="-1"></a><span class="co"># Docx document</span></span>
+<span id="cb7-36"><a href="text-replacement.html#cb7-36" tabindex="-1"></a>imported_docx <span class="ot">&lt;-</span> <span class="fu">system.file</span>( <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;Keywords_replace.docx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;RapTLR&quot;</span> )</span>
+<span id="cb7-37"><a href="text-replacement.html#cb7-37" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="text-replacement.html#cb7-38" tabindex="-1"></a><span class="co"># Replacing placeholders</span></span>
+<span id="cb7-39"><a href="text-replacement.html#cb7-39" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb7-40"><a href="text-replacement.html#cb7-40" tabindex="-1"></a>  <span class="at">doc_object =</span> imported_docx,</span>
+<span id="cb7-41"><a href="text-replacement.html#cb7-41" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsubjectTT&quot;</span>,</span>
+<span id="cb7-42"><a href="text-replacement.html#cb7-42" tabindex="-1"></a>  <span class="at">replacement =</span> pop_text</span>
+<span id="cb7-43"><a href="text-replacement.html#cb7-43" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-44"><a href="text-replacement.html#cb7-44" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb7-45"><a href="text-replacement.html#cb7-45" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTsiteTT&quot;</span>, </span>
+<span id="cb7-46"><a href="text-replacement.html#cb7-46" tabindex="-1"></a>  <span class="at">replacement =</span> site_text</span>
+<span id="cb7-47"><a href="text-replacement.html#cb7-47" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-48"><a href="text-replacement.html#cb7-48" tabindex="-1"></a><span class="fu">textReplace</span>(</span>
+<span id="cb7-49"><a href="text-replacement.html#cb7-49" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">&quot;TTconclusionTT&quot;</span>,</span>
+<span id="cb7-50"><a href="text-replacement.html#cb7-50" tabindex="-1"></a>  <span class="at">replacement =</span> efficacy_text, </span>
+<span id="cb7-51"><a href="text-replacement.html#cb7-51" tabindex="-1"></a>  <span class="at">return_to_file =</span> <span class="st">&quot;TLR_updated.docx&quot;</span></span>
+<span id="cb7-52"><a href="text-replacement.html#cb7-52" tabindex="-1"></a>)</span></code></pre></div>
 
 </div>
 </div>

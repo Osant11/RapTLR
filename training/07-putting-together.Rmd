@@ -31,6 +31,20 @@ path_TLFs   <- system.file("extdata/TLF_outputs", package = "RapTLR")
 path_shell  <- system.file("extdata/TLR_Shell.docx", package = "RapTLR")
 TLF_list    <- system.file("extdata/TLF_list.xlsx", package = "RapTLR")
 
+# Step 2 — Load analysis datasets
+data("tlr_adsl")
+data("tlr_adae")
+
+```
+
+---
+
+## Appendix Creation 
+
+After setting up the RapTLR package, the next step is to create the appendice.
+
+```{r, eval=FALSE}
+
 run_apdx(
   path_TLFs         = path_TLFs,
   docx_object       = path_shell,
@@ -38,13 +52,10 @@ run_apdx(
   return_to_file    = "TLR_with_appendice.docx"
 )
 
-# Step 2 — Load analysis datasets
-data("tlr_adsl")
-data("tlr_adae")
-
-# Step 3 — Open the document as an R object for editing
 TLR <- officer::read_docx("TLR_with_appendice.docx")
+
 ```
+
 
 ---
 
@@ -230,7 +241,7 @@ TT_aesser_TT
 
 If you need to insert an inline table use the combination of cursor_reach() and body_add_docx() from the officer package.
 
-```{r}
+```{r, eval=FALSE}
 TLR <- cursor_reach( TLR, "TT_tblTSFAE_TT" ) |>
   body_add_docx( file.path( path_TLFs, "tsfae10_c.docx" ), pos = "on" ) 
 ```
@@ -239,7 +250,7 @@ TLR <- cursor_reach( TLR, "TT_tblTSFAE_TT" ) |>
 
 Once all text blocks are ready, insert them into the TLR document with a chain of `textReplace()` calls. The final call writes the document to disk.
 
-```{r}
+```{r eval=FALSE}
 textReplace(TLR, "TT_geninfo_TT",  TT_geninfo_TT)  |>
   textReplace(     "TT_studips_TT",  TT_studips_TT)  |>
   textReplace(     "TT_wkcmplt_TT",  TT_wkcmplt_TT)  |>
