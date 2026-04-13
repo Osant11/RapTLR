@@ -90,3 +90,4 @@ study-disposition
 demographics-and-baseline-characteristics
 safety
 replacing-placeholders-and-saving
+efficacy
