@@ -226,7 +226,9 @@ TT_aesser_TT
 
 ```
 
-## Inserting an inline table: 
+## Inserting an inline table
+
+If you need to insert an inline table use the combination of cursor_reach() and body_add_docx() from the officer package.
 
 ```{r}
 TLR <- cursor_reach( TLR, "TT_tblTSFAE_TT" ) |>

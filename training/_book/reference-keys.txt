@@ -91,3 +91,4 @@ demographics-and-baseline-characteristics
 safety
 replacing-placeholders-and-saving
 efficacy
+inserting-an-inline-table
