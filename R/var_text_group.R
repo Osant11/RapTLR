@@ -31,6 +31,9 @@
 #'   category value (percentages sum to 100\% per category). \code{"category-n"} divides
 #'   by the total number of subjects in each group defined by \code{arg_group_var}
 #'   (percentages reflect each group's share of its own population).
+#' @param arg_lbl_fmt Character string. Format for the within-group label text.
+#'   \code{"on"} (default) produces \code{"12.5\% on High Dose"} style.
+#'   \code{":"} produces \code{"High Dose: 12.5\%"} style.
 #'
 #' @return A character string containing the formatted summary text with percentages and
 #'   group distributions.
@@ -144,15 +147,27 @@
 #'   arg_denom = "category-n"
 #' )
 #'
+#' # Example 11: Use colon label format
+#' # Produces "High Dose: 12.5%, Low Dose: 8.3% and Placebo: 5.0%" style
+#' fct_var_text_group(
+#'   arg_dataset = tlr_adsl,
+#'   arg_var_rest = DCREASCD,
+#'   arg_group_var = TRT01P,
+#'   arg_group_vals = c("Xanomeline High Dose", "Xanomeline Low Dose", "Placebo"),
+#'   arg_group_lbl = c("High Dose", "Low Dose", "Placebo"),
+#'   arg_lbl_fmt = ":"
+#' )
+#'
 #' @seealso
 #' \code{\link{textReplace}} for inserting generated text into Word documents
 #' \code{\link{run_apdx}} for adding appendices to TLR documents
 #' 
 #' @importFrom stringr str_replace str_squish
 #' @export
-fct_var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, arg_var_rest, arg_group_var,  arg_group_vals = NULL,  arg_group_lbl = NULL, arg_order = TRUE, arg_cvt_stg = I, arg_nbr_obs = Inf, arg_denom = "value-n" ) {
+fct_var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, arg_var_rest, arg_group_var,  arg_group_vals = NULL,  arg_group_lbl = NULL, arg_order = TRUE, arg_cvt_stg = I, arg_nbr_obs = Inf, arg_denom = "value-n", arg_lbl_fmt = "on" ) {
   
-  arg_denom <- match.arg( arg_denom, c( "value-n", "category-n" ))
+  arg_denom   <- match.arg( arg_denom,   c( "value-n", "category-n" ))
+  arg_lbl_fmt <- match.arg( arg_lbl_fmt, c( "on", ":" ))
 
   cond_fl <- rlang::enquo(arg_fl_rest)
 
@@ -194,7 +209,7 @@ fct_var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = N
     dplyr::summarise( overall_n = dplyr::first( overall_n ),
                overall_pct = dplyr::first( overall_pct ),
                var_lbl = arg_cvt_stg( dplyr::first( {{ arg_var_rest }} )),
-               group_txt = { gp <- paste0( pct, "% on ", .group_lbl ) 
+               group_txt = { gp <- if( arg_lbl_fmt == ":" ) paste0( .group_lbl, ": ", pct, "%" ) else paste0( pct, "% on ", .group_lbl )
                              txt <- paste( gp, collapse = ", ") 
                              stringr::str_replace( txt, ",(?!.*,)", " and" ) }, 
               .groups = "drop" ) %>%
