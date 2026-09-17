@@ -26,6 +26,11 @@
 #'   custom functions to modify label formatting.
 #' @param arg_nbr_obs Numeric. Maximum number of categories to include in the output text.
 #'   Default is Inf (all categories).
+#' @param arg_denom Character string. Denominator used when computing within-group
+#'   percentages. \code{"value-n"} (default) divides by the total count within each
+#'   category value (percentages sum to 100\% per category). \code{"category-n"} divides
+#'   by the total number of subjects in each group defined by \code{arg_group_var}
+#'   (percentages reflect each group's share of its own population).
 #'
 #' @return A character string containing the formatted summary text with percentages and
 #'   group distributions.
@@ -130,14 +135,25 @@
 #'   arg_nbr_obs = 5
 #' )
 #'
+#' # Example 10: Use group population as denominator
+#' # Percentages reflect each group's own N rather than the category total
+#' fct_var_text_group(
+#'   arg_dataset = tlr_adsl,
+#'   arg_var_rest = DCREASCD,
+#'   arg_group_var = TRT01P,
+#'   arg_denom = "category-n"
+#' )
+#'
 #' @seealso
 #' \code{\link{textReplace}} for inserting generated text into Word documents
 #' \code{\link{run_apdx}} for adding appendices to TLR documents
 #' 
 #' @importFrom stringr str_replace str_squish
 #' @export
-fct_var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, arg_var_rest, arg_group_var,  arg_group_vals = NULL,  arg_group_lbl = NULL, arg_order = TRUE, arg_cvt_stg = I, arg_nbr_obs = Inf ) {
+fct_var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, arg_var_rest, arg_group_var,  arg_group_vals = NULL,  arg_group_lbl = NULL, arg_order = TRUE, arg_cvt_stg = I, arg_nbr_obs = Inf, arg_denom = "value-n" ) {
   
+  arg_denom <- match.arg( arg_denom, c( "value-n", "category-n" ))
+
   cond_fl <- rlang::enquo(arg_fl_rest)
 
   data_fl <- arg_dataset %>%
@@ -149,12 +165,17 @@ fct_var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = N
 
   total_n <- nrow( data_fl )
 
+  # Per-group totals (used when arg_denom == "category-n")
+  group_totals <- data_fl %>%
+    dplyr::count( .group_chr, name = "group_n" )
+
   tab <- data_fl %>%
     dplyr::count( {{ arg_var_rest }}, .group_chr, name = "n" ) %>%
+    dplyr::left_join( group_totals, by = ".group_chr" ) %>%
     dplyr::group_by( {{ arg_var_rest }}) %>%
     dplyr::mutate( overall_n = sum( n ), 
             overall_pct = round( overall_n[ 1 ] / total_n * 100, 1 ), 
-            pct = round( n / overall_n[ 1 ] * 100, 1 )
+            pct = if( arg_denom == "category-n" ) round( n / group_n * 100, 1 ) else round( n / overall_n[ 1 ] * 100, 1 )
     ) %>%
     dplyr::ungroup( )
 
