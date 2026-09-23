@@ -24,8 +24,12 @@
 #' @param arg_cvt_stg Function. Transformation function to apply to variable labels.
 #'   Default is `I` (identity function, no transformation). Use `tolower`, `toupper`, or
 #'   custom functions to modify label formatting.
+#' @param arg_var_vals Character vector. Optional subset of category values (from
+#'   \code{arg_var_rest}) to include in the output text. Percentages and counts are
+#'   still computed against the full population — this is a display filter only.
+#'   Cannot be used together with \code{arg_nbr_obs}. Default is NULL (all categories).
 #' @param arg_nbr_obs Numeric. Maximum number of categories to include in the output text.
-#'   Default is Inf (all categories).
+#'   Default is Inf (all categories). Cannot be used together with \code{arg_var_vals}.
 #' @param arg_denom Character string. Denominator used when computing within-group
 #'   percentages. \code{"value-n"} (default) divides by the total count within each
 #'   category value (percentages sum to 100\% per category). \code{"category-n"} divides
@@ -138,7 +142,16 @@
 #'   arg_nbr_obs = 5
 #' )
 #'
-#' # Example 10: Use group population as denominator
+#' # Example 10: Display only specific categories (denominator unchanged)
+#' # Shows only selected discontinuation reasons, percentages still based on full N
+#' fct_var_text_group(
+#'   arg_dataset = tlr_adsl,
+#'   arg_var_rest = DCREASCD,
+#'   arg_group_var = TRT01P,
+#'   arg_var_vals = c("Withdrew Consent", "Adverse Event")
+#' )
+#'
+#' # Example 11: Use group population as denominator
 #' # Percentages reflect each group's own N rather than the category total
 #' fct_var_text_group(
 #'   arg_dataset = tlr_adsl,
@@ -147,7 +160,7 @@
 #'   arg_denom = "category-n"
 #' )
 #'
-#' # Example 11: Use colon label format
+#' # Example 12: Use colon label format
 #' # Produces "High Dose: 12.5%, Low Dose: 8.3% and Placebo: 5.0%" style
 #' fct_var_text_group(
 #'   arg_dataset = tlr_adsl,
@@ -164,10 +177,15 @@
 #' 
 #' @importFrom stringr str_replace str_squish
 #' @export
-fct_var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, arg_var_rest, arg_group_var,  arg_group_vals = NULL,  arg_group_lbl = NULL, arg_order = TRUE, arg_cvt_stg = I, arg_nbr_obs = Inf, arg_denom = "value-n", arg_lbl_fmt = "on" ) {
+fct_var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = NULL, arg_var_rest, arg_group_var,  arg_group_vals = NULL,  arg_group_lbl = NULL, arg_order = TRUE, arg_cvt_stg = I, arg_nbr_obs = Inf, arg_var_vals = NULL, arg_denom = "value-n", arg_lbl_fmt = "on" ) {
   
+  if( !is.null( arg_var_vals ) && !is.infinite( arg_nbr_obs ) )
+    stop( "`arg_var_vals` and `arg_nbr_obs` cannot be used together. Use one or the other to subset output categories." )
+
   arg_denom   <- match.arg( arg_denom,   c( "value-n", "category-n" ))
   arg_lbl_fmt <- match.arg( arg_lbl_fmt, c( "on", ":" ))
+
+  var_col <- rlang::as_name( rlang::ensym( arg_var_rest ) )
 
   cond_fl <- rlang::enquo(arg_fl_rest)
 
@@ -215,6 +233,7 @@ fct_var_text_group <- function( arg_text_desc = "", arg_dataset, arg_fl_rest = N
               .groups = "drop" ) %>%
     dplyr::arrange( if( arg_order ) dplyr::desc( overall_n ) else TRUE )  %>%
     dplyr::slice_head(n = arg_nbr_obs) %>%
+    { if( !is.null( arg_var_vals ) ) dplyr::filter( ., as.character( .data[[ var_col ]] ) %in% arg_var_vals ) else . } %>%
     dplyr::mutate( lbl = paste0( overall_pct, "% ", var_lbl, " (", group_txt, ")") )
 
   paste( arg_text_desc, overall_tab$lbl %>% 
