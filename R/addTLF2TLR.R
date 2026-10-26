@@ -68,6 +68,13 @@ addTLF2TLR <- function(imported_docx_object = imported_docx_object,
       tb1=officer::read_docx( path_i )
       dim1=tb1$sect_dim
 
+      # Detect landscape from orient attribute OR page dimensions (width > height).
+      # Some RTF-to-DOCX converters set landscape dimensions but omit the
+      # w:orient="landscape" XML attribute, causing officer to report
+      # sect_dim$landscape = FALSE even though the page is landscape.
+      is_landscape <- dim1$landscape ||
+        (dim1$page["width"] > dim1$page["height"])
+
       ##
       tbi=officer::docx_summary(tb1)
       tbj=tbi[which(tbi$is_header),]
@@ -94,7 +101,7 @@ addTLF2TLR <- function(imported_docx_object = imported_docx_object,
       docx_appendice=officer::body_add_docx(docx_appendice, src= path_i)
 
       # if (!(i2==length(sec1) & i==length(idu2))) {
-      if (dim1$landscape) {
+      if (is_landscape) {
         docx_appendice=officer::body_end_section_landscape(docx_appendice)
       } else {
         docx_appendice=officer::body_end_section_portrait(docx_appendice)
@@ -107,7 +114,9 @@ addTLF2TLR <- function(imported_docx_object = imported_docx_object,
   docx_appendice=officer::body_remove(docx_appendice)
   docx_appendice=officer::cursor_end(docx_appendice)
   if (!is.null(dim1)) {
-    if (dim1$landscape) {
+    is_landscape <- dim1$landscape ||
+      (dim1$page["width"] > dim1$page["height"])
+    if (is_landscape) {
       docx_appendice=officer::body_end_section_landscape(docx_appendice)
     }
   }
