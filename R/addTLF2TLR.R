@@ -126,16 +126,20 @@ addTLF2TLR <- function(imported_docx_object = imported_docx_object,
 
   for (i in 1:length(iduApp)) {
 
-    #def_expr <- if(bkmrk_output) expr(officer::run_word_field(sprintf('REF %s \\h ',idui))) else expr(ftext(idui, fp_text(bold = T)))
-    #def_expr <- expr(officer::run_word_field(sprintf('REF %s \\h ',str_remove( idui, "PART.*") )))
-    def_expr <- expr(officer::run_word_field(sprintf('REF %s \\h ',idui )))
-
     idui=iduApp[i]
     idui=gsub(" ","_",idui)
+
+    # Build the cross-reference field expression now that idui is set.
+    # Bold formatting is applied to the output ID via fp_text(bold = TRUE).
+    def_expr <- expr(officer::run_word_field(sprintf('REF %s \\h ', idui)))
+
     #if (!idui %in% idu0) next
     docx_appendice=officer::body_add_fpar(docx_appendice, pos="after",
-                                          value= officer::fpar(eval_tidy( def_expr ),
-                                                               paste0(": ",title1[i])), style = NULL)
+                                          value= officer::fpar(
+                                            officer::ftext(iduApp[i], officer::fp_text(bold = TRUE)),
+                                            eval_tidy( def_expr ),
+                                            paste0(": ", title1[i])),
+                                          style = NULL)
   }
 
   docx_appendice=officer::body_replace_all_text(docx_appendice, keyword, "List of Tables/Figures")
