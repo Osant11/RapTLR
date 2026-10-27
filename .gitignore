@@ -20,3 +20,9 @@ rtf_outputs/
 /training/_book
 /training/rsconnect
 /*.pptx
+/issues
+/outputs
+/outputs.zip
+/test
+AGENTS.md
+.kiro/
